@@ -2351,7 +2351,7 @@
       <h2 id="feedbackTitle">Share Your Feedback</h2>
       <button class="closeBtn" aria-label="Close feedback form" type="button">&times;</button>
     </div>
-    <form id="feedbackForm" action="https://formsubmit.co/jairmaldonador8@gmail.com" method="POST" novalidate>
+    <form id="feedbackForm" novalidate>
       <textarea
         id="feedbackText"
         name="feedback"
@@ -2372,7 +2372,7 @@
 </dialog>
 
 <script>
-  // Feedback System JavaScript - Simplified for FormSubmit.co
+  // Feedback System JavaScript - AJAX version (no redirect)
 
   const feedbackBtn = document.getElementById('feedbackBtn');
   const feedbackDialog = document.getElementById('feedbackDialog');
@@ -2403,22 +2403,57 @@
     resetForm();
   });
 
-  // Handle form submission
-  feedbackForm.addEventListener('submit', (e) => {
+  // Handle form submission with AJAX (no redirect)
+  feedbackForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
     // Validate textarea is not empty
     if (!feedbackText.value.trim()) {
-      e.preventDefault();
       feedbackText.setCustomValidity('Please enter your feedback.');
       feedbackForm.reportValidity();
       return;
     }
 
+    // Clear validation
+    feedbackText.setCustomValidity('');
+
     // Show loading state
     submitBtn.disabled = true;
     submitBtn.textContent = 'Enviando...';
 
-    // Form will submit to FormSubmit.co
-    // (no preventDefault, let it submit normally)
+    try {
+      // Send via FormSubmit.co using fetch (AJAX)
+      const response = await fetch('https://formsubmit.co/ajax/jairmaldonador8@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          feedback: feedbackText.value.trim()
+        })
+      });
+
+      if (response.ok) {
+        // Success - show message and close dialog
+        feedbackForm.style.display = 'none';
+        successMessage.hidden = false;
+
+        // Auto-close dialog after 2 seconds
+        setTimeout(() => {
+          feedbackDialog.close();
+          resetForm();
+        }, 2000);
+      } else {
+        throw new Error('Failed to send feedback');
+      }
+    } catch (error) {
+      // Handle error
+      console.error('Error sending feedback:', error);
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar';
+      feedbackText.setCustomValidity('Error sending feedback. Please try again.');
+      feedbackForm.reportValidity();
+    }
   });
 
   // Reset form to initial state
