@@ -1716,14 +1716,6 @@
   }
 
   </style>
-
-<!-- EmailJS SDK for sending feedback emails -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js"></script>
-<script type="text/javascript">
-  // Initialize EmailJS with your public key
-  // Replace 'YOUR_PUBLIC_KEY' with your actual public key from emailjs.com
-  emailjs.init("YOUR_PUBLIC_KEY");
-</script>
 </head>
 <body class="booting intro-active">
 
@@ -2359,7 +2351,7 @@
       <h2 id="feedbackTitle">Share Your Feedback</h2>
       <button class="closeBtn" aria-label="Close feedback form" type="button">&times;</button>
     </div>
-    <form id="feedbackForm" novalidate>
+    <form id="feedbackForm" action="https://formsubmit.co/jairmaldonador8@gmail.com" method="POST" novalidate>
       <textarea
         id="feedbackText"
         name="feedback"
@@ -2380,9 +2372,8 @@
 </dialog>
 
 <script>
-  // Feedback System JavaScript
+  // Feedback System JavaScript - Simplified for FormSubmit.co
 
-  // Get DOM elements
   const feedbackBtn = document.getElementById('feedbackBtn');
   const feedbackDialog = document.getElementById('feedbackDialog');
   const feedbackForm = document.getElementById('feedbackForm');
@@ -2407,58 +2398,27 @@
     feedbackDialog.close();
   });
 
-  // Close dialog when ESC is pressed (native behavior, but explicit handler)
+  // Close dialog when ESC is pressed
   feedbackDialog.addEventListener('cancel', () => {
     resetForm();
   });
 
   // Handle form submission
-  feedbackForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
+  feedbackForm.addEventListener('submit', (e) => {
     // Validate textarea is not empty
     if (!feedbackText.value.trim()) {
+      e.preventDefault();
       feedbackText.setCustomValidity('Please enter your feedback.');
       feedbackForm.reportValidity();
       return;
     }
 
-    // Clear any previous validation messages
-    feedbackText.setCustomValidity('');
-
-    // Disable submit button to prevent duplicate submissions
+    // Show loading state
     submitBtn.disabled = true;
     submitBtn.textContent = 'Enviando...';
 
-    try {
-      // Send email via EmailJS
-      // Replace SERVICE_ID and TEMPLATE_ID with your actual IDs from Task 1
-      await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
-        {
-          feedback: feedbackText.value.trim(),
-          to_email: 'jairmaldonador8@gmail.com'
-        }
-      );
-
-      // Show success message
-      feedbackForm.style.display = 'none';
-      successMessage.hidden = false;
-
-      // Auto-close dialog after 2 seconds
-      setTimeout(() => {
-        feedbackDialog.close();
-        resetForm();
-      }, 2000);
-    } catch (error) {
-      // Handle error
-      console.error('Error sending feedback:', error);
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Enviar';
-      feedbackText.setCustomValidity('Error sending feedback. Please try again.');
-      feedbackForm.reportValidity();
-    }
+    // Form will submit to FormSubmit.co
+    // (no preventDefault, let it submit normally)
   });
 
   // Reset form to initial state
