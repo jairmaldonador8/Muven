@@ -818,6 +818,159 @@
     color: var(--text-soft);
   }
 
+  /* ================ RESEARCH ANIMACIONES ================ */
+  /* Estado base: heat-waves de termo invisibles, ondas de impacto miofascial invisibles */
+  .muven-icon[data-icon="thermo"] .heat-wave { opacity: 0; }
+  .muven-icon[data-icon="myo"] .impact { opacity: 0; }
+
+  /* --- CRIOTERAPIA --- */
+  .research-card:hover .muven-icon[data-icon="cryo"] .snow-main,
+  .research-card:active .muven-icon[data-icon="cryo"] .snow-main {
+    animation: snowSpin 4s linear infinite;
+    transform-origin: 28px 28px;
+    transform-box: fill-box;
+  }
+  .research-card:hover .muven-icon[data-icon="cryo"] .orbit-1,
+  .research-card:active .muven-icon[data-icon="cryo"] .orbit-1 {
+    animation: orbitCW 3s linear infinite;
+    transform-origin: 28px 28px;
+    transform-box: fill-box;
+  }
+  .research-card:hover .muven-icon[data-icon="cryo"] .orbit-2,
+  .research-card:active .muven-icon[data-icon="cryo"] .orbit-2 {
+    animation: orbitCCW 3.5s linear infinite;
+    transform-origin: 28px 28px;
+    transform-box: fill-box;
+  }
+  .research-card:hover .muven-icon[data-icon="cryo"] .orbit-3,
+  .research-card:active .muven-icon[data-icon="cryo"] .orbit-3 {
+    animation: orbitCW 4s linear infinite;
+    transform-origin: 28px 28px;
+    transform-box: fill-box;
+  }
+  @keyframes snowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes orbitCW {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes orbitCCW {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+  }
+
+  /* --- TERMOTERAPIA --- */
+  .research-card:hover .muven-icon[data-icon="thermo"] .sun-rays,
+  .research-card:active .muven-icon[data-icon="thermo"] .sun-rays {
+    animation: rayRotate 6s linear infinite;
+    transform-origin: 28px 28px;
+    transform-box: fill-box;
+  }
+  .research-card:hover .muven-icon[data-icon="thermo"] .flame-e,
+  .research-card:active .muven-icon[data-icon="thermo"] .flame-e {
+    animation: flameDance 1s ease-in-out infinite;
+    transform-origin: 28px 46px;
+    transform-box: fill-box;
+  }
+  .research-card:hover .muven-icon[data-icon="thermo"] .hw-1,
+  .research-card:active .muven-icon[data-icon="thermo"] .hw-1 {
+    animation: heatPulse 1.6s ease-in-out infinite;
+  }
+  .research-card:hover .muven-icon[data-icon="thermo"] .hw-2,
+  .research-card:active .muven-icon[data-icon="thermo"] .hw-2 {
+    animation: heatPulse 1.6s ease-in-out infinite 0.3s;
+  }
+  @keyframes rayRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(45deg); }
+  }
+  @keyframes flameDance {
+    0%, 100% { transform: skewX(-4deg) scaleY(1); }
+    25%      { transform: skewX(3deg) scaleY(1.08); }
+    50%      { transform: skewX(-2deg) scaleY(1.12); }
+    75%      { transform: skewX(4deg) scaleY(1.05); }
+  }
+  @keyframes heatPulse {
+    0%, 100% { opacity: 0; transform: translateX(0); }
+    50%      { opacity: 1; transform: translateX(2px); }
+  }
+
+  /* --- MIOFASCIAL --- */
+  .research-card:hover .muven-icon[data-icon="myo"] .ball,
+  .research-card:active .muven-icon[data-icon="myo"] .ball {
+    animation: ballBounce 1.4s ease-in-out infinite;
+    transform-origin: 28px 32px;
+    transform-box: fill-box;
+  }
+  .research-card:hover .muven-icon[data-icon="myo"] .impact,
+  .research-card:active .muven-icon[data-icon="myo"] .impact {
+    animation: impactRing 1.4s ease-out infinite;
+    transform-origin: 28px 32px;
+    transform-box: fill-box;
+  }
+  .research-card:hover .muven-icon[data-icon="myo"] .i-2,
+  .research-card:active .muven-icon[data-icon="myo"] .i-2 {
+    animation-delay: 0.1s;
+  }
+  @keyframes ballBounce {
+    0%, 100% { transform: translateY(-6px) rotate(0deg); }
+    50%      { transform: translateY(2px) rotate(20deg); }
+  }
+  @keyframes impactRing {
+    0%, 40% { opacity: 0; transform: scale(0.5); }
+    50%     { opacity: 0.8; transform: scale(0.6); }
+    100%    { opacity: 0; transform: scale(1.3); }
+  }
+
+  /* --- PRESIÓN CONTROLADA --- */
+  .research-card:hover .muven-icon[data-icon="press"] .press-ring,
+  .research-card:active .muven-icon[data-icon="press"] .press-ring {
+    animation: ringContract 1.8s ease-in-out infinite;
+    transform-origin: 28px 28px;
+    transform-box: fill-box;
+  }
+  .research-card:hover .muven-icon[data-icon="press"] .p-2,
+  .research-card:active .muven-icon[data-icon="press"] .p-2 {
+    animation-delay: 0.2s;
+  }
+  .research-card:hover .muven-icon[data-icon="press"] .p-3,
+  .research-card:active .muven-icon[data-icon="press"] .p-3 {
+    animation-delay: 0.4s;
+  }
+  .research-card:hover .muven-icon[data-icon="press"] .press-core,
+  .research-card:active .muven-icon[data-icon="press"] .press-core {
+    animation: coreThrob 1.8s ease-in-out infinite;
+    transform-origin: 28px 28px;
+    transform-box: fill-box;
+  }
+  .research-card:hover .muven-icon[data-icon="press"] .ticks,
+  .research-card:active .muven-icon[data-icon="press"] .ticks {
+    animation: ticksFlash 1.8s ease-in-out infinite;
+  }
+  @keyframes ringContract {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(0.6); opacity: 0.5; }
+  }
+  @keyframes coreThrob {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.6); }
+  }
+  @keyframes ticksFlash {
+    0%, 100% { opacity: 0.3; }
+    50%      { opacity: 1; }
+  }
+
+  /* --- ACCESIBILIDAD: respetar reduced motion --- */
+  @media (prefers-reduced-motion: reduce) {
+    .research-card,
+    .research-card * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
   /* ================ FUNDADORAS ================ */
   .founders { background: var(--bg-soft); }
 
@@ -1876,9 +2029,27 @@
     <div class="research-grid">
       <div class="research-card">
         <div class="research-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 0v20m8-12H4"/>
-            <circle cx="12" cy="12" r="10"/>
+          <svg viewBox="0 0 56 56" width="50" height="50" fill="none" stroke="#ef4444" stroke-width="1.4" stroke-linecap="round" class="muven-icon" data-icon="cryo">
+            <g class="snow-main">
+              <line x1="28" y1="10" x2="28" y2="46"/>
+              <line x1="13" y1="18" x2="43" y2="38"/>
+              <line x1="13" y1="38" x2="43" y2="18"/>
+              <line x1="28" y1="10" x2="25" y2="14"/>
+              <line x1="28" y1="10" x2="31" y2="14"/>
+              <line x1="28" y1="46" x2="25" y2="42"/>
+              <line x1="28" y1="46" x2="31" y2="42"/>
+              <line x1="13" y1="18" x2="17" y2="19"/>
+              <line x1="13" y1="18" x2="14" y2="22"/>
+              <line x1="43" y1="38" x2="39" y2="37"/>
+              <line x1="43" y1="38" x2="42" y2="34"/>
+              <line x1="13" y1="38" x2="14" y2="34"/>
+              <line x1="13" y1="38" x2="17" y2="37"/>
+              <line x1="43" y1="18" x2="42" y2="22"/>
+              <line x1="43" y1="18" x2="39" y2="19"/>
+            </g>
+            <g class="orbit-1"><circle cx="48" cy="28" r="1.5" fill="#ef4444"/></g>
+            <g class="orbit-2"><circle cx="8" cy="28" r="1.2" fill="#ef4444"/></g>
+            <g class="orbit-3"><circle cx="28" cy="6" r="1" fill="#ef4444"/></g>
           </svg>
         </div>
         <h3>Crioterapia</h3>
@@ -1887,10 +2058,20 @@
 
       <div class="research-card">
         <div class="research-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20M2 12h20"/>
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 7v10M9 10h6"/>
+          <svg viewBox="0 0 56 56" width="50" height="50" fill="none" stroke="#ef4444" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="muven-icon" data-icon="thermo">
+            <g class="sun-rays">
+              <line x1="28" y1="4" x2="28" y2="8"/>
+              <line x1="44" y1="12" x2="41" y2="15"/>
+              <line x1="52" y1="28" x2="48" y2="28"/>
+              <line x1="44" y1="44" x2="41" y2="41"/>
+              <line x1="28" y1="52" x2="28" y2="48"/>
+              <line x1="12" y1="44" x2="15" y2="41"/>
+              <line x1="4" y1="28" x2="8" y2="28"/>
+              <line x1="12" y1="12" x2="15" y2="15"/>
+            </g>
+            <path class="flame-e" d="M28 46 C20 42 18 32 24 26 C24 30 27 32 28 30 C28 22 32 18 30 12 C38 18 42 26 40 34 C40 42 34 46 28 46 Z"/>
+            <path class="heat-wave hw-1" d="M16 32 Q18 30 20 32 Q22 34 24 32" stroke-width="1.2"/>
+            <path class="heat-wave hw-2" d="M32 32 Q34 30 36 32 Q38 34 40 32" stroke-width="1.2"/>
           </svg>
         </div>
         <h3>Termoterapia</h3>
@@ -1899,9 +2080,22 @@
 
       <div class="research-card">
         <div class="research-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 9l6 6 6-6"/>
-            <path d="M6 15l6 6 6-6"/>
+          <svg viewBox="0 0 56 56" width="50" height="50" fill="none" stroke="#ef4444" stroke-width="1.4" stroke-linecap="round" class="muven-icon" data-icon="myo">
+            <circle class="impact i-1" cx="28" cy="32" r="14" stroke-width="1.2"/>
+            <circle class="impact i-2" cx="28" cy="32" r="20" stroke-width="1"/>
+            <g class="ball">
+              <circle cx="28" cy="32" r="9" fill="#f0e8e2"/>
+              <line x1="28" y1="20" x2="28" y2="24"/>
+              <line x1="28" y1="40" x2="28" y2="44"/>
+              <line x1="16" y1="32" x2="20" y2="32"/>
+              <line x1="36" y1="32" x2="40" y2="32"/>
+              <line x1="20" y1="24" x2="22.5" y2="26.5"/>
+              <line x1="36" y1="24" x2="33.5" y2="26.5"/>
+              <line x1="20" y1="40" x2="22.5" y2="37.5"/>
+              <line x1="36" y1="40" x2="33.5" y2="37.5"/>
+              <circle cx="28" cy="32" r="9"/>
+              <circle cx="25" cy="29" r="1" fill="#ef4444"/>
+            </g>
           </svg>
         </div>
         <h3>Liberación miofascial</h3>
@@ -1910,10 +2104,17 @@
 
       <div class="research-card">
         <div class="research-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4" y="4" width="16" height="16" rx="2"/>
-            <line x1="8" y1="12" x2="16" y2="12"/>
-            <line x1="12" y1="8" x2="12" y2="16"/>
+          <svg viewBox="0 0 56 56" width="50" height="50" fill="none" stroke="#ef4444" stroke-width="1.4" stroke-linecap="round" class="muven-icon" data-icon="press">
+            <circle class="press-ring p-1" cx="28" cy="28" r="22" stroke-width="1"/>
+            <circle class="press-ring p-2" cx="28" cy="28" r="16" stroke-width="1.2"/>
+            <circle class="press-ring p-3" cx="28" cy="28" r="10" stroke-width="1.4"/>
+            <g class="ticks">
+              <line x1="28" y1="4" x2="28" y2="7" stroke-width="1.5"/>
+              <line x1="52" y1="28" x2="49" y2="28" stroke-width="1.5"/>
+              <line x1="28" y1="52" x2="28" y2="49" stroke-width="1.5"/>
+              <line x1="4" y1="28" x2="7" y2="28" stroke-width="1.5"/>
+            </g>
+            <circle class="press-core" cx="28" cy="28" r="3" fill="#ef4444"/>
           </svg>
         </div>
         <h3>Presión controlada</h3>
