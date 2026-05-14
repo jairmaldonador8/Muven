@@ -6,12 +6,34 @@
 <title>MUVEN — Asistencia nocturna involuntaria para la rehabilitación de la fascitis plantar</title>
 <meta name="description" content="MUVEN. Muévete. Recupera. Renace. Estamos creando un dispositivo que trabaja mientras duermes para ayudarte a volver al movimiento.">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<!-- Precargar las fuentes críticas para que estén disponibles antes del primer paint -->
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Inter+Tight:wght@300;400;500&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Cargar fuentes Avenir locales -->
+<style>
+  @font-face {
+    font-family: 'Avenir';
+    src: url('./fonts/avenir-light.otf') format('opentype');
+    font-weight: 300;
+  }
+  @font-face {
+    font-family: 'Avenir';
+    src: url('./fonts/avenir-regular.otf') format('opentype');
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: 'Avenir';
+    src: url('./fonts/avenir-medium.otf') format('opentype');
+    font-weight: 500;
+  }
+  @font-face {
+    font-family: 'Avenir';
+    src: url('./fonts/avenir-bold.otf') format('opentype');
+    font-weight: 600;
+  }
+  @font-face {
+    font-family: 'Avenir';
+    src: url('./fonts/avenir-black.otf') format('opentype');
+    font-weight: 700;
+  }
+</style>
 
 <!-- BOOT GUARD: evita cualquier flash antes de que las fuentes y JS estén listos -->
 <style>
@@ -59,8 +81,8 @@
     --coral-shadow: rgba(239, 68, 68, 0.25);
     --border: rgba(26, 26, 26, 0.08);
     --border-medium: rgba(26, 26, 26, 0.15);
-    --serif: 'Bricolage Grotesque', sans-serif;
-    --sans: 'Inter Tight', sans-serif;
+    --serif: 'Avenir', sans-serif;
+    --sans: 'Avenir', sans-serif;
 
     /* Variables semánticas (lo que cambia entre temas) */
     --bg: var(--cream);
