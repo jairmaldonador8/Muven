@@ -1668,6 +1668,24 @@
     font-size: 0.75rem;
   }
 
+  .footer-logo-credit {
+    display: inline-flex;
+    align-items: center;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer-logo-credit:hover {
+    opacity: 0.7;
+  }
+
+  .footer-logo-credit img {
+    filter: brightness(0) saturate(100%) invert(1);
+  }
+
+  [data-theme="dark"] .footer-logo-credit img {
+    filter: brightness(1) saturate(100%) invert(0);
+  }
+
   /* ================ PLACEHOLDERS ================ */
   .placeholder {
     color: var(--accent-placeholder);
@@ -2137,7 +2155,7 @@
       </a>
       <div class="footer-text">
         © 2026 MUVEN · Hecho con cuidado en Monterrey, México<br>
-        Marca diseñada por <a href="#">VITA Studio</a>
+        Marca diseñada por <a href="#" class="footer-logo-credit"><img src="assets/vita-studio-logo.svg" alt="VITA Studio" style="height: 16px; width: auto;"></a>
       </div>
     </div>
     <div class="footer-contact">
