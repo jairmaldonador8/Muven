@@ -750,109 +750,69 @@
     font-weight: 400;
   }
 
-  /* ================ NIGHT SECTION ================ */
-  .night {
-    background: var(--bg-soft);
+  /* ================ RESEARCH SECTION ================ */
+  .research {
+    background: var(--bg);
     overflow: hidden;
     position: relative;
   }
 
-  .night-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 30%, var(--coral-tint) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 70%, rgba(245, 163, 163, 0.15) 0%, transparent 50%);
-    pointer-events: none;
-  }
+  .research .container { position: relative; z-index: 1; }
+  .research .section-tag { color: var(--accent-text-strong); border-color: var(--accent-text-strong); }
+  .research h2.section-title { color: var(--text); }
+  .research h2.section-title .italic { color: var(--accent-text-strong); }
+  .research .section-lead { color: var(--text-soft); margin-bottom: 40px; }
 
-  .night .container { position: relative; z-index: 1; }
-  .night .section-tag { color: var(--accent-text-strong); border-color: var(--accent-text-strong); }
-  .night h2.section-title { color: var(--text); }
-  .night h2.section-title .italic { color: var(--accent-text-strong); }
-  .night .section-lead { color: var(--text-soft); }
-
-  .night-grid {
+  .research-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-    margin-top: 80px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-top: 60px;
   }
 
-  .night-visual {
-    aspect-ratio: 1;
-    border-radius: 12px;
-    background:
-      radial-gradient(circle at 30% 30%, var(--coral-tint) 0%, transparent 60%),
-      linear-gradient(135deg, var(--bg) 0%, var(--bg-deep) 100%);
+  .research-card {
+    padding: 40px 32px;
+    background: var(--bg-card);
     border: 1px solid var(--border-soft);
-    position: relative;
-    overflow: hidden;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .research-card:hover {
+    border-color: var(--accent-text-strong);
+    box-shadow: 0 12px 32px rgba(26, 26, 26, 0.08);
+    transform: translateY(-4px);
+  }
+
+  .research-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .night-visual::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, var(--coral-tint) 0%, transparent 60%);
-    animation: pulseGlow 4s ease-in-out infinite;
-  }
-
-  .night-visual-content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    color: var(--text-whisper);
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 40px;
-  }
-
-  .night-visual-content svg {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 24px;
-    opacity: 0.5;
-  }
-
-  .night-points { list-style: none; }
-
-  .night-points li {
-    padding: 20px 0;
-    border-bottom: 1px solid var(--border-soft);
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-  }
-
-  .night-points li:last-child { border-bottom: none; }
-
-  .night-points .num {
-    font-family: var(--serif);
-    font-style: normal;
-    font-size: 1.25rem;
-    font-weight: 600;
     color: var(--accent-text-strong);
-    min-width: 44px;
-    line-height: 1;
-    letter-spacing: -0.02em;
   }
 
-  .night-points h4 {
-    font-family: var(--sans);
-    font-size: 1.0625rem;
+  .research-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .research-card h3 {
+    font-family: var(--serif);
+    font-size: 1.125rem;
     font-weight: 500;
     color: var(--text);
-    margin-bottom: 6px;
-    letter-spacing: -0.005em;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
   }
 
-  .night-points p {
+  .research-card p {
     font-size: 0.9375rem;
     line-height: 1.6;
     color: var(--text-soft);
@@ -1002,6 +962,49 @@
   .problem-text p.italic {
     font-style: normal;
     color: var(--text-soft);
+  }
+
+  .problem-insights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+  }
+
+  .insight {
+    padding: 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .insight:hover {
+    border-color: var(--accent-text-strong);
+    box-shadow: 0 8px 24px rgba(26, 26, 26, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .insight h4 {
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .insight h4 .italic {
+    color: var(--accent-text-strong);
+    font-style: normal;
+  }
+
+  .insight p {
+    font-family: var(--sans);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-soft);
+    margin: 0;
   }
 
   /* ================ WAITLIST MAIN ================ */
@@ -1506,8 +1509,9 @@
   @media (max-width: 900px) {
     section { padding: 80px 24px; }
     .container { padding: 0 24px; }
-    .night-grid { grid-template-columns: 1fr; gap: 48px; }
+    .research-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
     .founders-grid { grid-template-columns: 1fr; gap: 48px; }
+    .problem-insights { grid-template-columns: 1fr; gap: 32px; }
     .problem-stats { grid-template-columns: 1fr; gap: 48px; }
     .waitlist-benefits { grid-template-columns: 1fr; }
     .community-buttons { max-width: 100%; }
@@ -1563,6 +1567,10 @@
 
   /* Mobile responsive */
   @media (max-width: 640px) {
+    .research-grid { grid-template-columns: 1fr; gap: 24px; }
+    .problem-insights { grid-template-columns: 1fr; gap: 24px; }
+    .research-card { padding: 32px 24px; }
+    .insight { padding: 24px; }
     #feedbackBtn {
       padding: 8px 12px;
       font-size: 12px;
@@ -1852,61 +1860,65 @@
       <button type="submit">Únete al proceso</button>
     </form>
 
-    <p class="form-note">Sin spam. Solo lo importante. Te incluimos al grupo de WhatsApp.</p>
+    <p class="form-note">Para atletas que eligen recuperarse, no resignarse. Creado por diseñadoras industriales. Validado por fisioterapeutas. Sé parte desde el inicio.</p>
   </div>
 </section>
 
-<!-- ================ NIGHT — EL CONCEPTO ================ -->
-<section class="night">
-  <div class="night-bg"></div>
+<!-- ================ INVESTIGACIÓN ================ -->
+<section class="research">
   <div class="container">
-    <div class="section-tag">— 01 — El concepto</div>
-    <h2 class="section-title">Trabaja mientras<br><span class="italic">tú descansas.</span></h2>
+    <div class="section-tag">— 01 — La investigación</div>
+    <h2 class="section-title">Lo que estamos<br><span class="italic">investigando.</span></h2>
     <p class="section-lead">
-      La fascitis plantar empeora durante la noche, cuando la fascia se contrae. Por eso MUVEN actúa donde más importa — mientras duermes, sin esfuerzo, sin rutinas. Asistencia involuntaria, recuperación voluntaria.
+      Cuatro tecnologías de recuperación que hoy existen por separado. Muven las combina en una sola herramienta pensada para usarse entre entrenamientos.
     </p>
 
-    <div class="night-grid">
-      <div class="night-visual">
-        <div class="night-visual-content">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    <div class="research-grid">
+      <div class="research-card">
+        <div class="research-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 0v20m8-12H4"/>
+            <circle cx="12" cy="12" r="10"/>
           </svg>
-          <div>Render del producto</div>
-          <div style="margin-top:8px; opacity:0.6;">en uso nocturno</div>
         </div>
+        <h3>Crioterapia</h3>
+        <p>Aplicación controlada de frío para reducir inflamación y acelerar recuperación muscular después del esfuerzo.</p>
       </div>
 
-      <ul class="night-points">
-        <li>
-          <div class="num">01</div>
-          <div>
-            <h4><span class="placeholder">[ Beneficio 1 — ej: Acción continua sin intervención ]</span></h4>
-            <p><span class="placeholder">[ 1-2 líneas sobre cómo trabaja durante la noche ]</span></p>
-          </div>
-        </li>
-        <li>
-          <div class="num">02</div>
-          <div>
-            <h4><span class="placeholder">[ Beneficio 2 — ej: Diseñado para no interrumpir el sueño ]</span></h4>
-            <p><span class="placeholder">[ 1-2 líneas ]</span></p>
-          </div>
-        </li>
-        <li>
-          <div class="num">03</div>
-          <div>
-            <h4><span class="placeholder">[ Beneficio 3 — ej: Resultados al despertar ]</span></h4>
-            <p><span class="placeholder">[ 1-2 líneas sobre el primer paso en la mañana ]</span></p>
-          </div>
-        </li>
-        <li>
-          <div class="num">04</div>
-          <div>
-            <h4><span class="placeholder">[ Beneficio 4 — ej: Diseñado con especialistas ]</span></h4>
-            <p><span class="placeholder">[ 1-2 líneas ]</span></p>
-          </div>
-        </li>
-      </ul>
+      <div class="research-card">
+        <div class="research-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M2 12h20"/>
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 7v10M9 10h6"/>
+          </svg>
+        </div>
+        <h3>Termoterapia</h3>
+        <p>Calor dirigido para aumentar circulación, relajar tejidos y preparar el músculo antes o después de entrenar.</p>
+      </div>
+
+      <div class="research-card">
+        <div class="research-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6"/>
+            <path d="M6 15l6 6 6-6"/>
+          </svg>
+        </div>
+        <h3>Liberación miofascial</h3>
+        <p>Presión específica sobre puntos de tensión para liberar nudos musculares y restaurar movilidad.</p>
+      </div>
+
+      <div class="research-card">
+        <div class="research-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <line x1="8" y1="12" x2="16" y2="12"/>
+            <line x1="12" y1="8" x2="12" y2="16"/>
+          </svg>
+        </div>
+        <h3>Presión controlada</h3>
+        <p>Compresión calibrada que mejora retorno venoso, reduce fatiga muscular y acelera la recuperación entre sesiones.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1918,17 +1930,17 @@
     <div class="section-tag">— 02 — De nosotras para ti</div>
     <div class="letter-content">
       <p class="letter-paragraph">
-        <span class="placeholder">[ PENDIENTE — Párrafo 1: Por qué empezaron MUVEN. La historia personal. Algo como: "Empezamos MUVEN porque [una de nosotras] amaneció por años con un dolor que ningún médico podía resolver..." ]</span>
+        Como atletas, las dos hemos vivido lo que viven millones de deportistas — lesionarte, buscar soluciones, mejorar un poco, y volver a empezar. Fue ese dolor el que nos llevó a preguntarnos: ¿qué haríamos nosotras si pudiéramos diseñar la solución desde cero?
       </p>
       <p class="letter-paragraph">
-        <span class="placeholder">[ PENDIENTE — Párrafo 2: Qué descubrieron en el proceso. La intuición clave que las llevó a la idea nocturna. ]</span>
+        La respuesta llegó durante nuestra tesis de diseño industrial. Pasamos un año investigando recuperación deportiva junto con fisioterapeutas, hablando con atletas y analizando lo que existía en el mercado. Lo que descubrimos fue esto: la tecnología para recuperarse bien ya existía. Lo que no existía era una herramienta pensada para el uso entre sesiones que combine crioterapia, termoterapia, liberación miofascial y presión controlada. Eso decidimos crear.
       </p>
       <p class="letter-paragraph">
-        <span class="placeholder">[ PENDIENTE — Párrafo 3: Por qué te invitan al proceso. Por qué construir esto en público importa. ]</span>
+        Somos Carolina y Lisa — dos diseñadoras industriales y mejores amigas que decidieron convertir su tesis en algo real. Decidimos construir Muven y elegimos hacerlo en público — compartiendo cada decisión, cada error y cada avance — porque creemos que los mejores productos se construyen con la comunidad que los va a usar. Si eres atleta, runner o simplemente alguien que no se resigna — esto es para ti. Bienvenido al proceso desde el inicio.
       </p>
       <div class="letter-signature">
         Con todo,<br>
-        <span class="signature-names"><span class="placeholder">[ Nombres de las fundadoras ]</span></span>
+        <span class="signature-names">Carolina y Lisa</span>
       </div>
     </div>
   </div>
@@ -1937,37 +1949,28 @@
 <!-- ================ PROBLEMA ================ -->
 <section class="problem" id="problema">
   <div class="container">
-    <div class="section-tag">— 03 — El problema</div>
-    <h2 class="section-title">El dolor del primer paso <span class="italic">en la mañana.</span></h2>
-
-    <div class="problem-stats">
-      <div class="stat">
-        <div class="stat-number"><span class="placeholder">[ # ]</span></div>
-        <div class="stat-label">
-          <span class="placeholder">[ ej: 1 de cada 10 personas sufre fascitis plantar ]</span>
-        </div>
-      </div>
-      <div class="stat">
-        <div class="stat-number"><span class="placeholder">[ # ]</span></div>
-        <div class="stat-label">
-          <span class="placeholder">[ ej: El 80% siente el dolor más fuerte al levantarse ]</span>
-        </div>
-      </div>
-      <div class="stat">
-        <div class="stat-number"><span class="placeholder">[ # ]</span></div>
-        <div class="stat-label">
-          <span class="placeholder">[ ej: En promedio toma X meses encontrar alivio ]</span>
-        </div>
-      </div>
-    </div>
+    <div class="section-tag">— 02 — El problema</div>
+    <h2 class="section-title">El atleta que más pierde <span class="italic">no se lesiona.</span></h2>
 
     <div class="problem-text">
       <p>
-        <span class="placeholder">[ PENDIENTE — Párrafo 1: Describir el dolor real. Cómo se siente al pisar al levantarse, cómo limita el día. ]</span>
+        El atleta que más pierde no es el que se lesiona — es el que no puede volver. Después de una lesión o sobrecarga muscular, la mayoría de los runners y atletas no cuentan con herramientas accesibles para recuperarse en casa, a su ritmo y entre entrenamientos. Esperan. Ignoran el dolor. O simplemente dejan de entrenar. Porque el músculo no se recupera solo con descanso, y las soluciones profesionales no siempre están al alcance de todos. Cada día sin recuperación activa es un día que pierdes ritmo, consistencia y la versión de ti que tanto trabajo te costó construir.
       </p>
-      <p class="italic">
-        <span class="placeholder">[ PENDIENTE — Párrafo 2: Por qué las soluciones actuales no atacan el problema en el momento correcto: la noche. ]</span>
-      </p>
+    </div>
+
+    <div class="problem-insights">
+      <div class="insight">
+        <h4><span class="italic">Esperar no es recuperarse.</span></h4>
+        <p>El descanso pasivo no devuelve la elasticidad ni la fuerza al músculo. Cada día sin acción es ritmo perdido.</p>
+      </div>
+      <div class="insight">
+        <h4><span class="italic">El acceso es el problema, no la tecnología.</span></h4>
+        <p>Fisioterapeutas, equipos profesionales y clínicas funcionan — pero no están disponibles entre entrenamientos, en casa, a las 7 a.m.</p>
+      </div>
+      <div class="insight">
+        <h4><span class="italic">Lo que pierdes no es solo tiempo — es consistencia.</span></h4>
+        <p>La constancia se construye en semanas y se rompe en días. Recuperarte activamente protege lo que tanto te costó construir.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1980,7 +1983,7 @@
     <div class="section-tag">— 04 — Únete a la comunidad</div>
     <h2 class="section-title">Esto se construye <span class="italic">contigo.</span></h2>
     <p class="section-lead">
-      No tenemos fecha de lanzamiento todavía. No tenemos precio final. Lo que sí tenemos es ganas de hacerlo bien, contigo cerca. Elige tu manera de acompañarnos.
+      Más que lanzar un producto, queremos construir algo que realmente conecte con quienes lo usan. Elige tu manera de acompañarnos.
     </p>
 
     <div class="community-buttons">
@@ -2045,19 +2048,6 @@
     <div class="faq-list">
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-question">
-          <h4>¿Cómo funciona MUVEN durante la noche?</h4>
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
-        </div>
-        <div class="faq-answer">
-          <span class="placeholder">[ PENDIENTE — Explicar el principio de funcionamiento. Sin tecnicismos. ]</span>
-        </div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
           <h4>¿Cuándo van a lanzar MUVEN?</h4>
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="12" y1="5" x2="12" y2="19"/>
@@ -2065,46 +2055,7 @@
           </svg>
         </div>
         <div class="faq-answer">
-          <span class="placeholder">[ PENDIENTE — Si no hay fecha, decirlo honestamente. ]</span>
-        </div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <h4>¿Cuánto va a costar?</h4>
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
-        </div>
-        <div class="faq-answer">
-          <span class="placeholder">[ PENDIENTE — Precio fundador para los miembros de la waitlist. ]</span>
-        </div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <h4>¿Es solo para fascitis plantar?</h4>
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
-        </div>
-        <div class="faq-answer">
-          <span class="placeholder">[ PENDIENTE — Explicar para qué sirve y para qué no. ]</span>
-        </div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <h4>¿Quién está detrás de MUVEN?</h4>
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
-        </div>
-        <div class="faq-answer">
-          <span class="placeholder">[ PENDIENTE — Mención de las fundadoras + asesores médicos. ]</span>
+          Aún no tenemos una fecha exacta, pero cuando llegue el momento, ustedes serán los primeros en saberlo.
         </div>
       </div>
 
@@ -2117,7 +2068,7 @@
           </svg>
         </div>
         <div class="faq-answer">
-          <span class="placeholder">[ PENDIENTE — Compartir, contar su experiencia, dar feedback. ]</span>
+          Compartiendo MUVEN y siendo parte del proceso con tu feedback.
         </div>
       </div>
     </div>
