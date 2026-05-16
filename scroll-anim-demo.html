@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animaciones de Scroll - MUVEN</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Avenir', sans-serif;
+      background: #f0e8e2;
+      color: #1a1a1a;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    .scroll-down {
+      margin-top: 50px;
+      font-size: 1rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+
+    .section {
+      min-height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 600px;
+      text-align: center;
+      /* Base for animations */
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .card h2 {
+      font-size: 2rem;
+      color: #ef4444;
+      margin-top: 0;
+    }
+
+    .card p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Animation Classes */
+
+    /* 1. Fade Up */
+    .anim-fade-up {
+      transform: translateY(100px);
+    }
+    .anim-fade-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 2. Slide In Left */
+    .anim-slide-left {
+      transform: translateX(-100px);
+    }
+    .anim-slide-left.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* 3. Slide In Right */
+    .anim-slide-right {
+      transform: translateX(100px);
+    }
+    .anim-slide-right.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* 4. Zoom In */
+    .anim-zoom-in {
+      transform: scale(0.5);
+    }
+    .anim-zoom-in.is-visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* 5. 3D Flip */
+    .anim-flip {
+      transform: perspective(1000px) rotateY(90deg);
+    }
+    .anim-flip.is-visible {
+      opacity: 1;
+      transform: perspective(1000px) rotateY(0deg);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>Ejemplos de Animaciones al hacer Scroll</h1>
+    <p>Desliza hacia abajo para ver las diferentes opciones que podemos agregar a la página de MUVEN.</p>
+    <div class="scroll-down">↓ Scrollea hacia abajo ↓</div>
+  </div>
+
+  <div class="section">
+    <div class="card anim-fade-up js-scroll">
+      <h2>1. Deslizar hacia arriba (Fade Up)</h2>
+      <p>Este es el efecto más clásico y elegante. Los elementos aparecen suavemente desde abajo mientras el usuario hace scroll. Es ideal para textos y tarjetas.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="card anim-slide-left js-scroll">
+      <h2>2. Entrar desde la izquierda (Slide In Left)</h2>
+      <p>Los elementos se deslizan desde el lado izquierdo de la pantalla. Excelente para intercalar con elementos que entran por la derecha, creando un flujo dinámico.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="card anim-slide-right js-scroll">
+      <h2>3. Entrar desde la derecha (Slide In Right)</h2>
+      <p>Perfecto para complementar el efecto anterior. Alternar direcciones mantiene al usuario atento al contenido.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="card anim-zoom-in js-scroll">
+      <h2>4. Efecto de Escala (Zoom In)</h2>
+      <p>Los elementos crecen desde el centro. Este efecto da mucha personalidad y resalta contenido importante como imágenes o llamadas a la acción.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="card anim-flip js-scroll">
+      <h2>5. Giro 3D (Flip)</h2>
+      <p>Una animación más moderna y llamativa. El elemento gira en 3D para revelarse. Útil para mostrar productos o características clave.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="card anim-fade-up js-scroll" style="background: #1a1a1a; color: white;">
+      <h2 style="color: #f5a3a3;">¿Qué te parecen?</h2>
+      <p>Podemos implementar cualquiera de estas, o una combinación de ellas, en las diferentes secciones de MUVEN (como en la sección de "Research" o "El Problema").</p>
+    </div>
+  </div>
+
+  <script>
+    const scrollElements = document.querySelectorAll(".js-scroll");
+
+    const elementInView = (el, dividend = 1) => {
+      const elementTop = el.getBoundingClientRect().top;
+      return (elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend);
+    };
+
+    const displayScrollElement = (element) => {
+      element.classList.add("is-visible");
+    };
+
+    const hideScrollElement = (element) => {
+      element.classList.remove("is-visible");
+    };
+
+    const handleScrollAnimation = () => {
+      scrollElements.forEach((el) => {
+        if (elementInView(el, 1.15)) {
+          displayScrollElement(el);
+        } else {
+          // Opcional: ocultar si vuelve a subir
+          // hideScrollElement(el); 
+        }
+      })
+    }
+
+    window.addEventListener("scroll", () => {
+      handleScrollAnimation();
+    });
+
+    // Run once on load
+    handleScrollAnimation();
+  </script>
+</body>
+</html>
