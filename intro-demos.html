@@ -113,11 +113,6 @@
   .intro-wordmark svg { width: 100%; height: auto; display: block; overflow: visible; }
   .intro-wordmark svg path { fill: var(--coral); }
 
-  .intro-wordmark.to-nav svg path {
-    fill: var(--nav-logo-fill);
-    transition: fill 1.4s cubic-bezier(0.65, 0.05, 0.15, 1) 0.5s;
-  }
-
   .intro-tagline {
     margin-top: 24px;
     font-size: 0.8125rem;
@@ -341,6 +336,7 @@
     min-height: 1.2em;
   }
   .dock-desc strong { color: var(--text); font-weight: 500; }
+  .dock-desc code { font-family: ui-monospace, Consolas, monospace; font-size: 0.7rem; color: var(--text-soft); }
 
   @media (max-width: 640px) {
     .dock button kbd { display: none; }
@@ -397,6 +393,7 @@
   <div class="dock-desc" id="dockDesc"></div>
 </div>
 
+<script src="./assets/muven-loader.js"></script>
 <script>
   // ============ ASSETS DE MARCA (mismos paths que index.html) ============
   const M_PATH = 'M581.26,897.54V182.38c0-19.89,16.12-36.01,36.01-36.01h95.02c20.08,0,36.14,16.64,35.44,36.71-4.55,130.87-2.35,565.91,229.1,547.7,0,0,205.81-11.17,195.07-548.4-.39-19.51,15.25-35.58,34.76-35.63l99.53-.28c17.96-.05,32.55,14.49,32.55,32.45v717c0,20.83-16.88,37.71-37.71,37.71h-93.34c-20.57,0-37.24-16.67-37.24-37.24v-220.8s-63.2,116.42-188.84,129.66c-3.66.39-7.36.09-11.02.35-26.42,1.93-149.3,2.53-221.04-142.62v233.95c0,20.27-16.44,36.71-36.71,36.71h-95.49c-19.93,0-36.09-16.16-36.09-36.09Z';
@@ -501,7 +498,11 @@
         const s = fly(symbol, heroSlot);
         const w = fly(wordmark, navLogo);
 
-        wordmark.classList.add('to-nav');
+        // El wordmark toma el color del logo del nav durante el vuelo
+        const navFill = getComputedStyle(navLogo.querySelector('path')).fill;
+        wordmark.querySelectorAll('path').forEach(p => ctx.anim(p,
+          [{ fill: getComputedStyle(p).fill }, { fill: navFill }],
+          { duration: duration * 0.6, delay: duration * 0.35, easing: 'ease' }));
         const p1 = ctx.anim(symbol,
           [{ transform: 'translate(0,0) scale(1)' }, { transform: `translate(${s.dx}px, ${s.dy}px) scale(${s.scale})` }],
           { duration, easing });
@@ -680,7 +681,7 @@
         curtain.remove();
         await ctx.wait(500);
         ctx.anim(s.tagline, [{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
-        await ctx.handoff(s, { duration: 1800 });
+        await ctx.handoff(s, { duration: 1300, wordDelay: 80 });
       }
     },
 
@@ -782,6 +783,19 @@
         await ctx.wait(1700);
         ctx.anim(s.tagline, [{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
         await ctx.handoff(s, { duration: 1500, easing: 'cubic-bezier(0.34, 1.15, 0.64, 1)', wordDelay: 60 });
+      }
+    },
+
+    loader: {
+      label: 'Loader',
+      desc: '<strong>Símbolo de carga reutilizable</strong> (<code>assets/muven-loader.js</code>). El trazo de la M gira en bucle hasta que algo termina de cargar; entonces se cierra y aparece sólida.',
+      async run(ctx) {
+        // La página ya está cargada: el loader se usa al abrir algo (modal, sección, petición)
+        ctx.finish({ fade: 0 });
+        await ctx.wait(500);
+        MuvenLoader.show();
+        await ctx.wait(3200).catch(e => { MuvenLoader.hide({ solid: 0 }); throw e; });
+        await MuvenLoader.hide();
       }
     }
   };

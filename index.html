@@ -178,95 +178,70 @@
 
   .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
 
-  /* ================ INTRO ================ */
+  /* ================ INTRO (cortina) ================ */
+  /* Arranca en tinta con el logo en crema; una cortina crema sube, el logo cambia a coral
+     al cruzarla, y al final la M vuela al hero y MUVEN al nav. En modo oscuro se invierte. */
   .intro {
     position: fixed;
     inset: 0;
-    background: var(--bg);
+    background: var(--text);
     z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     pointer-events: auto;
-    /* Transición suave del fondo cuando se va a "done" */
-    transition: background 0.8s cubic-bezier(0.45, 0, 0.15, 1);
   }
 
-  .intro.dismissing { pointer-events: none; }
+  /* La cortina ya cubrió todo: el fondo pasa a crema sin transición visible */
+  .intro.revealed { background: var(--bg); }
 
-  /* Al final: el fondo se hace transparente revelando el main que ya está visible */
+  /* Al final: transparente sobre el main ya visible; los logos quedan exactamente sobre sus destinos */
   .intro.done {
     background: transparent;
     pointer-events: none;
+  }
+
+  .intro-curtain {
+    position: absolute;
+    inset: 0;
+    background: var(--bg);
+    transform: translateY(100%);
+    z-index: 1;
   }
 
   .intro-stack {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    opacity: 1;
-    transform: translateY(0);
+    gap: clamp(22px, 3vw, 40px);
+    position: relative;
+    z-index: 2;
   }
 
   /* Símbolo "M" — vuela al slot del hero */
   .intro-symbol {
     width: min(22vw, 200px);
-    height: auto;
-    transition:
-      transform 2.2s cubic-bezier(0.65, 0.05, 0.15, 1),
-      width 2.2s cubic-bezier(0.65, 0.05, 0.15, 1);
+    opacity: 0;
     transform-origin: center center;
-    will-change: transform, width;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+    will-change: transform;
   }
-  .intro-symbol svg { width: 100%; height: auto; display: block; }
-  .intro-symbol svg path { fill: var(--coral); }
+  .intro-symbol svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .intro-symbol svg path { fill: var(--bg); }
 
   /* Wordmark "MUVEN" — vuela al nav */
   .intro-wordmark {
     width: min(30vw, 280px);
-    height: auto;
-    transition:
-      transform 2.2s cubic-bezier(0.65, 0.05, 0.15, 1) 0.1s,
-      width 2.2s cubic-bezier(0.65, 0.05, 0.15, 1) 0.1s;
     transform-origin: center center;
-    will-change: transform, width;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+    will-change: transform;
   }
-  .intro-wordmark svg { width: 100%; height: auto; display: block; }
-  .intro-wordmark svg g {
-    fill: var(--coral);
-    transition: fill 1.6s cubic-bezier(0.65, 0.05, 0.15, 1) 0.6s;
-  }
-
-  /* Estado dismissing — ambas partes encuentran su lugar */
-  .intro.dismissing .intro-symbol {
-    /* La M vuela al slot del hero, se queda más chica */
-    width: 90px;
-    transform: translate(var(--symbol-target-x), var(--symbol-target-y));
-  }
-
-  .intro.dismissing .intro-wordmark {
-    /* MUVEN vuela al nav */
-    width: 130px;
-    transform: translate(var(--wordmark-target-x), var(--wordmark-target-y));
-  }
-
-  .intro.dismissing .intro-wordmark svg g { fill: var(--nav-logo-fill); }
-
-  @keyframes introReveal {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Respiración del símbolo */
-  .intro-symbol svg path {
+  .intro-wordmark svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .intro-wordmark svg path {
+    fill: var(--bg);
+    opacity: 0;
+    transform-box: fill-box;
     transform-origin: center;
-    animation: breathe 3s ease-in-out infinite;
   }
 
   @keyframes breathe {
@@ -280,15 +255,13 @@
     font-size: 0.8125rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--text-faint);
+    color: var(--bg);
+    opacity: 0.6;
     text-align: center;
-    opacity: 1;
-    transition: opacity 0.8s cubic-bezier(0.45, 0, 0.15, 1);
+    position: relative;
+    z-index: 2;
   }
-
-  .intro.dismissing .intro-tagline {
-    opacity: 0 !important;
-  }
+  .intro-tagline span { display: inline-block; opacity: 0; }
 
   /* ================ NAV ================ */
   nav {
@@ -1944,27 +1917,28 @@
 
 <!-- ================ INTRO ================ -->
 <div class="intro" id="intro">
+  <div class="intro-curtain" id="introCurtain"></div>
   <div class="intro-stack">
-    <!-- Símbolo "U" — solo el símbolo -->
+    <!-- Símbolo "M" — vuela al hero -->
     <div class="intro-symbol" id="introSymbol">
       <svg viewBox="580 140 760 770" xmlns="http://www.w3.org/2000/svg">
         <path d="M581.26,897.54V182.38c0-19.89,16.12-36.01,36.01-36.01h95.02c20.08,0,36.14,16.64,35.44,36.71-4.55,130.87-2.35,565.91,229.1,547.7,0,0,205.81-11.17,195.07-548.4-.39-19.51,15.25-35.58,34.76-35.63l99.53-.28c17.96-.05,32.55,14.49,32.55,32.45v717c0,20.83-16.88,37.71-37.71,37.71h-93.34c-20.57,0-37.24-16.67-37.24-37.24v-220.8s-63.2,116.42-188.84,129.66c-3.66.39-7.36.09-11.02.35-26.42,1.93-149.3,2.53-221.04-142.62v233.95c0,20.27-16.44,36.71-36.71,36.71h-95.49c-19.93,0-36.09-16.16-36.09-36.09Z"/>
       </svg>
     </div>
-    <!-- Wordmark "MUVEN" — se anima al nav -->
+    <!-- Wordmark "MUVEN" — letras en orden de lectura para el stagger; vuela al nav -->
     <div class="intro-wordmark" id="introWordmark">
       <svg viewBox="580 870 760 170" xmlns="http://www.w3.org/2000/svg">
         <g>
+          <path d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
           <path d="M887.56,976.1c0,38.65-27.8,62.83-64.41,62.83s-64.41-24.18-64.41-62.83v-94.56c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v93.65c0,15.82,8.59,36.61,35.93,36.61s35.93-20.79,35.93-36.61v-93.65c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v94.56Z"/>
           <path d="M906.11,874.85h18.73c2.9,0,5.48,1.82,6.46,4.54l36.77,101.93c2.17,6.02,10.67,6.06,12.9.06l37.96-102.06c1-2.69,3.57-4.48,6.44-4.48h16.59c4.87,0,8.19,4.93,6.37,9.44l-60.8,150.5c-1.05,2.6-3.57,4.3-6.37,4.3h-15.97c-2.83,0-5.36-1.73-6.4-4.36l-59.1-150.5c-1.77-4.51,1.55-9.38,6.4-9.38Z"/>
           <path d="M1067.51,874.85h95.06c3.79,0,6.87,3.08,6.87,6.87v12.7c0,3.79-3.08,6.87-6.87,6.87h-65.83c-3.79,0-6.87,3.08-6.87,6.87v26.62c0,3.79,3.08,6.87,6.87,6.87h61.65c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-61.65c-3.79,0-6.87,3.08-6.87,6.87v30.8c0,3.79,3.08,6.87,6.87,6.87h70c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-99.23c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
           <path d="M1191.95,874.85h28.15c2.32,0,4.49,1.17,5.76,3.12l77.54,118.9h.46v-115.15c0-3.79,3.08-6.87,6.87-6.87h15.49c3.79,0,6.87,3.08,6.87,6.87v150.5c0,3.79-3.08,6.87-6.87,6.87h-26.5c-2.33,0-4.51-1.19-5.77-3.15l-79.16-122.82h-.46v119.1c0,3.79-3.08,6.87-6.87,6.87h-15.49c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
-          <path d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
         </g>
       </svg>
     </div>
   </div>
-  <div class="intro-tagline">Back in motion</div>
+  <div class="intro-tagline" id="introTagline">Back in motion</div>
 </div>
 
 <!-- ================ NAV ================ -->
@@ -2419,98 +2393,126 @@
     localStorage.setItem('muven-theme', next);
   });
 
+  // ============ INTRO (cortina) ============
   const intro = document.getElementById('intro');
+  const introCurtain = document.getElementById('introCurtain');
   const introSymbol = document.getElementById('introSymbol');
   const introWordmark = document.getElementById('introWordmark');
+  const introTagline = document.getElementById('introTagline');
   const heroSymbolSlot = document.getElementById('heroSymbolSlot');
   const nav = document.getElementById('nav');
   const navLogo = document.querySelector('.nav-logo');
   const main = document.getElementById('main');
 
+  const EASE_OUT = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  const EASE_FLY = 'cubic-bezier(0.65, 0.05, 0.15, 1)';
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const anim = (el, keyframes, opts) => el.animate(keyframes, Object.assign({ fill: 'forwards' }, opts)).finished;
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+
+  introTagline.innerHTML = introTagline.textContent.split('')
+    .map(c => `<span>${c === ' ' ? '&nbsp;' : c}</span>`).join('');
+
+  let introPhase = 'idle';   // idle → entering → curtain → flying → done
+  let introSkip = false;     // scroll/clic durante la entrada: acorta la espera
   let introDismissed = false;
 
-  function dismissIntro() {
-    if (introDismissed) return;
+  function finishIntro() {
+    if (introPhase === 'done') return;
+    introPhase = 'done';
     introDismissed = true;
-
-    // PASO 1: Hacer visible el main DETRÁS de la intro (con opacity:0 todavía)
-    // El main se va a hacer visible mientras la intro aún oculta todo con su fondo crema
-    main.style.visibility = 'visible';
     document.body.classList.remove('intro-active');
+    nav.classList.add('visible');
+    main.classList.add('visible');
+    intro.classList.add('done');
+    document.body.classList.add('intro-done');
+    setTimeout(() => { intro.style.display = 'none'; }, 700);
+  }
 
-    // Esperar un frame para que el layout se calcule
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        // FLIP para el SÍMBOLO (M) → hero slot
-        const symbolFromRect = introSymbol.getBoundingClientRect();
-        const symbolToRect = heroSymbolSlot.getBoundingClientRect();
-        const symbolDeltaX = (symbolToRect.left + symbolToRect.width / 2) - (symbolFromRect.left + symbolFromRect.width / 2);
-        const symbolDeltaY = (symbolToRect.top + symbolToRect.height / 2) - (symbolFromRect.top + symbolFromRect.height / 2);
+  function dismissIntro() {
+    if (introPhase === 'idle' || introPhase === 'done') { finishIntro(); return; }
+    introSkip = true;
+  }
 
-        // FLIP para el WORDMARK (MUVEN) → nav
-        const wordFromRect = introWordmark.getBoundingClientRect();
-        const wordToRect = navLogo.getBoundingClientRect();
-        const wordDeltaX = (wordToRect.left + wordToRect.width / 2) - (wordFromRect.left + wordFromRect.width / 2);
-        const wordDeltaY = (wordToRect.top + wordToRect.height / 2) - (wordFromRect.top + wordFromRect.height / 2);
+  async function runIntro() {
+    if (reducedMotion) { finishIntro(); return; }
+    introPhase = 'entering';
+    const symbolPath = introSymbol.querySelector('path');
+    const wordPaths = [...introWordmark.querySelectorAll('path')];
+    const chars = [...introTagline.querySelectorAll('span')];
 
-        intro.style.setProperty('--symbol-target-x', symbolDeltaX + 'px');
-        intro.style.setProperty('--symbol-target-y', symbolDeltaY + 'px');
-        intro.style.setProperty('--wordmark-target-x', wordDeltaX + 'px');
-        intro.style.setProperty('--wordmark-target-y', wordDeltaY + 'px');
+    // Entrada: logo crema sobre tinta
+    anim(introSymbol, [{ opacity: 0, transform: 'scale(0.9)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 1100, easing: EASE_OUT });
+    await wait(300);
+    wordPaths.forEach((p, i) => anim(p,
+      [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'translateY(0)' }],
+      { duration: 700, delay: i * 60, easing: EASE_OUT }));
+    chars.forEach((c, i) => anim(c, [{ opacity: 0 }, { opacity: 1 }], { duration: 400, delay: 500 + i * 20 }));
+    for (let t = 0; t < 1600 && !introSkip; t += 50) await wait(50);
 
-        // Disparar transición de los logos (2.2s de duración)
-        intro.classList.add('dismissing');
+    // Cortina: sube y el logo cambia a coral justo cuando lo cruza
+    introPhase = 'curtain';
+    const up = anim(introCurtain, [{ transform: 'translateY(100%)' }, { transform: 'translateY(0)' }],
+      { duration: 1100, easing: 'cubic-bezier(0.76, 0, 0.24, 1)' });
+    await wait(520);
+    const flip = { duration: 320, easing: 'ease' };
+    anim(symbolPath, [{ fill: 'var(--bg)' }, { fill: 'var(--coral)' }], flip);
+    wordPaths.forEach(p => anim(p, [{ fill: 'var(--bg)' }, { fill: 'var(--coral)' }], flip));
+    anim(introTagline, [{ color: 'var(--bg)', opacity: 0.6 }, { color: 'var(--text-faint)', opacity: 1 }], flip);
+    await up;
+    intro.classList.add('revealed');
+    introCurtain.remove();
+    await wait(introSkip ? 100 : 450);
 
-        // Nav y main pasan a "visible" temprano - pero el main aún está tapado por la intro
-        // El usuario no ve este cambio porque la intro está encima con su fondo cream
-        nav.classList.add('visible');
+    // Vuelo: la M al slot del hero, MUVEN al nav (FLIP solo con transform, sin reflow)
+    introPhase = 'flying';
+    anim(introTagline, [{ opacity: 1 }, { opacity: 0 }], { duration: 400 });
+    document.body.classList.remove('intro-active');
+    nav.classList.add('visible');
+    setTimeout(() => main.classList.add('visible'), 150);
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
 
-        // Empieza el fade-in del main bajo la intro (intro sigue tapando con fondo cream)
-        // Para cuando termine el fade-in (1.4s después), la intro estará a punto de hacer fade-out
-        setTimeout(() => {
-          main.classList.add('visible');
-        }, 200);
+    const flip2 = (from, to) => {
+      const a = from.getBoundingClientRect();
+      const b = to.getBoundingClientRect();
+      return {
+        dx: (b.left + b.width / 2) - (a.left + a.width / 2),
+        dy: (b.top + b.height / 2) - (a.top + a.height / 2),
+        scale: b.width / a.width
+      };
+    };
+    const s = flip2(introSymbol, heroSymbolSlot);
+    const w = flip2(introWordmark, navLogo);
+    const D = 1300;
+    const navFill = getComputedStyle(navLogo.querySelector('path')).fill;
+    wordPaths.forEach(p => anim(p, [{ fill: 'var(--coral)' }, { fill: navFill }], { duration: D * 0.6, delay: D * 0.35, easing: 'ease' }));
+    await Promise.all([
+      anim(introSymbol,
+        [{ transform: 'translate(0,0) scale(1)' }, { transform: `translate(${s.dx}px, ${s.dy}px) scale(${s.scale})` }],
+        { duration: D, easing: EASE_FLY }),
+      anim(introWordmark,
+        [{ transform: 'translate(0,0) scale(1)' }, { transform: `translate(${w.dx}px, ${w.dy}px) scale(${w.scale})` }],
+        { duration: D, easing: EASE_FLY, delay: 80 })
+    ]);
+    finishIntro();
+  }
 
-        // Justo cuando los logos terminan su viaje (~2.2s), el background de la intro
-        // se desvanece. Los logos de la intro están exactamente sobre nav-logo y hero-slot
-        // (que están vacíos en el main). Como el body tiene el mismo fondo cream, no hay
-        // diferencia visual cuando la intro se vuelve transparente.
-        setTimeout(() => {
-          intro.classList.add('done');
-        }, 2300);
-
-        // Después de la transición completa: ocultar la intro del DOM
-        setTimeout(() => {
-          intro.style.display = 'none';
-          document.body.classList.add('intro-done');
-        }, 3200);
-      });
+  // Arrancar solo cuando el body ya está "booted" (fuentes listas); antes es invisible
+  function startIntro() {
+    if (document.body.classList.contains('booted')) { runIntro(); return; }
+    const observer = new MutationObserver(() => {
+      if (document.body.classList.contains('booted')) {
+        observer.disconnect();
+        runIntro();
+      }
     });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   }
+  startIntro();
 
-  // Esperar a que el body esté booted antes de arrancar el timer de auto-dismiss
-  function startIntroTimer() {
-    if (document.body.classList.contains('booted')) {
-      setTimeout(dismissIntro, 3500);
-    } else {
-      // Esperar a que se aplique la clase booted
-      const observer = new MutationObserver(() => {
-        if (document.body.classList.contains('booted')) {
-          observer.disconnect();
-          setTimeout(dismissIntro, 3500);
-        }
-      });
-      observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-    }
-  }
-  startIntroTimer();
-
-  let scrollTriggered = false;
   window.addEventListener('wheel', (e) => {
-    if (!scrollTriggered && !introDismissed && e.deltaY > 0) {
-      scrollTriggered = true;
-      dismissIntro();
-    }
+    if (!introDismissed && e.deltaY > 0) dismissIntro();
   }, { passive: true });
 
   let touchStartY = 0;
