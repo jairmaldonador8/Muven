@@ -657,18 +657,18 @@
         s.tagline.style.opacity = 0.6;
         s.taglineChars.forEach(c => c.style.opacity = 0);
 
-        ctx.anim(s.symbol, [{ opacity: 0, transform: 'scale(0.9)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 1100, easing: EASE_OUT });
-        await ctx.wait(300);
+        ctx.anim(s.symbol, [{ opacity: 0, transform: 'scale(0.9)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 800, easing: EASE_OUT });
+        await ctx.wait(200);
         s.wordPaths.forEach((p, i) => ctx.anim(p,
           [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'translateY(0)' }],
-          { duration: 700, delay: i * 60, easing: EASE_OUT }));
-        s.taglineChars.forEach((c, i) => ctx.anim(c, [{ opacity: 0 }, { opacity: 1 }], { duration: 400, delay: 500 + i * 20 }));
-        await ctx.wait(1600);
+          { duration: 550, delay: i * 45, easing: EASE_OUT }));
+        s.taglineChars.forEach((c, i) => ctx.anim(c, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 350 + i * 14 }));
+        await ctx.wait(1000);
 
         // Cortina sube; a mitad de camino el logo cambia de color
-        const up = ctx.anim(curtain, [{ transform: 'translateY(100%)' }, { transform: 'translateY(0)' }], { duration: 1100, easing: 'cubic-bezier(0.76, 0, 0.24, 1)' });
-        await ctx.wait(520);
-        const flip = { duration: 320, easing: 'ease' };
+        const up = ctx.anim(curtain, [{ transform: 'translateY(100%)' }, { transform: 'translateY(0)' }], { duration: 850, easing: 'cubic-bezier(0.76, 0, 0.24, 1)' });
+        await ctx.wait(400);
+        const flip = { duration: 260, easing: 'ease' };
         ctx.anim(s.symbolPath, [{ fill: 'var(--bg)' }, { fill: 'var(--coral)' }], flip);
         s.wordPaths.forEach(p => ctx.anim(p, [{ fill: 'var(--bg)' }, { fill: 'var(--coral)' }], flip));
         ctx.anim(s.tagline, [{ color: 'var(--bg)', opacity: 0.6 }, { color: 'var(--text-faint)', opacity: 1 }], flip);
@@ -679,9 +679,9 @@
         void intro.offsetWidth;
         intro.style.transition = '';
         curtain.remove();
-        await ctx.wait(500);
-        ctx.anim(s.tagline, [{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
-        await ctx.handoff(s, { duration: 1300, wordDelay: 80 });
+        await ctx.wait(250);
+        ctx.anim(s.tagline, [{ opacity: 1 }, { opacity: 0 }], { duration: 300 });
+        await ctx.handoff(s, { duration: 1100, wordDelay: 60 });
       }
     },
 

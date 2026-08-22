@@ -387,7 +387,7 @@
     color: white;
   }
 
-  main { opacity: 0; transition: opacity 1.4s cubic-bezier(0.45, 0, 0.15, 1) 0.2s; }
+  main { opacity: 0; transition: opacity 1s cubic-bezier(0.45, 0, 0.15, 1); }
   main.visible { opacity: 1; }
 
   /* ================ HERO ================ */
@@ -2443,34 +2443,34 @@
     const chars = [...introTagline.querySelectorAll('span')];
 
     // Entrada: logo crema sobre tinta
-    anim(introSymbol, [{ opacity: 0, transform: 'scale(0.9)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 1100, easing: EASE_OUT });
-    await wait(300);
+    anim(introSymbol, [{ opacity: 0, transform: 'scale(0.9)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 800, easing: EASE_OUT });
+    await wait(200);
     wordPaths.forEach((p, i) => anim(p,
       [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'translateY(0)' }],
-      { duration: 700, delay: i * 60, easing: EASE_OUT }));
-    chars.forEach((c, i) => anim(c, [{ opacity: 0 }, { opacity: 1 }], { duration: 400, delay: 500 + i * 20 }));
-    for (let t = 0; t < 1600 && !introSkip; t += 50) await wait(50);
+      { duration: 550, delay: i * 45, easing: EASE_OUT }));
+    chars.forEach((c, i) => anim(c, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 350 + i * 14 }));
+    for (let t = 0; t < 1000 && !introSkip; t += 50) await wait(50);
 
     // Cortina: sube y el logo cambia a coral justo cuando lo cruza
     introPhase = 'curtain';
     const up = anim(introCurtain, [{ transform: 'translateY(100%)' }, { transform: 'translateY(0)' }],
-      { duration: 1100, easing: 'cubic-bezier(0.76, 0, 0.24, 1)' });
-    await wait(520);
-    const flip = { duration: 320, easing: 'ease' };
+      { duration: 850, easing: 'cubic-bezier(0.76, 0, 0.24, 1)' });
+    await wait(400);
+    const flip = { duration: 260, easing: 'ease' };
     anim(symbolPath, [{ fill: 'var(--bg)' }, { fill: 'var(--coral)' }], flip);
     wordPaths.forEach(p => anim(p, [{ fill: 'var(--bg)' }, { fill: 'var(--coral)' }], flip));
     anim(introTagline, [{ color: 'var(--bg)', opacity: 0.6 }, { color: 'var(--text-faint)', opacity: 1 }], flip);
     await up;
     intro.classList.add('revealed');
     introCurtain.remove();
-    await wait(introSkip ? 100 : 450);
+    await wait(introSkip ? 80 : 250);
 
     // Vuelo: la M al slot del hero, MUVEN al nav (FLIP solo con transform, sin reflow)
     introPhase = 'flying';
-    anim(introTagline, [{ opacity: 1 }, { opacity: 0 }], { duration: 400 });
+    anim(introTagline, [{ opacity: 1 }, { opacity: 0 }], { duration: 300 });
     document.body.classList.remove('intro-active');
     nav.classList.add('visible');
-    setTimeout(() => main.classList.add('visible'), 150);
+    setTimeout(() => main.classList.add('visible'), 100);
     await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
 
     const flip2 = (from, to) => {
@@ -2484,7 +2484,7 @@
     };
     const s = flip2(introSymbol, heroSymbolSlot);
     const w = flip2(introWordmark, navLogo);
-    const D = 1300;
+    const D = 1100;
     const navFill = getComputedStyle(navLogo.querySelector('path')).fill;
     wordPaths.forEach(p => anim(p, [{ fill: 'var(--coral)' }, { fill: navFill }], { duration: D * 0.6, delay: D * 0.35, easing: 'ease' }));
     await Promise.all([
@@ -2493,7 +2493,7 @@
         { duration: D, easing: EASE_FLY }),
       anim(introWordmark,
         [{ transform: 'translate(0,0) scale(1)' }, { transform: `translate(${w.dx}px, ${w.dy}px) scale(${w.scale})` }],
-        { duration: D, easing: EASE_FLY, delay: 80 })
+        { duration: D, easing: EASE_FLY, delay: 60 })
     ]);
     finishIntro();
   }
