@@ -3,2581 +3,1026 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MUVEN — Asistencia nocturna involuntaria para la rehabilitación de la fascitis plantar</title>
-<meta name="description" content="MUVEN. Muévete. Recupera. Renace. Estamos creando un dispositivo que trabaja mientras duermes para ayudarte a volver al movimiento.">
-
-<!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="./favicon.svg">
-
-<!-- Cargar fuentes Avenir locales -->
+<title>MUVEN — Back in motion</title>
+<meta name="description" content="Recuperarte también es parte de entrenar. MUVEN es una herramienta de recuperación diseñada para integrarse a la rutina de atletas y runners.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://www.muven.shop/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MUVEN">
+<meta property="og:title" content="MUVEN — Back in motion">
+<meta property="og:description" content="Recuperarte también es parte de entrenar. MUVEN es una herramienta de recuperación diseñada para integrarse a la rutina de atletas y runners.">
+<meta property="og:url" content="https://www.muven.shop/">
+<meta property="og:image" content="https://www.muven.shop/assets/photos/hero-video-poster.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/photos/hero-video-poster.webp">
 <style>
-  @font-face {
-    font-family: 'Avenir';
-    src: url('./fonts/avenir-light.otf') format('opentype');
-    font-weight: 300;
-  }
-  @font-face {
-    font-family: 'Avenir';
-    src: url('./fonts/avenir-regular.otf') format('opentype');
-    font-weight: 400;
-  }
-  @font-face {
-    font-family: 'Avenir';
-    src: url('./fonts/avenir-medium.otf') format('opentype');
-    font-weight: 500;
-  }
-  @font-face {
-    font-family: 'Avenir';
-    src: url('./fonts/avenir-bold.otf') format('opentype');
-    font-weight: 600;
-  }
-  @font-face {
-    font-family: 'Avenir';
-    src: url('./fonts/avenir-black.otf') format('opentype');
-    font-weight: 700;
-  }
-</style>
-
-<!-- BOOT GUARD: evita cualquier flash antes de que las fuentes y JS estén listos -->
-<style>
-  html { background: #f0e8e2; }
-  html[data-theme="dark"] { background: #0d0908; }
-  body { background: #f0e8e2; }
-  html[data-theme="dark"] body { background: #0d0908; }
-  body.booting {
-    opacity: 0;
-    visibility: hidden;
-  }
-  body.booted {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-</style>
-<script>
-  // Aplicar tema ANTES del primer paint para evitar FOUC
-  (function() {
-    try {
-      var theme = localStorage.getItem('muven-theme');
-      if (theme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
-    } catch(e) {}
-  })();
-</script>
-
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
+  /* ============ TOKENS ============ */
   :root {
-    --cream: #f0e8e2;
-    --cream-soft: #e8ddd4;
-    --cream-deep: #ddd0c4;
-    --ink: #1a1a1a;
-    --ink-soft: #3a3a3a;
-    --ink-faint: rgba(26, 26, 26, 0.55);
-    --ink-whisper: rgba(26, 26, 26, 0.3);
-    --coral: #ef4444;
-    --coral-dark: #d63333;
-    --coral-soft: #f5a3a3;
-    --coral-tint: rgba(239, 68, 68, 0.08);
-    --coral-shadow: rgba(239, 68, 68, 0.25);
-    --border: rgba(26, 26, 26, 0.08);
-    --border-medium: rgba(26, 26, 26, 0.15);
-    --serif: 'Avenir', sans-serif;
-    --sans: 'Avenir', sans-serif;
-
-    /* Variables semánticas (lo que cambia entre temas) */
-    --bg: var(--cream);
-    --bg-soft: var(--cream);
-    --bg-deep: var(--cream);
-    --bg-card: var(--cream);
-    --text: var(--ink);
-    --text-soft: var(--ink-soft);
-    --text-faint: var(--ink-faint);
-    --text-whisper: var(--ink-whisper);
-    --border-soft: var(--border);
-    --border-strong: var(--border-medium);
-    --nav-bg: rgba(240, 232, 226, 0.85);
-    --nav-logo-fill: #1a1a1a;
-
-    /* Acentos: en modo claro son coral, en oscuro son crema/coral-soft */
-    --accent: var(--coral);
-    --accent-soft: var(--coral-soft);
-    --accent-text: var(--coral);
-    --accent-text-strong: var(--coral);
-    --accent-placeholder: var(--coral-dark);
-    --accent-placeholder-bg: var(--coral-tint);
-    --accent-placeholder-border: var(--coral-soft);
+    --black: #000000;
+    --white: #ffffff;
+    --red: #dd524c;
+    --red-deep: #c4433d;
+    --ink: #0a0a0a;
+    --ink-soft: rgba(10, 10, 10, 0.62);
+    --ink-faint: rgba(10, 10, 10, 0.4);
+    --paper-soft: rgba(255, 255, 255, 0.64);
+    --paper-faint: rgba(255, 255, 255, 0.38);
+    --line-dark: rgba(10, 10, 10, 0.12);
+    --line-light: rgba(255, 255, 255, 0.16);
+    --display: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --body: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --reveal: 0.8s;
+    --gutter: clamp(20px, 4vw, 64px);
+    --hero-size: clamp(64px, 11vw, 180px);
+    --title-size: clamp(48px, 7vw, 110px);
+    --mid-size: clamp(32px, 4.2vw, 64px);
   }
 
-  /* MODO OSCURO */
-  [data-theme="dark"] {
-    --bg: #0d0908;
-    --bg-soft: #0d0908;
-    --bg-deep: #0d0908;
-    --bg-card: #0d0908;
-    --text: #f0e8e2;
-    --text-soft: rgba(240, 232, 226, 0.75);
-    --text-faint: rgba(240, 232, 226, 0.5);
-    --text-whisper: rgba(240, 232, 226, 0.3);
-    --border-soft: rgba(240, 232, 226, 0.08);
-    --border-strong: rgba(240, 232, 226, 0.15);
-    --nav-bg: rgba(13, 9, 8, 0.85);
-    --nav-logo-fill: #f0e8e2;
-
-    /* En oscuro: acentos suaves cremoso para mejor contraste */
-    --accent: #ff8a7a;
-    --accent-soft: #f5a3a3;
-    --accent-text: #f0e8e2;
-    --accent-text-strong: #ff8a7a;
-    --accent-placeholder: #ffb3a3;
-    --accent-placeholder-bg: rgba(255, 138, 122, 0.08);
-    --accent-placeholder-border: rgba(255, 138, 122, 0.3);
-  }
-
-  html { scroll-behavior: smooth; }
-
-  /* Ocultar scrollbar manteniendo el scroll funcional */
-  html {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-  }
-  html::-webkit-scrollbar,
-  body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-    width: 0;
-    height: 0;
-  }
-
-  body.intro-active { overflow: hidden; height: 100vh; }
-
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-weight: 300;
-    line-height: 1.6;
-    font-size: 16px;
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--white);
+    background: var(--black);
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    transition: background 0.6s cubic-bezier(0.45, 0, 0.15, 1), color 0.6s cubic-bezier(0.45, 0, 0.15, 1);
   }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; }
+  ::selection { background: var(--red); color: var(--white); }
 
-  p { color: var(--text-soft); font-size: 1.0625rem; line-height: 1.7; font-weight: 300; }
-
-  h1, h2, h3, h4 {
-    font-family: var(--serif);
-    font-weight: 500;
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    color: var(--text);
-  }
-
-  a { color: var(--text); text-decoration: none; transition: color 0.3s ease; }
-
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-
-  /* ================ INTRO (cortina) ================ */
-  /* Arranca en tinta con el logo en crema; una cortina crema sube, el logo cambia a coral
-     al cruzarla, y al final la M vuela al hero y MUVEN al nav. En modo oscuro se invierte. */
-  .intro {
-    position: fixed;
-    inset: 0;
-    background: var(--text);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    pointer-events: auto;
-  }
-
-  /* La cortina ya cubrió todo: el fondo pasa a crema sin transición visible */
-  .intro.revealed { background: var(--bg); }
-
-  /* Al final: transparente sobre el main ya visible; los logos quedan exactamente sobre sus destinos */
-  .intro.done {
-    background: transparent;
-    pointer-events: none;
-  }
-
-  .intro-curtain {
-    position: absolute;
-    inset: 0;
-    background: var(--bg);
-    transform: translateY(100%);
-    z-index: 1;
-  }
-
-  .intro-stack {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: clamp(22px, 3vw, 40px);
-    position: relative;
-    z-index: 2;
-  }
-
-  /* Símbolo "M" — vuela al slot del hero */
-  .intro-symbol {
-    width: min(22vw, 200px);
-    opacity: 0;
-    transform-origin: center center;
-    will-change: transform;
-  }
-  .intro-symbol svg { width: 100%; height: auto; display: block; overflow: visible; }
-  .intro-symbol svg path { fill: var(--bg); }
-
-  /* Wordmark "MUVEN" — vuela al nav */
-  .intro-wordmark {
-    width: min(30vw, 280px);
-    transform-origin: center center;
-    will-change: transform;
-  }
-  .intro-wordmark svg { width: 100%; height: auto; display: block; overflow: visible; }
-  .intro-wordmark svg path {
-    fill: var(--bg);
-    opacity: 0;
-    transform-box: fill-box;
-    transform-origin: center;
-  }
-
-  @keyframes breathe {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-  }
-
-  .intro-tagline {
-    margin-top: 24px;
-    font-family: var(--sans);
-    font-size: 0.8125rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--bg);
-    opacity: 0.6;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-  }
-  .intro-tagline span { display: inline-block; opacity: 0; }
-
-  /* ================ NAV ================ */
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    padding: 24px 32px;
-    background: rgba(240, 232, 226, 0);
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    border-bottom: 1px solid transparent;
-    transition:
-      background 1.2s cubic-bezier(0.45, 0, 0.15, 1) 0.3s,
-      border-color 1.2s cubic-bezier(0.45, 0, 0.15, 1) 0.3s,
-      backdrop-filter 1.2s cubic-bezier(0.45, 0, 0.15, 1) 0.3s;
-  }
-
-  nav.visible {
-    background: var(--nav-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom-color: var(--border-soft);
-  }
-
-  nav .nav-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .nav-logo {
-    height: 34px;
-    width: auto;
-    display: block;
-    opacity: 0;
-    transition: opacity 0.8s cubic-bezier(0.45, 0, 0.15, 1);
-  }
-  body.intro-done .nav-logo { opacity: 1; }
-  .nav-logo svg { height: 100%; width: auto; display: block; }
-
-  .nav-cta {
-    font-family: var(--sans);
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text);
-    padding: 10px 22px;
-    border: 1px solid var(--border-strong);
-    border-radius: 100px;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    opacity: 0;
-    pointer-events: none;
-    transition:
-      opacity 0.8s cubic-bezier(0.45, 0, 0.15, 1) 0.2s,
-      color 0.3s ease,
-      background 0.3s ease,
-      border-color 0.3s ease;
-  }
-
-  body.intro-done .nav-cta {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* ================ THEME TOGGLE ================ */
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .theme-toggle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid var(--border-strong);
-    background: transparent;
-    color: var(--text);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease, opacity 0.8s cubic-bezier(0.45, 0, 0.15, 1) 0.2s;
-    position: relative;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  body.intro-done .theme-toggle {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .theme-toggle:hover {
-    border-color: var(--accent-text-strong);
-    color: var(--accent-text-strong);
-  }
-
-  .theme-toggle svg {
-    width: 18px;
-    height: 18px;
-    position: absolute;
-    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.45, 0, 0.15, 1);
-  }
-
-  /* Sun visible en modo claro, moon visible en modo oscuro */
-  .theme-toggle .icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.5); }
-  .theme-toggle .icon-moon { opacity: 1; transform: rotate(0) scale(1); }
-  [data-theme="dark"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0) scale(1); }
-  [data-theme="dark"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
-
-  .nav-cta:hover {
-    border-color: var(--accent-text-strong);
-    background: var(--coral);
-    color: white;
-  }
-
-  main { opacity: 0; transition: opacity 1s cubic-bezier(0.45, 0, 0.15, 1); }
-  main.visible { opacity: 1; }
-
-  /* ================ HERO ================ */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    padding: 140px 32px 120px;
-  }
-
-  .hero-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1100px;
-    height: 1100px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .hero-glow::before, .hero-glow::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    filter: blur(80px);
-  }
-
-  .hero-glow::before {
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, var(--coral-shadow) 0%, transparent 65%);
-    animation: pulseGlow 6s ease-in-out infinite;
-    opacity: 0.5;
-  }
-
-  .hero-glow::after {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(245, 163, 163, 0.3) 0%, transparent 65%);
-    animation: pulseGlow 6s ease-in-out infinite 2s;
-  }
-
-  @keyframes pulseGlow {
-    0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.1); }
-  }
-
-  .hero-rings {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1400px;
-    height: 1400px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.18;
-  }
-
-  .ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border: 1px solid var(--coral);
-    border-radius: 50%;
-    opacity: 0;
-    transform: translate(-50%, -50%);
-    animation: ringExpand 6s ease-out infinite;
-  }
-
-  .ring:nth-child(1) { animation-delay: 0s; }
-  .ring:nth-child(2) { animation-delay: 1.5s; }
-  .ring:nth-child(3) { animation-delay: 3s; }
-  .ring:nth-child(4) { animation-delay: 4.5s; }
-
-  @keyframes ringExpand {
-    0% { width: 120px; height: 120px; opacity: 0.5; }
-    100% { width: 1400px; height: 1400px; opacity: 0; }
-  }
-
-  .hero-content {
-    max-width: 1000px;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-  }
-
-  /* Slot donde aterriza la M de la intro */
-  .hero-symbol-slot {
-    width: 90px;
-    height: 90px;
-    margin: 0 auto 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  /* La M permanente del hero - aparece solo cuando la intro ya terminó */
-  .hero-symbol-slot::before {
-    content: '';
-    width: 90px;
-    height: 90px;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='580 140 760 770' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23ef4444' d='M581.26,897.54V182.38c0-19.89,16.12-36.01,36.01-36.01h95.02c20.08,0,36.14,16.64,35.44,36.71-4.55,130.87-2.35,565.91,229.1,547.7,0,0,205.81-11.17,195.07-548.4-.39-19.51,15.25-35.58,34.76-35.63l99.53-.28c17.96-.05,32.55,14.49,32.55,32.45v717c0,20.83-16.88,37.71-37.71,37.71h-93.34c-20.57,0-37.24-16.67-37.24-37.24v-220.8s-63.2,116.42-188.84,129.66c-3.66.39-7.36.09-11.02.35-26.42,1.93-149.3,2.53-221.04-142.62v233.95c0,20.27-16.44,36.71-36.71,36.71h-95.49c-19.93,0-36.09-16.16-36.09-36.09Z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  /* Aparece sin transición visible — está exactamente donde estaba la M de la intro */
-  body.intro-done .hero-symbol-slot::before {
-    opacity: 1;
-    animation: breathe 4s ease-in-out infinite 2s;
-  }
-
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 9px 20px;
-    border: 1px solid var(--border-strong);
-    border-radius: 100px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-soft);
-    margin-bottom: 28px;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.2s forwards;
-  }
-
-  .hero-tag .dot {
-    width: 6px;
-    height: 6px;
-    background: var(--coral);
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.3); }
-  }
-
-  h1.hero-title {
-    font-family: var(--serif);
-    font-size: clamp(2.5rem, 7vw, 5.5rem);
-    line-height: 1.0;
-    font-weight: 500;
+  h1, h2, h3, .display {
+    font-family: var(--display);
+    font-weight: 700;
     letter-spacing: -0.035em;
-    margin-bottom: 36px;
-    color: var(--text);
-  }
-
-  .hero-title .italic {
-    font-style: normal;
-    color: var(--accent-text-strong);
-    font-weight: 500;
-  }
-
-  .hero-title .line {
-    display: block;
-    opacity: 0;
-    animation: fadeInUp 1s ease forwards;
-  }
-
-  .hero-title .line:nth-child(1) { animation-delay: 0.4s; }
-  .hero-title .line:nth-child(2) { animation-delay: 0.6s; }
-  .hero-title .line:nth-child(3) { animation-delay: 0.8s; }
-
-  .hero-mantra {
-    font-family: var(--serif);
-    font-style: normal;
-    font-size: clamp(1.125rem, 1.6vw, 1.375rem);
-    color: var(--accent-text-strong);
-    letter-spacing: 0.05em;
-    font-weight: 500;
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeInUp 1s ease 1s forwards;
-  }
-
-  .hero-mantra .sep {
-    color: var(--text-whisper);
-    margin: 0 12px;
-    font-style: normal;
-  }
-
-  .hero-subtitle {
-    font-size: clamp(1rem, 1.4vw, 1.125rem);
-    color: var(--text-soft);
-    max-width: 640px;
-    margin: 0 auto 48px;
-    line-height: 1.65;
-    font-weight: 400;
-    opacity: 0;
-    animation: fadeInUp 1s ease 1.2s forwards;
-  }
-
-  .form-wrapper {
-    display: flex;
-    gap: 8px;
-    max-width: 480px;
-    margin: 0 auto 20px;
-    padding: 7px;
-    background: white;
-    border: 1px solid var(--border-strong);
-    border-radius: 100px;
-    box-shadow: 0 4px 24px rgba(26, 26, 26, 0.06);
-    opacity: 0;
-    animation: fadeInUp 1s ease 1.4s forwards;
-    transition: all 0.3s ease;
-  }
-
-  .form-wrapper:focus-within {
-    border-color: var(--accent-text-strong);
-    box-shadow: 0 0 0 4px var(--coral-tint), 0 4px 24px var(--coral-shadow);
-  }
-
-  .form-wrapper input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    padding: 12px 20px;
-    color: var(--text);
-    font-family: var(--sans);
-    font-size: 0.9375rem;
-    font-weight: 400;
-  }
-
-  .form-wrapper input::placeholder { color: var(--text-whisper); }
-
-  .form-wrapper button {
-    background: var(--coral);
-    color: white;
-    border: none;
-    padding: 12px 26px;
-    border-radius: 100px;
-    font-family: var(--sans);
-    font-size: 0.9375rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .form-wrapper button:hover {
-    background: var(--coral-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px var(--coral-shadow);
-  }
-
-  .form-note {
-    font-size: 0.8125rem;
-    color: var(--text-faint);
-    letter-spacing: 0.02em;
-    opacity: 0;
-    animation: fadeInUp 1s ease 1.6s forwards;
-  }
-
-  .scroll-indicator {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.6875rem;
-    letter-spacing: 0.3em;
+    line-height: 0.92;
     text-transform: uppercase;
-    color: var(--text-faint);
-    opacity: 0;
-    animation: fadeIn 1s ease 2.2s forwards;
-    z-index: 2;
-    text-align: center;
+    hyphens: none;
   }
-
-  .scroll-indicator::after {
-    content: '';
-    display: block;
-    width: 1px;
-    height: 30px;
-    background: linear-gradient(to bottom, var(--ink-faint), transparent);
-    margin: 8px auto 0;
-    animation: scrollBounce 2s ease-in-out infinite;
-  }
-
-  /* ================ SECTIONS BASE ================ */
-  section { padding: 140px 32px; position: relative; }
-
-  .section-tag {
-    display: inline-block;
-    font-family: var(--sans);
-    font-size: 0.6875rem;
+  .micro {
+    font-family: var(--body);
+    font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--accent-text-strong);
-    margin-bottom: 24px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--coral);
-  }
-
-  h2.section-title {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 4.5vw, 3.75rem);
-    line-height: 1.05;
-    font-weight: 500;
-    letter-spacing: -0.03em;
-    margin-bottom: 32px;
-    max-width: 820px;
-    color: var(--text);
-  }
-
-  h2.section-title .italic { font-style: normal; color: var(--accent-text-strong); font-weight: 500; }
-
-  .section-lead {
-    font-family: var(--serif);
-    font-style: normal;
-    font-size: 1.375rem;
-    line-height: 1.45;
-    color: var(--text-soft);
-    max-width: 740px;
-    margin-bottom: 64px;
-    font-weight: 400;
-  }
-
-  /* ================ RESEARCH SECTION ================ */
-  .research {
-    background: var(--bg);
-    overflow: hidden;
-    position: relative;
-  }
-
-  .research .container { position: relative; z-index: 1; }
-  .research .section-tag { color: var(--accent-text-strong); border-color: var(--accent-text-strong); }
-  .research h2.section-title { color: var(--text); }
-  .research h2.section-title .italic { color: var(--accent-text-strong); }
-  .research .section-lead { color: var(--text-soft); margin-bottom: 40px; }
-
-  .research-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-    margin-top: 60px;
-  }
-
-  .research-card {
-    padding: 40px 32px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-soft);
-    border-radius: 8px;
-    text-align: center;
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 0;
-    transform: scale(0.85);
-  }
-
-  .research-card.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .research-card.visible:hover {
-    border-color: var(--accent-text-strong);
-    box-shadow: 0 12px 32px rgba(26, 26, 26, 0.08);
-    transform: scale(1) translateY(-4px);
-  }
-
-  .research-icon {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--accent-text-strong);
-  }
-
-  .research-icon svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  .research-card h3 {
-    font-family: var(--serif);
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
-  }
-
-  .research-card p {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--text-soft);
-  }
-
-  /* ================ RESEARCH ANIMACIONES ================ */
-  /* Estado base: heat-waves de termo invisibles, ondas de impacto miofascial invisibles */
-  .muven-icon[data-icon="thermo"] .heat-wave { opacity: 0; }
-  .muven-icon[data-icon="myo"] .impact { opacity: 0; }
-
-  /* --- CRIOTERAPIA --- */
-  .research-card:hover .muven-icon[data-icon="cryo"] .snow-main,
-  .research-card:active .muven-icon[data-icon="cryo"] .snow-main {
-    animation: snowSpin 4s linear infinite;
-    transform-origin: 28px 28px;
-    transform-box: fill-box;
-  }
-  .research-card:hover .muven-icon[data-icon="cryo"] .orbit-1,
-  .research-card:active .muven-icon[data-icon="cryo"] .orbit-1 {
-    animation: orbitCW 3s linear infinite;
-    transform-origin: 28px 28px;
-    transform-box: fill-box;
-  }
-  .research-card:hover .muven-icon[data-icon="cryo"] .orbit-2,
-  .research-card:active .muven-icon[data-icon="cryo"] .orbit-2 {
-    animation: orbitCCW 3.5s linear infinite;
-    transform-origin: 28px 28px;
-    transform-box: fill-box;
-  }
-  .research-card:hover .muven-icon[data-icon="cryo"] .orbit-3,
-  .research-card:active .muven-icon[data-icon="cryo"] .orbit-3 {
-    animation: orbitCW 4s linear infinite;
-    transform-origin: 28px 28px;
-    transform-box: fill-box;
-  }
-  @keyframes snowSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  @keyframes orbitCW {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  @keyframes orbitCCW {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(-360deg); }
-  }
-
-  /* --- TERMOTERAPIA --- */
-  .research-card:hover .muven-icon[data-icon="thermo"] .sun-rays,
-  .research-card:active .muven-icon[data-icon="thermo"] .sun-rays {
-    animation: rayRotate 6s linear infinite;
-    transform-origin: 28px 28px;
-    transform-box: fill-box;
-  }
-  .research-card:hover .muven-icon[data-icon="thermo"] .flame-e,
-  .research-card:active .muven-icon[data-icon="thermo"] .flame-e {
-    animation: flameDance 1s ease-in-out infinite;
-    transform-origin: 28px 46px;
-    transform-box: fill-box;
-  }
-  .research-card:hover .muven-icon[data-icon="thermo"] .hw-1,
-  .research-card:active .muven-icon[data-icon="thermo"] .hw-1 {
-    animation: heatPulse 1.6s ease-in-out infinite;
-  }
-  .research-card:hover .muven-icon[data-icon="thermo"] .hw-2,
-  .research-card:active .muven-icon[data-icon="thermo"] .hw-2 {
-    animation: heatPulse 1.6s ease-in-out infinite 0.3s;
-  }
-  @keyframes rayRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(45deg); }
-  }
-  @keyframes flameDance {
-    0%, 100% { transform: skewX(-4deg) scaleY(1); }
-    25%      { transform: skewX(3deg) scaleY(1.08); }
-    50%      { transform: skewX(-2deg) scaleY(1.12); }
-    75%      { transform: skewX(4deg) scaleY(1.05); }
-  }
-  @keyframes heatPulse {
-    0%, 100% { opacity: 0; transform: translateX(0); }
-    50%      { opacity: 1; transform: translateX(2px); }
-  }
-
-  /* --- MIOFASCIAL --- */
-  .research-card:hover .muven-icon[data-icon="myo"] .ball,
-  .research-card:active .muven-icon[data-icon="myo"] .ball {
-    animation: ballBounce 1.4s ease-in-out infinite;
-    transform-origin: 28px 32px;
-    transform-box: fill-box;
-  }
-  .research-card:hover .muven-icon[data-icon="myo"] .impact,
-  .research-card:active .muven-icon[data-icon="myo"] .impact {
-    animation: impactRing 1.4s ease-out infinite;
-    transform-origin: 28px 32px;
-    transform-box: fill-box;
-  }
-  .research-card:hover .muven-icon[data-icon="myo"] .i-2,
-  .research-card:active .muven-icon[data-icon="myo"] .i-2 {
-    animation-delay: 0.1s;
-  }
-  @keyframes ballBounce {
-    0%, 100% { transform: translateY(-6px) rotate(0deg); }
-    50%      { transform: translateY(2px) rotate(20deg); }
-  }
-  @keyframes impactRing {
-    0%, 40% { opacity: 0; transform: scale(0.5); }
-    50%     { opacity: 0.8; transform: scale(0.6); }
-    100%    { opacity: 0; transform: scale(1.3); }
-  }
-
-  /* --- PRESIÓN CONTROLADA --- */
-  .research-card:hover .muven-icon[data-icon="press"] .press-ring,
-  .research-card:active .muven-icon[data-icon="press"] .press-ring {
-    animation: ringContract 1.8s ease-in-out infinite;
-    transform-origin: 28px 28px;
-    transform-box: fill-box;
-  }
-  .research-card:hover .muven-icon[data-icon="press"] .p-2,
-  .research-card:active .muven-icon[data-icon="press"] .p-2 {
-    animation-delay: 0.2s;
-  }
-  .research-card:hover .muven-icon[data-icon="press"] .p-3,
-  .research-card:active .muven-icon[data-icon="press"] .p-3 {
-    animation-delay: 0.4s;
-  }
-  .research-card:hover .muven-icon[data-icon="press"] .press-core,
-  .research-card:active .muven-icon[data-icon="press"] .press-core {
-    animation: coreThrob 1.8s ease-in-out infinite;
-    transform-origin: 28px 28px;
-    transform-box: fill-box;
-  }
-  .research-card:hover .muven-icon[data-icon="press"] .ticks,
-  .research-card:active .muven-icon[data-icon="press"] .ticks {
-    animation: ticksFlash 1.8s ease-in-out infinite;
-  }
-  @keyframes ringContract {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50%      { transform: scale(0.6); opacity: 0.5; }
-  }
-  @keyframes coreThrob {
-    0%, 100% { transform: scale(1); }
-    50%      { transform: scale(1.6); }
-  }
-  @keyframes ticksFlash {
-    0%, 100% { opacity: 0.3; }
-    50%      { opacity: 1; }
-  }
-
-  /* --- ACCESIBILIDAD: respetar reduced motion --- */
-  @media (prefers-reduced-motion: reduce) {
-    .research-card,
-    .research-card * {
-      animation: none !important;
-      transition: none !important;
-    }
-  }
-
-  /* ================ FUNDADORAS ================ */
-  .founders { background: var(--bg-soft); }
-
-  .founders-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    margin-top: 64px;
-  }
-
-  .founder-card {
-    position: relative;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease;
-  }
-
-  .founder-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .founder-photo {
-    width: 100%;
-    aspect-ratio: 4/5;
-    background: var(--bg-deep);
-    border: 1px solid var(--border-soft);
-    border-radius: 4px;
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    transition: all 0.5s ease;
-  }
-
-  .founder-card:hover .founder-photo {
-    border-color: var(--accent-text-strong);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(26, 26, 26, 0.08);
-  }
-
-  .photo-placeholder {
-    text-align: center;
-    color: var(--text-whisper);
-    font-family: var(--sans);
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 20px;
-  }
-
-  .photo-placeholder svg {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 16px;
-    opacity: 0.4;
-  }
-
-  .founder-name {
-    font-family: var(--serif);
-    font-size: 2rem;
-    font-style: normal;
-    color: var(--text);
-    margin-bottom: 8px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-  }
-
-  .founder-role {
-    font-family: var(--sans);
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--accent-text-strong);
-    margin-bottom: 20px;
-  }
-
-  .founder-bio {
-    font-size: 0.9375rem;
-    line-height: 1.7;
-    color: var(--text-soft);
-  }
-
-  /* ================ PROBLEMA ================ */
-  .problem { background: var(--bg); }
-
-  .problem-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-top: 80px;
-    padding: 60px 0;
-    border-top: 1px solid var(--border-soft);
-    border-bottom: 1px solid var(--border-soft);
-  }
-
-  .stat {
-    text-align: center;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease;
-  }
-
-  .stat.visible { opacity: 1; transform: translateY(0); }
-
-  .stat-number {
-    font-family: var(--serif);
-    font-size: clamp(3rem, 5vw, 4.5rem);
-    font-weight: 600;
-    color: var(--accent-text-strong);
-    line-height: 1;
-    margin-bottom: 16px;
-    font-style: normal;
-    letter-spacing: -0.04em;
-  }
-
-  .stat-label {
-    font-size: 0.875rem;
-    color: var(--text-soft);
-    line-height: 1.5;
-    max-width: 240px;
-    margin: 0 auto;
-  }
-
-  .problem-text {
-    max-width: 740px;
-    margin-top: 80px;
-  }
-
-  .problem-text p {
-    font-family: var(--serif);
-    font-size: 1.375rem;
-    line-height: 1.5;
-    color: var(--text);
-    font-weight: 400;
-    margin-bottom: 24px;
-    letter-spacing: -0.015em;
-  }
-
-  .problem-text p.italic {
-    font-style: normal;
-    color: var(--text-soft);
-  }
-
-  .problem-insights {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-top: 60px;
-  }
-
-  .insight {
-    padding: 32px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-soft);
-    border-radius: 8px;
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0;
-    transform: scale(0.85);
-  }
-
-  .insight.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .insight.visible:hover {
-    border-color: var(--accent-text-strong);
-    box-shadow: 0 8px 24px rgba(26, 26, 26, 0.06);
-    transform: scale(1) translateY(-2px);
-  }
-
-  .insight h4 {
-    font-family: var(--serif);
-    font-size: 1.0625rem;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 12px;
-    letter-spacing: -0.01em;
-  }
-
-  .insight h4 .italic {
-    color: var(--accent-text-strong);
-    font-style: normal;
-  }
-
-  .insight p {
-    font-family: var(--sans);
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--text-soft);
-    margin: 0;
-  }
-
-  /* ================ WAITLIST MAIN ================ */
-  .waitlist-main {
-    background: var(--bg-soft);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .waitlist-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 900px;
-    height: 900px;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, var(--coral-tint) 0%, transparent 65%);
-    filter: blur(60px);
-    z-index: 0;
-    pointer-events: none;
-    animation: pulseGlow 6s ease-in-out infinite;
-  }
-
-  .waitlist-main .container { position: relative; z-index: 1; }
-  .waitlist-main h2 { margin-left: auto; margin-right: auto; text-align: center; }
-  .waitlist-main .section-lead { margin-left: auto; margin-right: auto; text-align: center; }
-  .waitlist-main .section-tag { display: inline-block; }
-
-  .waitlist-benefits {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin: 64px 0;
-    text-align: left;
-  }
-
-  .benefit {
-    padding: 32px;
-    background: var(--bg);
-    border: 1px solid var(--border-soft);
-    border-radius: 8px;
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.4s ease;
-    opacity: 0;
-    transform: scale(0.85);
-  }
-
-  .benefit.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .benefit.visible:hover {
-    border-color: var(--accent-text-strong);
-    transform: scale(1) translateY(-4px);
-    box-shadow: 0 20px 40px rgba(26, 26, 26, 0.06);
-  }
-
-  .benefit-icon {
-    width: 36px;
-    height: 36px;
-    margin-bottom: 20px;
-    color: var(--accent-text-strong);
-    stroke-width: 1.5;
-  }
-
-  .benefit h4 {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    font-style: normal;
-    margin-bottom: 12px;
-    color: var(--text);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-  }
-
-  .benefit p {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--text-soft);
-  }
-
-  .waitlist-form-card {
-    max-width: 560px;
-    margin: 0 auto;
-    padding: 48px 40px;
-    background: white;
-    border: 1px solid var(--border-soft);
-    border-radius: 16px;
-    box-shadow: 0 8px 40px rgba(26, 26, 26, 0.04);
-  }
-
-  .waitlist-form-card h3 {
-    font-size: 1.875rem;
-    margin-bottom: 12px;
-    color: var(--text);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-  }
-
-  .waitlist-form-card p {
-    font-size: 0.9375rem;
-    margin-bottom: 28px;
-    color: var(--text-soft);
-  }
-
-  .waitlist-form-card .form-wrapper {
-    margin: 0;
-    animation: none;
-    opacity: 1;
-    box-shadow: none;
-    background: var(--bg);
-  }
-
-  /* ================ CARTA ABIERTA ================ */
-  .letter {
-    background: var(--bg);
-    padding: 140px 0;
-  }
-
-  .letter-content {
-    max-width: 720px;
-    margin: 60px auto 0;
-  }
-
-  .letter-paragraph {
-    font-family: var(--serif);
-    font-size: clamp(1.25rem, 1.7vw, 1.5rem);
-    line-height: 1.55;
-    color: var(--text);
-    margin-bottom: 32px;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-  }
-
-  .letter-signature {
-    margin-top: 60px;
-    font-family: var(--serif);
-    font-size: 1.125rem;
-    color: var(--text-soft);
-    line-height: 1.6;
-  }
-
-  .signature-names {
-    display: block;
-    margin-top: 8px;
-    font-family: var(--sans);
-    font-size: 0.8125rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--accent-text-strong);
-    font-weight: 500;
-  }
-
-  /* ================ COMUNIDAD ================ */
-  .community {
-    background: var(--bg-soft);
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-  }
-
-  .community-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 30%, var(--coral-tint) 0%, transparent 60%);
-    pointer-events: none;
-    animation: pulseGlow 6s ease-in-out infinite;
-  }
-
-  .community .container { position: relative; z-index: 1; }
-  .community .section-tag { display: inline-block; }
-  .community h2 { margin-left: auto; margin-right: auto; text-align: center; }
-  .community .section-lead { margin-left: auto; margin-right: auto; text-align: center; max-width: 620px; }
-
-  .community-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    max-width: 540px;
-    margin: 60px auto 28px;
-  }
-
-  .community-btn {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 22px 26px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-soft);
-    border-radius: 16px;
-    color: var(--text);
-    text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    cursor: pointer;
-    text-align: left;
-  }
-
-  .community-btn:hover {
-    border-color: var(--accent-text-strong);
-    transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.06);
-  }
-
-  .btn-icon {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    border-radius: 12px;
-    background: var(--bg-deep);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.4s ease;
-  }
-
-  .btn-icon svg {
-    width: 22px;
-    height: 22px;
-    color: var(--text-soft);
-    transition: color 0.4s ease;
-  }
-
-  .btn-content { flex: 1; min-width: 0; }
-
-  .btn-label {
-    font-family: var(--sans);
-    font-weight: 500;
-    font-size: 1rem;
-    color: var(--text);
-    margin-bottom: 4px;
-    letter-spacing: -0.01em;
-  }
-
-  .btn-sub {
-    font-size: 0.8125rem;
-    color: var(--text-faint);
     line-height: 1.4;
   }
+  .lead { font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; max-width: 34em; }
+  .red { color: var(--red); }
 
-  .btn-arrow {
-    font-size: 1.25rem;
-    color: var(--text-faint);
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+  /* Sections */
+  section { position: relative; padding: clamp(96px, 14vh, 180px) var(--gutter); }
+  .on-white { background: var(--white); color: var(--ink); }
+  .on-black { background: var(--black); color: var(--white); }
+  .on-red { background: var(--red); color: var(--white); }
+  .container { width: 100%; max-width: 1440px; margin: 0 auto; min-width: 0; }
+
+  /* CTA links */
+  .cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--body); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding-bottom: 6px; border-bottom: 1px solid currentColor;
+    transition: gap 0.35s var(--ease), color 0.3s;
   }
-
-  .community-btn:hover .btn-arrow {
-    transform: translateX(6px);
-    color: var(--accent-text-strong);
+  .cta:hover { gap: 20px; }
+  .cta .arrow { display: inline-block; transition: transform 0.35s var(--ease); }
+  .cta:hover .arrow { transform: translateX(4px); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+    font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: 0.02em;
+    text-transform: uppercase; padding: 18px 28px; border-radius: 999px;
+    background: var(--white); color: var(--ink); transition: transform 0.35s var(--ease), background 0.3s;
   }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.dark { background: var(--ink); color: var(--white); }
+  .btn.red { background: var(--red); color: var(--white); }
 
-  /* Botón Instagram - principal */
-  .community-btn.primary {
-    background: var(--text);
-    border-color: var(--text);
-    color: var(--bg);
-  }
-  .community-btn.primary .btn-icon { background: rgba(255, 255, 255, 0.1); }
-  .community-btn.primary .btn-icon svg { color: var(--bg); }
-  .community-btn.primary .btn-label { color: var(--bg); }
-  .community-btn.primary .btn-sub { color: rgba(255, 255, 255, 0.6); }
-  .community-btn.primary .btn-arrow { color: rgba(255, 255, 255, 0.6); }
-  .community-btn.primary:hover {
-    background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 50%, #FCAF45 100%);
-    border-color: transparent;
-    transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(252, 175, 69, 0.3);
-  }
-  .community-btn.primary:hover .btn-arrow { color: white; transform: translateX(6px); }
+  /* Reveal system */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity var(--reveal) var(--ease), transform var(--reveal) var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal-img { opacity: 0; transform: scale(1.04); transition: opacity 1s var(--ease), transform 1.2s var(--ease); }
+  .reveal-img.in { opacity: 1; transform: scale(1); }
+  .lines .line { display: block; overflow: hidden; }
+  .lines .line > span { display: block; transform: translateY(110%); transition: transform 0.9s var(--ease); }
+  .lines.in .line > span { transform: none; }
+  .lines.in .line:nth-child(2) > span { transition-delay: 0.1s; }
+  .lines.in .line:nth-child(3) > span { transition-delay: 0.2s; }
+  .lines.in .line:nth-child(4) > span { transition-delay: 0.3s; }
+  .d1 { transition-delay: 0.1s !important; }
+  .d2 { transition-delay: 0.2s !important; }
+  .d3 { transition-delay: 0.3s !important; }
 
-  /* Botón WhatsApp */
-  .community-btn.whatsapp:hover {
-    border-color: #25D366;
-    background: #25D366;
-    color: white;
-  }
-  .community-btn.whatsapp:hover .btn-icon { background: rgba(255, 255, 255, 0.15); }
-  .community-btn.whatsapp:hover .btn-icon svg,
-  .community-btn.whatsapp:hover .btn-label,
-  .community-btn.whatsapp:hover .btn-sub,
-  .community-btn.whatsapp:hover .btn-arrow { color: white; }
-
-  /* Email form */
-  .community-btn.email-form {
-    cursor: default;
-  }
-  .community-btn.email-form:hover {
-    transform: none;
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.04);
-  }
-
-  .email-row {
-    display: flex;
-    gap: 6px;
-    margin-top: 6px;
-    align-items: center;
-  }
-
-  .email-row input {
-    flex: 1;
-    padding: 8px 12px;
-    border: 1px solid var(--border-soft);
-    border-radius: 8px;
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-size: 0.875rem;
-    transition: border-color 0.3s ease;
-  }
-
-  .email-row input:focus {
-    outline: none;
-    border-color: var(--accent-text-strong);
-  }
-
-  .email-row input::placeholder { color: var(--text-whisper); }
-
-  .email-row button {
-    padding: 8px 16px;
-    background: var(--coral);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-family: var(--sans);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .email-row button:hover { background: var(--coral-dark); }
-
-  .community-note {
-    font-size: 0.8125rem;
-    color: var(--text-faint);
-    text-align: center;
-    margin-top: 20px;
-  }
-
-  /* ================ FAQ ================ */
-  .faq { background: var(--bg-soft); }
-
-  .faq-list { max-width: 820px; margin: 64px 0 0; }
-
-  .faq-item {
-    border-bottom: 1px solid var(--border-strong);
-    padding: 28px 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .faq-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .faq-question h4 {
-    font-family: var(--serif);
-    font-size: 1.375rem;
-    font-weight: 500;
-    color: var(--text);
-    transition: color 0.3s ease;
-    letter-spacing: -0.02em;
-  }
-
-  .faq-item:hover .faq-question h4 { color: var(--accent-text-strong); }
-
-  .faq-icon {
-    width: 20px;
-    height: 20px;
-    color: var(--accent-text-strong);
-    flex-shrink: 0;
-    transition: transform 0.4s ease;
-  }
-
-  .faq-item.open .faq-icon { transform: rotate(45deg); }
-
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.5s ease;
-    color: var(--text-soft);
-    font-size: 0.9375rem;
-    line-height: 1.7;
-  }
-
-  .faq-item.open .faq-answer {
-    max-height: 400px;
-    margin-top: 16px;
-  }
-
-  /* ================ CLOSING ================ */
-  .closing {
-    background: var(--bg);
-    text-align: center;
-    border-top: 1px solid var(--border-soft);
-    padding: 160px 32px;
-  }
-
-  .closing-symbol {
-    width: 90px;
-    height: 90px;
-    margin: 0 auto 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-  }
-
-  .closing-symbol svg path {
-    animation: breathe 4s ease-in-out infinite;
-    transform-origin: center;
-  }
-
-  .closing-symbol svg { width: 100%; height: 100%; display: block; }
-
-  .closing h2 {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    margin-bottom: 40px;
-  }
-
-  .closing .form-wrapper { margin: 40px auto 0; animation: none; opacity: 1; }
-
-  .closing-signature {
-    font-family: var(--serif);
-    font-style: normal;
-    font-size: 1.25rem;
-    color: var(--text-soft);
-    margin-top: 60px;
-    font-weight: 400;
-  }
-
-  .closing-signature .names {
-    color: var(--accent-text-strong);
-    display: block;
-    margin-top: 8px;
-    font-style: normal;
-    font-family: var(--sans);
-    font-size: 0.8125rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-
-  /* ================ FOOTER ================ */
-  footer {
-    padding: 60px 32px 40px;
-    border-top: 1px solid var(--border-soft);
-    background: var(--bg);
-  }
-
-  .footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 32px;
-  }
-
-  .footer-logo { height: 28px; width: auto; display: block; opacity: 0.8; }
-  .footer-logo svg { height: 100%; width: auto; display: block; }
-
-  .footer-text {
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    color: var(--text-faint);
-    line-height: 1.7;
-  }
-
-  .footer-text a {
-    color: var(--accent-text-strong);
-    font-weight: 500;
-  }
-
-  .footer-text a:hover { text-decoration: underline; }
-
-  .footer-contact {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-    border-top: 1px solid var(--border-soft);
-    padding-top: 24px;
-  }
-
-  .footer-contact a {
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    color: var(--accent-text-strong);
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .footer-contact a:hover {
-    color: var(--accent);
-    text-decoration: underline;
-  }
-
-  .footer-contact-divider {
-    color: var(--text-faint);
-    font-size: 0.75rem;
-  }
-
-  .footer-logo-credit {
-    display: inline-flex;
-    align-items: center;
-    vertical-align: middle;
-    transition: opacity 0.2s ease;
-    margin-left: 6px;
-  }
-
-  .footer-logo-credit:hover {
-    opacity: 0.7;
-  }
-
-  .footer-logo-credit img {
-    height: 56px;
-    width: auto;
-    filter: invert(1);
-    display: block;
-  }
-
-  [data-theme="dark"] .footer-logo-credit img {
-    filter: invert(0);
-  }
-
-  /* ================ PLACEHOLDERS ================ */
+  /* Placeholder for assets we still need */
   .placeholder {
-    color: var(--accent-placeholder);
-    font-family: var(--sans);
-    font-style: italic;
-    font-size: 0.9em;
-    background: var(--accent-placeholder-bg);
-    border: 1px dashed var(--accent-placeholder-border);
-    padding: 4px 10px;
-    border-radius: 4px;
-    display: inline-block;
+    position: relative; display: grid; place-items: center; text-align: center;
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 14px),
+      #141414;
+    color: var(--paper-soft);
   }
+  .placeholder .ph-label { padding: 24px; }
+  .placeholder .ph-label strong { display: block; font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); margin-bottom: 6px; }
+  .placeholder .ph-label span { font-size: 12px; letter-spacing: 0.06em; }
+  .placeholder::after { content: ""; position: absolute; inset: 14px; border: 1px dashed rgba(255,255,255,0.25); pointer-events: none; }
+  .on-white .placeholder { background: repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 14px), #efefef; color: var(--ink-soft); }
+  .on-white .placeholder .ph-label strong { color: var(--ink); }
+  .on-white .placeholder::after { border-color: rgba(0,0,0,0.22); }
 
-  /* ================ ANIMATIONS ================ */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* ============ LOADING ============ */
+  .loading {
+    position: fixed; inset: 0; z-index: 1000; background: var(--black);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+    transition: transform 0.9s var(--ease), opacity 0.6s;
   }
+  .loading.done { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+  .loading svg { width: clamp(180px, 28vw, 360px); height: auto; }
+  .loading svg path { fill: var(--white); opacity: 0; transform: translateY(12px); animation: wm-in 0.7s var(--ease) forwards; }
+  .loading svg path:nth-child(2) { animation-delay: 0.06s; }
+  .loading svg path:nth-child(3) { animation-delay: 0.12s; }
+  .loading svg path:nth-child(4) { animation-delay: 0.18s; }
+  .loading svg path:nth-child(5) { animation-delay: 0.24s; }
+  .loading .micro { opacity: 0; animation: fade-in 0.6s 0.45s var(--ease) forwards; color: var(--paper-soft); }
+  @keyframes wm-in { to { opacity: 1; transform: none; } }
+  @keyframes fade-in { to { opacity: 1; } }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  /* ============ NAV ============ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px var(--gutter);
+    mix-blend-mode: difference; color: var(--white);
+    transition: padding 0.4s var(--ease);
   }
+  nav .wordmark svg { height: 18px; width: auto; }
+  nav .wordmark svg path { fill: currentColor; }
+  nav ul { display: flex; gap: 32px; list-style: none; }
+  nav ul a { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; opacity: 0.85; }
+  nav ul a:hover { opacity: 1; }
+  nav .nav-cta { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; padding: 10px 16px; border: 1px solid currentColor; border-radius: 999px; }
+  @media (max-width: 900px) { nav ul { display: none; } }
 
-  /* ================ RESPONSIVE ================ */
+  /* ============ HERO ============ */
+  .hero { min-height: 100svh; padding: 0; display: flex; align-items: flex-end; overflow: hidden; }
+  .hero-media { position: absolute; inset: 0; }
+  .hero-media img, .hero-media video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; filter: grayscale(1) contrast(1.05); }
+  .hero-media img { animation: hero-kb 14s var(--ease) forwards; }
+  .hero-media video { object-position: 50% 50%; background: var(--ink); }
+  @keyframes hero-kb { from { transform: scale(1.08); } to { transform: scale(1); } }
+  .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.15) 100%); }
+  .hero-content { position: relative; width: 100%; padding: 0 var(--gutter) clamp(40px, 6vh, 72px); display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 32px; }
+  .hero-eyebrow { margin-bottom: 20px; color: var(--paper-soft); }
+  .hero h1 { font-size: var(--hero-size); }
+  .hero h1 .line { display: block; overflow: hidden; }
+  .hero h1 .line > span { display: block; transform: translateY(110%); transition: transform 1s var(--ease); }
+  .hero.in h1 .line > span { transform: none; }
+  .hero.in h1 .line:nth-child(2) > span { transition-delay: 0.12s; }
+  .hero-side { max-width: 320px; display: grid; gap: 28px; padding-bottom: 12px; }
+  .hero-side p { color: var(--paper-soft); font-size: 15px; }
+  .hero-scroll { position: absolute; right: var(--gutter); top: 50%; transform: rotate(90deg) translateX(-50%); transform-origin: right; color: var(--paper-faint); }
   @media (max-width: 900px) {
-    section { padding: 80px 24px; }
-    .container { padding: 0 24px; }
-    .research-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-    .founders-grid { grid-template-columns: 1fr; gap: 48px; }
-    .problem-insights { grid-template-columns: 1fr; gap: 32px; }
-    .problem-stats { grid-template-columns: 1fr; gap: 48px; }
-    .waitlist-benefits { grid-template-columns: 1fr; }
-    .community-buttons { max-width: 100%; }
-    .community-btn { padding: 18px 20px; gap: 14px; }
-    .btn-icon { width: 38px; height: 38px; min-width: 38px; }
-    .letter-paragraph { font-size: 1.0625rem; }
-    .form-wrapper { flex-direction: column; padding: 12px; border-radius: 16px; }
-    .form-wrapper button { width: 100%; }
-    nav { padding: 16px 20px; }
-    .intro-logo { width: 75vw; }
-    .closing { padding: 100px 24px; }
+    .hero-content { grid-template-columns: 1fr; }
+    .hero-media img { object-position: 50% 40%; }
+    .hero-scroll { display: none; }
   }
 
-  /* Mobile responsive */
-  @media (max-width: 640px) {
-    nav {
-      padding: 12px 16px;
-    }
-    nav .nav-inner {
-      gap: 12px;
-    }
-    .nav-cta {
-      font-size: 0.8125rem;
-      padding: 8px 16px;
-      white-space: nowrap;
-    }
-    .research-grid { grid-template-columns: 1fr; gap: 24px; }
-    .problem-insights { grid-template-columns: 1fr; gap: 24px; }
-    .research-card { padding: 32px 24px; }
-    .insight { padding: 24px; }
+  /* ============ BIG STATEMENT ============ */
+  .statement { min-height: 100vh; display: flex; align-items: center; }
+  .statement h2 { font-size: var(--title-size); max-width: 12em; }
+  .statement h2 + h2 { margin-top: 0.6em; }
+
+  /* ============ PROBLEM ============ */
+  .problem .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 96px); align-items: end; }
+  .problem figure { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #111; }
+  .problem figure img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+  .problem figcaption { position: absolute; left: 16px; bottom: 16px; color: var(--paper-faint); }
+  .problem .stat { font-family: var(--display); font-weight: 700; letter-spacing: -0.05em; line-height: 0.85; font-size: clamp(120px, 18vw, 300px); }
+  .problem .stat small { display: block; font-size: 0.32em; letter-spacing: -0.02em; color: var(--paper-soft); margin-top: 8px; }
+  .problem .stat-copy { margin-top: 28px; font-size: clamp(17px, 1.4vw, 20px); max-width: 32em; }
+  .problem .stat-copy strong { font-weight: 500; color: var(--white); }
+  .problem .stat-note { margin-top: 18px; font-size: 13px; color: var(--paper-faint); max-width: 40em; line-height: 1.5; }
+  .problem .stat-note a { border-bottom: 1px solid var(--line-light); }
+  .problem .support { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line-light); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
+  .problem .support h3 { font-size: var(--mid-size); text-transform: none; letter-spacing: -0.03em; line-height: 1.02; max-width: 12em; }
+  @media (max-width: 900px) {
+    .problem .grid { grid-template-columns: 1fr; }
+    .problem .support { grid-template-columns: 1fr; }
   }
 
-  /* ============================================
-     ANIMACIONES — INSIGHTS DE PROBLEMÁTICA
-     ============================================ */
+  /* ============ HORIZONTAL RAIL ============ */
+  .rail { padding: 0; --n: 5; --card-w: 60vw; --gap: 3vw; }
+  .rail-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding-top: 8vh; }
+  .rail-head { position: absolute; top: clamp(72px, 10vh, 110px); left: var(--gutter); right: var(--gutter); display: flex; justify-content: space-between; align-items: baseline; z-index: 2; }
+  .rail-head h2 { font-size: clamp(22px, 2.4vw, 34px); letter-spacing: -0.02em; }
+  .rail-track { display: flex; gap: var(--gap); padding-left: calc((100vw - var(--card-w)) / 2); padding-right: calc((100vw - var(--card-w)) / 2); will-change: transform; }
+  .card { flex: 0 0 var(--card-w); display: grid; gap: 22px; transition: none; }
+  .card figure { position: relative; aspect-ratio: 16 / 10; max-height: 46vh; width: 100%; overflow: hidden; background: #111; }
+  .card figure img, .card figure video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+  .card figure .placeholder { position: absolute; inset: 0; }
+  .card-info { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; }
+  .card-num { font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.1em; padding-top: 6px; color: var(--red); }
+  .card-info h3 { font-size: clamp(26px, 2.8vw, 44px); letter-spacing: -0.03em; line-height: 0.95; }
+  .card-info p { margin-top: 12px; color: var(--ink-soft); max-width: 32em; font-size: clamp(15px, 1.15vw, 18px); }
+  .rail-foot { position: absolute; bottom: clamp(28px, 5vh, 56px); left: var(--gutter); right: var(--gutter); display: flex; justify-content: space-between; align-items: center; z-index: 2; }
+  .rail-counter { font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.1em; font-variant-numeric: tabular-nums; }
+  .rail-counter span { color: var(--ink-faint); }
+  .rail-btns { display: flex; gap: 8px; }
+  .rail-btns button { width: 44px; height: 44px; border: 1px solid var(--line-dark); border-radius: 999px; display: grid; place-items: center; transition: background 0.3s, color 0.3s; }
+  .rail-btns button:hover { background: var(--ink); color: var(--white); }
+  .rail-btns button:disabled { opacity: 0.3; pointer-events: none; }
+  .rail-hint { color: var(--ink-faint); }
+  .rail-progress { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(16px, 3vh, 36px); height: 1px; background: var(--line-dark); z-index: 2; }
+  .rail-progress i { position: absolute; left: 0; top: -1px; height: 3px; width: 0; background: var(--red); }
+  .rail.dragging { cursor: grabbing; }
+  .rail.dragging .card { user-select: none; }
 
-  .insight-icon-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 64px;
-    margin-bottom: 16px;
-  }
+  /* Mobile / reduced motion: swipe + snap */
+  .rail.swipe { padding: clamp(80px, 12vh, 140px) 0; }
+  .rail.swipe .rail-sticky { position: static; height: auto; overflow: visible; display: block; }
+  .rail.swipe .rail-head { position: static; padding: 0 var(--gutter); margin-bottom: 32px; }
+  .rail.swipe .rail-track { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-left: var(--gutter); padding-right: var(--gutter); --card-w: 84vw; gap: 16px; -webkit-overflow-scrolling: touch; }
+  .rail.swipe .rail-track::-webkit-scrollbar { display: none; }
+  .rail.swipe .card { scroll-snap-align: start; transform: none !important; opacity: 1 !important; }
+  .rail.swipe .card figure { aspect-ratio: 4 / 5; max-height: none; }
+  .rail.swipe .card-info { grid-template-columns: 1fr; gap: 8px; }
+  .rail.swipe .rail-foot { position: static; padding: 28px var(--gutter) 0; }
+  .rail.swipe .rail-progress { position: static; margin: 20px var(--gutter) 0; }
+  .rail.swipe .rail-hint { display: none; }
+  @media (min-width: 901px) { .rail.swipe .card { --card-w: 46vw; } }
 
-  /* Estados base — sin animación */
-  .muven-insight-icon[data-icon="stuck"] .ldot {
-    opacity: 0.4;
-  }
+  /* ============ PROCESS VIDEO ============ */
+  .process .intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: end; }
+  .process .photo { position: relative; overflow: hidden; aspect-ratio: 2 / 3; background: #111; }
+  .process .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; filter: grayscale(1) contrast(1.05); }
+  .process .photo figcaption { position: absolute; left: 20px; bottom: 18px; color: var(--paper-faint); }
+  .process .headlines { padding-bottom: 12px; }
+  .process h2 { font-size: clamp(40px, 5.2vw, 84px); }
+  .process h2 + h2 { margin-top: 0.4em; color: var(--paper-faint); }
+  .process .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-top: clamp(48px, 7vh, 88px); }
+  .process .tags { display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--paper-faint); }
+  @media (max-width: 900px) { .process .intro, .process .grid { grid-template-columns: 1fr; } .process .headlines { padding-top: 40px; } }
 
-  .muven-insight-icon[data-icon="calendar"] .day-check { opacity: 1; }
-  .muven-insight-icon[data-icon="calendar"] .day-broken { opacity: 0; }
+  /* ============ PROTOTYPE / DESIGN LAB ============ */
+  .lab .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); }
+  .lab .visuals { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .lab .visuals > * { aspect-ratio: 1; overflow: hidden; }
+  .lab .visuals > *:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+  .lab .visuals img { width: 100%; height: 100%; object-fit: cover; }
+  .lab h2 { font-size: var(--title-size); }
+  .lab .lead { margin-top: 32px; color: var(--paper-soft); }
+  .lab ol { list-style: none; margin-top: 48px; border-top: 1px solid var(--line-light); }
+  .lab ol li { display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line-light); align-items: baseline; }
+  .lab ol li .n { color: var(--red); }
+  .lab ol li .name { font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: 0.02em; text-transform: uppercase; }
+  .lab ol li .val { color: var(--paper-faint); font-size: 13px; letter-spacing: 0.04em; }
+  .lab .note { margin-top: 20px; font-size: 13px; color: var(--paper-faint); }
+  @media (max-width: 900px) { .lab .grid { grid-template-columns: 1fr; } }
 
-  /* ANIMACIÓN 1: PROGRESO ESTANCADO — "Esperar no es recuperarse" */
-  .insight:hover .muven-insight-icon[data-icon="stuck"] .progress-fill,
-  .insight:active .muven-insight-icon[data-icon="stuck"] .progress-fill {
-    animation: stuckBar 2s ease-in-out infinite;
-  }
-  .insight:hover .muven-insight-icon[data-icon="stuck"] .percent,
-  .insight:active .muven-insight-icon[data-icon="stuck"] .percent {
-    animation: percentFlicker 2s ease-in-out infinite;
-  }
-  .insight:hover .muven-insight-icon[data-icon="stuck"] .l-1,
-  .insight:active .muven-insight-icon[data-icon="stuck"] .l-1 {
-    animation: dotBlink 1.4s ease-in-out infinite;
-  }
-  .insight:hover .muven-insight-icon[data-icon="stuck"] .l-2,
-  .insight:active .muven-insight-icon[data-icon="stuck"] .l-2 {
-    animation: dotBlink 1.4s ease-in-out infinite 0.2s;
-  }
-  .insight:hover .muven-insight-icon[data-icon="stuck"] .l-3,
-  .insight:active .muven-insight-icon[data-icon="stuck"] .l-3 {
-    animation: dotBlink 1.4s ease-in-out infinite 0.4s;
-  }
-  @keyframes stuckBar {
-    0%, 100% { width: 14px; }
-    50% { width: 17px; }
-  }
-  @keyframes percentFlicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-  @keyframes dotBlink {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-  }
+  /* ============ TEAM ============ */
+  .team .grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .team figure { aspect-ratio: 4 / 5; overflow: hidden; background: #f2f2f2; }
+  .team figure img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+  .team h2 { font-size: var(--title-size); }
+  .team .lead { margin-top: 32px; color: var(--ink-soft); }
+  .team .lead + .lead { margin-top: 18px; }
+  .team .labels { margin-top: 40px; display: grid; gap: 10px; color: var(--ink-soft); }
+  .team .labels span b { color: var(--ink); font-weight: 500; }
+  @media (max-width: 900px) { .team .grid { grid-template-columns: 1fr; } }
 
-  /* ANIMACIÓN 2: CLÍNICA CERRADA — "El acceso es el problema" */
-  .insight:hover .muven-insight-icon[data-icon="closed"] .lock,
-  .insight:active .muven-insight-icon[data-icon="closed"] .lock {
-    animation: lockShake 0.6s ease-in-out infinite;
-    transform-origin: 28px 36px;
-    transform-box: fill-box;
-  }
-  .insight:hover .muven-insight-icon[data-icon="closed"] .door,
-  .insight:active .muven-insight-icon[data-icon="closed"] .door {
-    animation: doorPulse 1.4s ease-in-out infinite;
-  }
-  @keyframes lockShake {
-    0%, 100% { transform: translateX(0) rotate(0deg); }
-    20%      { transform: translateX(-1.5px) rotate(-3deg); }
-    40%      { transform: translateX(1.5px) rotate(3deg); }
-    60%      { transform: translateX(-1px) rotate(-2deg); }
-    80%      { transform: translateX(1px) rotate(2deg); }
-  }
-  @keyframes doorPulse {
-    0%, 100% { stroke: var(--accent); }
-    50%      { stroke: rgba(239, 68, 68, 0.4); }
-  }
+  /* ============ BUILDING IN PUBLIC ============ */
+  .public { padding-left: 0; padding-right: 0; overflow: hidden; }
+  .public .head { padding: 0 var(--gutter); display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end; margin-bottom: clamp(40px, 6vh, 72px); }
+  .public h2 { font-size: var(--title-size); }
+  .public .lead { color: var(--ink-soft); }
+  .marquee { display: flex; gap: 12px; width: max-content; animation: marquee 60s linear infinite; }
+  .marquee:hover { animation-play-state: paused; }
+  .marquee figure { flex: 0 0 auto; height: clamp(220px, 32vh, 360px); overflow: hidden; background: #f0f0f0; }
+  .marquee figure img { height: 100%; width: auto; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  .public .tags { padding: 36px var(--gutter) 0; display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--ink-faint); }
+  @media (max-width: 900px) { .public .head { grid-template-columns: 1fr; } }
 
-  /* ANIMACIÓN 3: CALENDARIO ROTO — "Lo que pierdes no es solo tiempo" */
-  .insight:hover .muven-insight-icon[data-icon="calendar"] .day-check,
-  .insight:active .muven-insight-icon[data-icon="calendar"] .day-check {
-    opacity: 0;
-    transform-box: fill-box;
-  }
-  .insight:hover .muven-insight-icon[data-icon="calendar"] .c-1,
-  .insight:active .muven-insight-icon[data-icon="calendar"] .c-1 {
-    animation: checkPop 4s ease-in-out infinite 0.2s;
-  }
-  .insight:hover .muven-insight-icon[data-icon="calendar"] .c-2,
-  .insight:active .muven-insight-icon[data-icon="calendar"] .c-2 {
-    animation: checkPop 4s ease-in-out infinite 0.5s;
-  }
-  .insight:hover .muven-insight-icon[data-icon="calendar"] .c-3,
-  .insight:active .muven-insight-icon[data-icon="calendar"] .c-3 {
-    animation: checkPop 4s ease-in-out infinite 0.8s;
-  }
-  .insight:hover .muven-insight-icon[data-icon="calendar"] .c-4,
-  .insight:active .muven-insight-icon[data-icon="calendar"] .c-4 {
-    animation: checkPop 4s ease-in-out infinite 1.1s;
-  }
-  .insight:hover .muven-insight-icon[data-icon="calendar"] .day-broken,
-  .insight:active .muven-insight-icon[data-icon="calendar"] .day-broken {
-    animation: brokenPop 4s ease-in-out infinite 1.4s;
-    transform-box: fill-box;
-  }
-  .insight:hover .muven-insight-icon[data-icon="calendar"] .c-5,
-  .insight:active .muven-insight-icon[data-icon="calendar"] .c-5 {
-    animation: checkFaded 4s ease-in-out infinite 1.8s;
-  }
-  .insight:hover .muven-insight-icon[data-icon="calendar"] .c-6,
-  .insight:active .muven-insight-icon[data-icon="calendar"] .c-6 {
-    animation: checkFaded 4s ease-in-out infinite 2.1s;
-  }
-  @keyframes checkPop {
-    0%, 100% { opacity: 0; transform: scale(0.3); }
-    8%, 80%  { opacity: 1; transform: scale(1); }
-  }
-  @keyframes brokenPop {
-    0%, 100%  { opacity: 0; transform: scale(0.5); }
-    8%        { opacity: 1; transform: scale(1.4); }
-    20%, 80%  { opacity: 1; transform: scale(1); }
-  }
-  @keyframes checkFaded {
-    0%, 100% { opacity: 0; transform: scale(0.3); }
-    8%, 80%  { opacity: 0.35; transform: scale(0.85); }
-  }
+  /* ============ COMMUNITY / EVENTS ============ */
+  .community { min-height: 90vh; display: flex; align-items: center; }
+  .community .grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(40px, 8vw, 140px); align-items: end; width: 100%; }
+  .community h2 { font-size: var(--title-size); }
+  .community .lead { margin-top: 32px; color: rgba(255,255,255,0.85); }
+  .signup { margin-top: 40px; display: grid; gap: 14px; max-width: 520px; }
+  .signup .row { display: grid; grid-template-columns: 1fr auto; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.5); }
+  .signup input { min-width: 0; background: none; border: 0; outline: 0; padding: 16px 0; font-size: 18px; color: var(--white); width: 100%; }
+  .signup input::placeholder { color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em; font-size: 13px; }
+  .signup button { font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; text-transform: uppercase; padding: 12px 0 12px 20px; white-space: nowrap; display: inline-flex; gap: 12px; align-items: center; }
+  .signup button .arrow { transition: transform 0.35s var(--ease); }
+  .signup button:hover .arrow { transform: translateX(6px); }
+  .signup .note { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+  .signup .success { display: none; }
+  .signup.done form { display: none; }
+  .signup.done .success { display: block; }
+  .signup .success h3 { font-size: clamp(40px, 5vw, 72px); }
+  .signup .success p { margin-top: 12px; color: rgba(255,255,255,0.85); }
+  .event { border: 1px solid rgba(255,255,255,0.45); padding: 28px; display: grid; gap: 18px; }
+  .event .micro { color: rgba(255,255,255,0.75); }
+  .event h3 { font-size: clamp(28px, 2.6vw, 40px); letter-spacing: -0.03em; }
+  .event .meta { display: grid; gap: 6px; font-size: 15px; }
+  .event .cta { align-self: start; margin-top: 8px; }
+  @media (max-width: 900px) { .community .grid { grid-template-columns: 1fr; } .signup .row { grid-template-columns: 1fr; } .signup button { padding: 14px 0 12px; border-top: 1px solid rgba(255,255,255,0.3); } }
 
-  /* Accesibilidad — respetar reduced motion */
+  /* ============ COUNTDOWN ============ */
+  .countdown { display: none; text-align: left; }
+  .countdown.active { display: block; }
+  .countdown h2 { font-size: var(--title-size); }
+  .countdown .digits { display: grid; grid-template-columns: repeat(4, auto); gap: clamp(24px, 5vw, 80px); margin: 56px 0 40px; justify-content: start; }
+  .countdown .digits div { font-family: var(--display); font-weight: 700; font-size: clamp(56px, 9vw, 140px); letter-spacing: -0.04em; line-height: 0.9; font-variant-numeric: tabular-nums; }
+  .countdown .digits div small { display: block; font-family: var(--body); font-weight: 500; font-size: 12px; letter-spacing: 0.12em; margin-top: 12px; color: var(--paper-faint); }
+
+  /* ============ FAQ ============ */
+  .faq .grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); }
+  .faq h2 { font-size: clamp(36px, 4.5vw, 72px); position: sticky; top: 120px; }
+  .faq-list { border-top: 1px solid var(--line-dark); }
+  .faq-item { border-bottom: 1px solid var(--line-dark); }
+  .faq-item button { width: 100%; text-align: left; display: grid; grid-template-columns: 1fr 24px; gap: 24px; align-items: center; padding: 26px 0; font-family: var(--display); font-weight: 600; font-size: clamp(18px, 1.6vw, 24px); letter-spacing: -0.02em; }
+  .faq-item button .plus { position: relative; width: 16px; height: 16px; justify-self: end; }
+  .faq-item button .plus::before, .faq-item button .plus::after { content: ""; position: absolute; background: currentColor; left: 50%; top: 50%; transform: translate(-50%, -50%); transition: transform 0.4s var(--ease); }
+  .faq-item button .plus::before { width: 16px; height: 1px; }
+  .faq-item button .plus::after { width: 1px; height: 16px; }
+  .faq-item.open button .plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .faq-item .answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+  .faq-item .answer > div { overflow: hidden; }
+  .faq-item .answer p { padding: 0 48px 28px 0; color: var(--ink-soft); max-width: 40em; }
+  .faq-item.open .answer { grid-template-rows: 1fr; }
+  @media (max-width: 900px) { .faq .grid { grid-template-columns: 1fr; } .faq h2 { position: static; } }
+
+  /* ============ FINAL ============ */
+  .final { min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
+  .final .bg { position: absolute; inset: 0; opacity: 0.22; }
+  .final .bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; filter: grayscale(1); }
+  .final .container { position: relative; }
+  .final h2 { font-size: var(--hero-size); }
+  .final .sub { margin: 40px 0; color: var(--paper-soft); }
+
+  /* ============ FOOTER ============ */
+  footer { padding: clamp(56px, 8vh, 96px) var(--gutter) 40px; border-top: 1px solid var(--line-light); }
+  footer .top { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; }
+  footer .wordmark svg { height: 40px; width: auto; }
+  footer .wordmark svg path { fill: var(--white); }
+  footer .tag { margin-top: 12px; color: var(--paper-faint); }
+  footer ul { list-style: none; display: grid; grid-template-columns: repeat(2, auto); gap: 12px 48px; }
+  footer ul a { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--paper-soft); }
+  footer ul a:hover { color: var(--white); }
+  footer .bottom { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line-light); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--paper-faint); }
+  @media (max-width: 900px) { footer .top { grid-template-columns: 1fr; } }
+
+  /* ============ DEMO TOOLBAR (solo para revisión interna) ============ */
+
   @media (prefers-reduced-motion: reduce) {
-    .insight,
-    .insight * {
-      animation: none !important;
-      transition: none !important;
-    }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .reveal, .reveal-img, .lines .line > span, .hero h1 .line > span { opacity: 1; transform: none; }
+    .marquee { animation: none; }
+    .loading { display: none; }
   }
-
-  </style>
+</style>
 </head>
-<body class="booting intro-active">
+<body>
 
-
-</div>
-
-
-<!-- BOOT GUARD: espera a que las fuentes carguen antes de mostrar el body -->
-<script>
-  (function bootGuard() {
-    function reveal() {
-      document.body.classList.remove('booting');
-      document.body.classList.add('booted');
-    }
-
-    // Esperar a que las fuentes carguen (con fallback de 1.5s)
-    if (document.fonts && document.fonts.ready) {
-      Promise.race([
-        document.fonts.ready,
-        new Promise(resolve => setTimeout(resolve, 1500))
-      ]).then(reveal);
-    } else {
-      // Fallback para navegadores sin Font Loading API
-      setTimeout(reveal, 600);
-    }
-  })();
-</script>
-
-<!-- ================ INTRO ================ -->
-<div class="intro" id="intro">
-  <div class="intro-curtain" id="introCurtain"></div>
-  <div class="intro-stack">
-    <!-- Símbolo "M" — vuela al hero -->
-    <div class="intro-symbol" id="introSymbol">
-      <svg viewBox="580 140 760 770" xmlns="http://www.w3.org/2000/svg">
-        <path d="M581.26,897.54V182.38c0-19.89,16.12-36.01,36.01-36.01h95.02c20.08,0,36.14,16.64,35.44,36.71-4.55,130.87-2.35,565.91,229.1,547.7,0,0,205.81-11.17,195.07-548.4-.39-19.51,15.25-35.58,34.76-35.63l99.53-.28c17.96-.05,32.55,14.49,32.55,32.45v717c0,20.83-16.88,37.71-37.71,37.71h-93.34c-20.57,0-37.24-16.67-37.24-37.24v-220.8s-63.2,116.42-188.84,129.66c-3.66.39-7.36.09-11.02.35-26.42,1.93-149.3,2.53-221.04-142.62v233.95c0,20.27-16.44,36.71-36.71,36.71h-95.49c-19.93,0-36.09-16.16-36.09-36.09Z"/>
-      </svg>
-    </div>
-    <!-- Wordmark "MUVEN" — letras en orden de lectura para el stagger; vuela al nav -->
-    <div class="intro-wordmark" id="introWordmark">
-      <svg viewBox="580 870 760 170" xmlns="http://www.w3.org/2000/svg">
-        <g>
-          <path d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
-          <path d="M887.56,976.1c0,38.65-27.8,62.83-64.41,62.83s-64.41-24.18-64.41-62.83v-94.56c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v93.65c0,15.82,8.59,36.61,35.93,36.61s35.93-20.79,35.93-36.61v-93.65c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v94.56Z"/>
-          <path d="M906.11,874.85h18.73c2.9,0,5.48,1.82,6.46,4.54l36.77,101.93c2.17,6.02,10.67,6.06,12.9.06l37.96-102.06c1-2.69,3.57-4.48,6.44-4.48h16.59c4.87,0,8.19,4.93,6.37,9.44l-60.8,150.5c-1.05,2.6-3.57,4.3-6.37,4.3h-15.97c-2.83,0-5.36-1.73-6.4-4.36l-59.1-150.5c-1.77-4.51,1.55-9.38,6.4-9.38Z"/>
-          <path d="M1067.51,874.85h95.06c3.79,0,6.87,3.08,6.87,6.87v12.7c0,3.79-3.08,6.87-6.87,6.87h-65.83c-3.79,0-6.87,3.08-6.87,6.87v26.62c0,3.79,3.08,6.87,6.87,6.87h61.65c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-61.65c-3.79,0-6.87,3.08-6.87,6.87v30.8c0,3.79,3.08,6.87,6.87,6.87h70c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-99.23c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
-          <path d="M1191.95,874.85h28.15c2.32,0,4.49,1.17,5.76,3.12l77.54,118.9h.46v-115.15c0-3.79,3.08-6.87,6.87-6.87h15.49c3.79,0,6.87,3.08,6.87,6.87v150.5c0,3.79-3.08,6.87-6.87,6.87h-26.5c-2.33,0-4.51-1.19-5.77-3.15l-79.16-122.82h-.46v119.1c0,3.79-3.08,6.87-6.87,6.87h-15.49c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
-        </g>
-      </svg>
-    </div>
-  </div>
-  <div class="intro-tagline" id="introTagline">Back in motion</div>
+<!-- ================ LOADING ================ -->
+<div class="loading" id="loading" aria-hidden="true">
+  <svg viewBox="580 870 760 170" xmlns="http://www.w3.org/2000/svg">
+    <path d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
+    <path d="M887.56,976.1c0,38.65-27.8,62.83-64.41,62.83s-64.41-24.18-64.41-62.83v-94.56c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v93.65c0,15.82,8.59,36.61,35.93,36.61s35.93-20.79,35.93-36.61v-93.65c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v94.56Z"/>
+    <path d="M906.11,874.85h18.73c2.9,0,5.48,1.82,6.46,4.54l36.77,101.93c2.17,6.02,10.67,6.06,12.9.06l37.96-102.06c1-2.69,3.57-4.48,6.44-4.48h16.59c4.87,0,8.19,4.93,6.37,9.44l-60.8,150.5c-1.05,2.6-3.57,4.3-6.37,4.3h-15.97c-2.83,0-5.36-1.73-6.4-4.36l-59.1-150.5c-1.77-4.51,1.55-9.38,6.4-9.38Z"/>
+    <path d="M1067.51,874.85h95.06c3.79,0,6.87,3.08,6.87,6.87v12.7c0,3.79-3.08,6.87-6.87,6.87h-65.83c-3.79,0-6.87,3.08-6.87,6.87v26.62c0,3.79,3.08,6.87,6.87,6.87h61.65c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-61.65c-3.79,0-6.87,3.08-6.87,6.87v30.8c0,3.79,3.08,6.87,6.87,6.87h70c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-99.23c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+    <path d="M1191.95,874.85h28.15c2.32,0,4.49,1.17,5.76,3.12l77.54,118.9h.46v-115.15c0-3.79,3.08-6.87,6.87-6.87h15.49c3.79,0,6.87,3.08,6.87,6.87v150.5c0,3.79-3.08,6.87-6.87,6.87h-26.5c-2.33,0-4.51-1.19-5.77-3.15l-79.16-122.82h-.46v119.1c0,3.79-3.08,6.87-6.87,6.87h-15.49c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+  </svg>
+  <div class="micro">Back to motion</div>
 </div>
 
 <!-- ================ NAV ================ -->
-<nav id="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <svg viewBox="580 870 760 170" xmlns="http://www.w3.org/2000/svg">
-        <g fill="var(--nav-logo-fill)">
-          <path d="M887.56,976.1c0,38.65-27.8,62.83-64.41,62.83s-64.41-24.18-64.41-62.83v-94.56c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v93.65c0,15.82,8.59,36.61,35.93,36.61s35.93-20.79,35.93-36.61v-93.65c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v94.56Z"/>
-          <path d="M906.11,874.85h18.73c2.9,0,5.48,1.82,6.46,4.54l36.77,101.93c2.17,6.02,10.67,6.06,12.9.06l37.96-102.06c1-2.69,3.57-4.48,6.44-4.48h16.59c4.87,0,8.19,4.93,6.37,9.44l-60.8,150.5c-1.05,2.6-3.57,4.3-6.37,4.3h-15.97c-2.83,0-5.36-1.73-6.4-4.36l-59.1-150.5c-1.77-4.51,1.55-9.38,6.4-9.38Z"/>
-          <path d="M1067.51,874.85h95.06c3.79,0,6.87,3.08,6.87,6.87v12.7c0,3.79-3.08,6.87-6.87,6.87h-65.83c-3.79,0-6.87,3.08-6.87,6.87v26.62c0,3.79,3.08,6.87,6.87,6.87h61.65c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-61.65c-3.79,0-6.87,3.08-6.87,6.87v30.8c0,3.79,3.08,6.87,6.87,6.87h70c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-99.23c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
-          <path d="M1191.95,874.85h28.15c2.32,0,4.49,1.17,5.76,3.12l77.54,118.9h.46v-115.15c0-3.79,3.08-6.87,6.87-6.87h15.49c3.79,0,6.87,3.08,6.87,6.87v150.5c0,3.79-3.08,6.87-6.87,6.87h-26.5c-2.33,0-4.51-1.19-5.77-3.15l-79.16-122.82h-.46v119.1c0,3.79-3.08,6.87-6.87,6.87h-15.49c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
-          <path d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
-        </g>
-      </svg>
-    </a>
-    <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="4"/>
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-        </svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
-      <a href="#comunidad" class="nav-cta">Únete a la comunidad →</a>
-    </div>
-  </div>
+<nav>
+  <a href="#top" class="wordmark" aria-label="MUVEN">
+    <svg viewBox="580 870 760 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
+      <path d="M887.56,976.1c0,38.65-27.8,62.83-64.41,62.83s-64.41-24.18-64.41-62.83v-94.56c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v93.65c0,15.82,8.59,36.61,35.93,36.61s35.93-20.79,35.93-36.61v-93.65c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v94.56Z"/>
+      <path d="M906.11,874.85h18.73c2.9,0,5.48,1.82,6.46,4.54l36.77,101.93c2.17,6.02,10.67,6.06,12.9.06l37.96-102.06c1-2.69,3.57-4.48,6.44-4.48h16.59c4.87,0,8.19,4.93,6.37,9.44l-60.8,150.5c-1.05,2.6-3.57,4.3-6.37,4.3h-15.97c-2.83,0-5.36-1.73-6.4-4.36l-59.1-150.5c-1.77-4.51,1.55-9.38,6.4-9.38Z"/>
+      <path d="M1067.51,874.85h95.06c3.79,0,6.87,3.08,6.87,6.87v12.7c0,3.79-3.08,6.87-6.87,6.87h-65.83c-3.79,0-6.87,3.08-6.87,6.87v26.62c0,3.79,3.08,6.87,6.87,6.87h61.65c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-61.65c-3.79,0-6.87,3.08-6.87,6.87v30.8c0,3.79,3.08,6.87,6.87,6.87h70c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-99.23c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+      <path d="M1191.95,874.85h28.15c2.32,0,4.49,1.17,5.76,3.12l77.54,118.9h.46v-115.15c0-3.79,3.08-6.87,6.87-6.87h15.49c3.79,0,6.87,3.08,6.87,6.87v150.5c0,3.79-3.08,6.87-6.87,6.87h-26.5c-2.33,0-4.51-1.19-5.77-3.15l-79.16-122.82h-.46v119.1c0,3.79-3.08,6.87-6.87,6.87h-15.49c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+    </svg>
+  </a>
+  <ul>
+    <li><a href="#historia">Historia</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#comunidad" class="nav-cta" data-track="hero_cta_click">Únete</a>
 </nav>
 
-<main id="main">
+<main id="top">
 
 <!-- ================ HERO ================ -->
-<section class="hero">
-  <div class="hero-rings">
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="ring"></div>
+<section class="hero on-black" id="hero">
+  <div class="hero-media" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="auto" poster="assets/photos/hero-video-poster.webp" width="1920" height="1080">
+      <source src="assets/video/hero.webm" type="video/webm">
+      <source src="assets/video/hero.mp4" type="video/mp4">
+    </video>
   </div>
-
-  <div class="hero-glow"></div>
-
   <div class="hero-content">
-    <!-- Slot donde aterriza la M de la intro -->
-    <div class="hero-symbol-slot" id="heroSymbolSlot" aria-hidden="true"></div>
-
-    <div class="hero-tag">
-      <span class="dot"></span>
-      <span>Vuelve al movimiento</span>
+    <div>
+      <div class="micro hero-eyebrow reveal">Recovery, reimagined.</div>
+      <h1><span class="line"><span>Back in</span></span><span class="line"><span>motion.</span></span></h1>
     </div>
+    <div class="hero-side reveal d2">
+      <p>Una nueva forma de integrar la recuperación a tu rutina.</p>
+      <a href="#statement" class="cta" data-track="hero_cta_click">Conoce MUVEN <span class="arrow">↓</span></a>
+    </div>
+  </div>
+  <div class="micro hero-scroll">Scroll</div>
+</section>
 
-    <h1 class="hero-title">
-      <span class="line">Back in</span>
-      <span class="line"><span class="italic">motion</span></span>
-    </h1>
-
-    <form class="form-wrapper" onsubmit="handleWaitlist(event)">
-      <input type="email" placeholder="tu@correo.com" required>
-      <button type="submit">Únete al proceso</button>
-    </form>
-
-    <p class="form-note">Para atletas que eligen recuperarse, no resignarse. Creado por diseñadoras industriales. Validado por fisioterapeutas. Sé parte desde el inicio.</p>
+<!-- ================ BIG STATEMENT ================ -->
+<section class="statement on-white" id="statement">
+  <div class="container">
+    <h2 class="lines"><span class="line"><span>No queremos</span></span><span class="line"><span>que te acostumbres</span></span><span class="line"><span>a parar.</span></span></h2>
+    <h2 class="lines red"><span class="line"><span>Queremos que</span></span><span class="line"><span>puedas volver.</span></span></h2>
   </div>
 </section>
 
-<!-- ================ INVESTIGACIÓN ================ -->
-<section class="research">
+<!-- ================ PROBLEM ================ -->
+<section class="problem on-black" id="problema" data-track-view="problem_section_view">
   <div class="container">
-    <div class="section-tag">— 01 — La investigación</div>
-    <h2 class="section-title">Lo que estamos<br><span class="italic">investigando.</span></h2>
-    <p class="section-lead">
-      Cuatro tecnologías de recuperación que hoy existen por separado. Muven las combina en una sola herramienta pensada para usarse entre entrenamientos.
-    </p>
-
-    <div class="research-grid">
-      <div class="research-card">
-        <div class="research-icon">
-          <svg viewBox="0 0 56 56" width="50" height="50" fill="none" stroke="#ef4444" stroke-width="1.4" stroke-linecap="round" class="muven-icon" data-icon="cryo">
-            <g class="snow-main">
-              <line x1="28" y1="10" x2="28" y2="46"/>
-              <line x1="13" y1="18" x2="43" y2="38"/>
-              <line x1="13" y1="38" x2="43" y2="18"/>
-              <line x1="28" y1="10" x2="25" y2="14"/>
-              <line x1="28" y1="10" x2="31" y2="14"/>
-              <line x1="28" y1="46" x2="25" y2="42"/>
-              <line x1="28" y1="46" x2="31" y2="42"/>
-              <line x1="13" y1="18" x2="17" y2="19"/>
-              <line x1="13" y1="18" x2="14" y2="22"/>
-              <line x1="43" y1="38" x2="39" y2="37"/>
-              <line x1="43" y1="38" x2="42" y2="34"/>
-              <line x1="13" y1="38" x2="14" y2="34"/>
-              <line x1="13" y1="38" x2="17" y2="37"/>
-              <line x1="43" y1="18" x2="42" y2="22"/>
-              <line x1="43" y1="18" x2="39" y2="19"/>
-            </g>
-            <g class="orbit-1"><circle cx="48" cy="28" r="1.5" fill="#ef4444"/></g>
-            <g class="orbit-2"><circle cx="8" cy="28" r="1.2" fill="#ef4444"/></g>
-            <g class="orbit-3"><circle cx="28" cy="6" r="1" fill="#ef4444"/></g>
-          </svg>
+    <div class="grid">
+      <figure class="reveal-img">
+        <img src="assets/photos/problem-tired.webp" alt="Atleta recuperando el aliento con las manos en las rodillas sobre una pista de atletismo" loading="lazy" data-parallax="0.06">
+        <figcaption class="micro">Monterrey, MX — 2026</figcaption>
+      </figure>
+      <div>
+        <div class="micro reveal" style="color: var(--red); margin-bottom: 32px;">01 — The problem</div>
+        <div class="stat reveal d1">~40%<small>incidencia global promedio</small></div>
+        <p class="stat-copy reveal d2">Una revisión sistemática de lesiones musculoesqueléticas relacionadas con correr reportó una <strong>incidencia global promedio de 40.2&nbsp;% ±&nbsp;18.8&nbsp;%</strong>.</p>
+        <p class="stat-note reveal d3">Las cifras varían según la definición de lesión, la población estudiada y el tiempo de seguimiento. Fuente: <a href="https://pubmed.ncbi.nlm.nih.gov/33862272/" target="_blank" rel="noopener">PubMed, revisión sistemática (2021)</a>.</p>
+        <div class="support reveal d3">
+          <h3>Entrenas para avanzar. Recuperarte también es parte del entrenamiento.</h3>
+          <a href="#historia" class="cta">Por eso existe MUVEN <span class="arrow">→</span></a>
         </div>
-        <h3>Crioterapia</h3>
-        <p>Aplicación controlada de frío para reducir inflamación y acelerar recuperación muscular después del esfuerzo.</p>
-      </div>
-
-      <div class="research-card">
-        <div class="research-icon">
-          <svg viewBox="0 0 56 56" width="50" height="50" fill="none" stroke="#ef4444" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="muven-icon" data-icon="thermo">
-            <g class="sun-rays">
-              <line x1="28" y1="4" x2="28" y2="8"/>
-              <line x1="44" y1="12" x2="41" y2="15"/>
-              <line x1="52" y1="28" x2="48" y2="28"/>
-              <line x1="44" y1="44" x2="41" y2="41"/>
-              <line x1="28" y1="52" x2="28" y2="48"/>
-              <line x1="12" y1="44" x2="15" y2="41"/>
-              <line x1="4" y1="28" x2="8" y2="28"/>
-              <line x1="12" y1="12" x2="15" y2="15"/>
-            </g>
-            <path class="flame-e" d="M28 46 C20 42 18 32 24 26 C24 30 27 32 28 30 C28 22 32 18 30 12 C38 18 42 26 40 34 C40 42 34 46 28 46 Z"/>
-            <path class="heat-wave hw-1" d="M16 32 Q18 30 20 32 Q22 34 24 32" stroke-width="1.2"/>
-            <path class="heat-wave hw-2" d="M32 32 Q34 30 36 32 Q38 34 40 32" stroke-width="1.2"/>
-          </svg>
-        </div>
-        <h3>Termoterapia</h3>
-        <p>Calor dirigido para aumentar circulación, relajar tejidos y preparar el músculo antes o después de entrenar.</p>
-      </div>
-
-      <div class="research-card">
-        <div class="research-icon">
-          <svg viewBox="0 0 56 56" width="50" height="50" fill="none" stroke="#ef4444" stroke-width="1.4" stroke-linecap="round" class="muven-icon" data-icon="myo">
-            <circle class="impact i-1" cx="28" cy="32" r="14" stroke-width="1.2"/>
-            <circle class="impact i-2" cx="28" cy="32" r="20" stroke-width="1"/>
-            <g class="ball">
-              <circle cx="28" cy="32" r="9" fill="#f0e8e2"/>
-              <line x1="28" y1="20" x2="28" y2="24"/>
-              <line x1="28" y1="40" x2="28" y2="44"/>
-              <line x1="16" y1="32" x2="20" y2="32"/>
-              <line x1="36" y1="32" x2="40" y2="32"/>
-              <line x1="20" y1="24" x2="22.5" y2="26.5"/>
-              <line x1="36" y1="24" x2="33.5" y2="26.5"/>
-              <line x1="20" y1="40" x2="22.5" y2="37.5"/>
-              <line x1="36" y1="40" x2="33.5" y2="37.5"/>
-              <circle cx="28" cy="32" r="9"/>
-              <circle cx="25" cy="29" r="1" fill="#ef4444"/>
-            </g>
-          </svg>
-        </div>
-        <h3>Liberación miofascial</h3>
-        <p>Presión específica sobre puntos de tensión para liberar nudos musculares y restaurar movilidad.</p>
-      </div>
-
-      <div class="research-card">
-        <div class="research-icon">
-          <svg viewBox="0 0 56 56" width="50" height="50" fill="none" stroke="#ef4444" stroke-width="1.4" stroke-linecap="round" class="muven-icon" data-icon="press">
-            <circle class="press-ring p-1" cx="28" cy="28" r="22" stroke-width="1"/>
-            <circle class="press-ring p-2" cx="28" cy="28" r="16" stroke-width="1.2"/>
-            <circle class="press-ring p-3" cx="28" cy="28" r="10" stroke-width="1.4"/>
-            <g class="ticks">
-              <line x1="28" y1="4" x2="28" y2="7" stroke-width="1.5"/>
-              <line x1="52" y1="28" x2="49" y2="28" stroke-width="1.5"/>
-              <line x1="28" y1="52" x2="28" y2="49" stroke-width="1.5"/>
-              <line x1="4" y1="28" x2="7" y2="28" stroke-width="1.5"/>
-            </g>
-            <circle class="press-core" cx="28" cy="28" r="3" fill="#ef4444"/>
-          </svg>
-        </div>
-        <h3>Presión controlada</h3>
-        <p>Compresión calibrada que mejora retorno venoso, reduce fatiga muscular y acelera la recuperación entre sesiones.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================ FUNDADORAS ================ -->
-<!-- ================ CARTA ABIERTA ================ -->
-<section class="letter" id="carta">
+<!-- ================ HORIZONTAL RAIL ================ -->
+<section class="rail on-white" id="historia" aria-label="La historia de MUVEN">
+  <div class="rail-sticky">
+    <div class="rail-head">
+      <h2>De un problema<br>a un objeto.</h2>
+      <div class="micro rail-hint">→ Scroll to explore</div>
+    </div>
+
+    <div class="rail-track" id="railTrack">
+      <article class="card" data-index="0">
+        <figure><img src="assets/photos/rail-01-problem.webp" alt="Corredor exhausto, inclinado con las manos sobre las rodillas" loading="lazy"></figure>
+        <div class="card-info">
+          <div class="card-num">01</div>
+          <div><h3>The problem</h3><p>Entrenar no termina cuando cruzas la meta. Recuperarte también determina cuánto puedes seguir haciendo.</p></div>
+        </div>
+      </article>
+      <article class="card" data-index="1">
+        <figure><img src="assets/photos/rail-02-recovery.webp" alt="Atleta estirando la pierna sentado en la pista" loading="lazy"></figure>
+        <div class="card-info">
+          <div class="card-num">02</div>
+          <div><h3>Recovery is part of training.</h3><p>Queremos hacer que cuidar tu recuperación sea una parte natural de tu rutina, no algo que haces solamente cuando algo duele.</p></div>
+        </div>
+      </article>
+      <article class="card" data-index="2">
+        <figure><div class="placeholder"><div class="ph-label"><strong>Sketch / CAD / primer prototipo</strong><span>Asset pendiente — carpeta /prototype</span></div></div></figure>
+        <div class="card-info">
+          <div class="card-num">03</div>
+          <div><h3>From idea to object.</h3><p>MUVEN empezó con una pregunta: ¿cómo diseñar una herramienta de recuperación que realmente quieras usar?</p></div>
+        </div>
+      </article>
+      <article class="card" data-index="3">
+        <figure><div class="placeholder"><div class="ph-label"><strong>Video del proceso · 5–12 s</strong><span>CAD, impresión 3D, pruebas, iteraciones — pendiente</span></div></div></figure>
+        <div class="card-info">
+          <div class="card-num">04</div>
+          <div><h3>Built in public.</h3><p>Probamos. Ajustamos. Volvemos a probar. Y compartimos el proceso.</p></div>
+        </div>
+      </article>
+      <article class="card" data-index="4">
+        <figure><img src="assets/photos/rail-05-community.webp" alt="Tres atletas sentados en la pista frente a las montañas de Monterrey" loading="lazy"></figure>
+        <div class="card-info">
+          <div class="card-num">05</div>
+          <div><h3>Built with you.</h3><p>Porque el producto que estamos construyendo debe crecer junto a las personas que lo van a usar.</p></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="rail-foot">
+      <div class="rail-counter"><b id="railCur">01</b> <span>/ 05</span></div>
+      <div class="rail-btns">
+        <button type="button" id="railPrev" aria-label="Anterior">←</button>
+        <button type="button" id="railNext" aria-label="Siguiente">→</button>
+      </div>
+    </div>
+    <div class="rail-progress" aria-hidden="true"><i id="railBar"></i></div>
+  </div>
+</section>
+
+<!-- ================ PROCESS VIDEO ================ -->
+<section class="process on-black" id="proceso">
   <div class="container">
-    <div class="section-tag">— 02 — De nosotras para ti</div>
-    <div class="letter-content">
-      <p class="letter-paragraph">
-        Como atletas, hemos vivido lo que viven millones de deportistas: lesionarte, buscar soluciones, mejorar un poco, y volver a empezar. Fue ese dolor el que nos llevó a preguntarnos: ¿qué haríamos nosotras si pudiéramos diseñar la solución desde cero?
-      </p>
-      <p class="letter-paragraph">
-        La respuesta llegó durante nuestra tesis de diseño industrial. Pasamos un año investigando recuperación deportiva junto con fisioterapeutas, hablando con atletas y analizando lo que existía en el mercado. Nuestro producto combina crioterapia, termoterapia, liberación miofascial y presión controlada.
-      </p>
-      <p class="letter-paragraph">
-        Somos Carolina y Lisa, dos diseñadoras industriales y mejores amigas que decidieron convertir su tesis en algo real. Decidimos construir Muven y elegimos hacerlo en público, compartiendo cada decisión, cada error y cada avance, porque creemos que los mejores productos se construyen con la comunidad que los va a usar. Si eres atleta, runner o simplemente alguien que no se resigna, esto es para ti. Bienvenido al proceso desde el inicio.
-      </p>
-      <div class="letter-signature">
-        Con todo,<br>
-        <span class="signature-names">Carolina y Lisa</span>
+    <div class="intro">
+      <figure class="photo reveal-img">
+        <img src="assets/photos/hero-run.webp" alt="Corredora entrenando en una pista de atletismo frente a la sierra de Monterrey" width="1200" height="1800" loading="lazy" data-parallax="0.05">
+        <figcaption class="micro">Monterrey, MX — 2026</figcaption>
+      </figure>
+      <div class="headlines">
+        <h2 class="lines"><span class="line"><span>We&rsquo;re not just</span></span><span class="line"><span>making a product.</span></span></h2>
+        <h2 class="lines"><span class="line"><span>We&rsquo;re building</span></span><span class="line"><span>the process.</span></span></h2>
+      </div>
+    </div>
+    <div class="grid">
+      <p class="lead reveal">MUVEN comenzó como una tesis de diseño industrial. Hoy estamos convirtiéndola en una herramienta real de recuperación para atletas.</p>
+      <div>
+        <div class="tags micro reveal d1"><span>Prototipos</span><span>Pruebas</span><span>Diseño</span><span>Materiales</span><span>Producto</span></div>
+        <p style="margin-top: 28px;" class="reveal d2"><a href="#lab" class="cta">Ver el proceso <span class="arrow">↓</span></a></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================ PROBLEMA ================ -->
-<section class="problem" id="problema">
+<!-- ================ PROTOTYPE / DESIGN LAB ================ -->
+<section class="lab on-black" id="lab">
   <div class="container">
-    <div class="section-tag">— 02 — El problema</div>
-    <h2 class="section-title">El atleta que más pierde <span class="italic">no se lesiona.</span></h2>
-
-    <div class="problem-text">
-      <p>
-        El atleta que más pierde no es el que se lesiona, es el que no puede volver. Después de una lesión o sobrecarga muscular, la mayoría de los runners y atletas no cuentan con herramientas accesibles para recuperarse en casa, a su ritmo y entre entrenamientos. Esperan. Ignoran el dolor. O simplemente dejan de entrenar. Porque el músculo no se recupera solo con descanso, y las soluciones profesionales no siempre están al alcance de todos. Cada día sin recuperación activa es un día que pierdes ritmo, consistencia y la versión de ti que tanto trabajo te costó construir.
-      </p>
-    </div>
-
-    <div class="problem-insights">
-      <div class="insight">
-        <div class="insight-icon-wrap">
-          <svg viewBox="0 0 56 56" width="56" height="56" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" class="muven-insight-icon" data-icon="stuck">
-            <!-- Track de progreso -->
-            <rect x="8" y="24" width="40" height="8" rx="4"/>
-            <!-- Fill que rebota sin avanzar -->
-            <rect class="progress-fill" x="10" y="26" width="14" height="4" rx="2" fill="var(--accent)"/>
-            <!-- Porcentaje arriba -->
-            <text class="percent" x="28" y="18" text-anchor="middle" font-size="8" fill="var(--accent)" font-weight="500" font-family="monospace">12%</text>
-            <!-- Puntos de loading abajo -->
-            <circle class="ldot l-1" cx="20" cy="42" r="1.5" fill="var(--accent)"/>
-            <circle class="ldot l-2" cx="28" cy="42" r="1.5" fill="var(--accent)"/>
-            <circle class="ldot l-3" cx="36" cy="42" r="1.5" fill="var(--accent)"/>
-          </svg>
-        </div>
-        <h4><span class="italic">Esperar no es recuperarse.</span></h4>
-        <p>El descanso pasivo no devuelve la elasticidad ni la fuerza al músculo. Cada día sin acción es ritmo perdido.</p>
+    <div class="grid">
+      <div class="visuals">
+        <div class="placeholder reveal-img"><div class="ph-label"><strong>Render / prototipo físico</strong><span>Pendiente</span></div></div>
+        <div class="placeholder reveal-img d1"><div class="ph-label"><strong>Boceto</strong><span>Pendiente</span></div></div>
+        <div class="placeholder reveal-img d2"><div class="ph-label"><strong>CAD</strong><span>Pendiente</span></div></div>
       </div>
-      <div class="insight">
-        <div class="insight-icon-wrap">
-          <svg viewBox="0 0 56 56" width="56" height="56" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="muven-insight-icon" data-icon="closed">
-            <!-- Edificio / clínica -->
-            <rect x="12" y="20" width="32" height="28" rx="1"/>
-            <line x1="12" y1="20" x2="28" y2="8" stroke-width="1.4"/>
-            <line x1="28" y1="8" x2="44" y2="20" stroke-width="1.4"/>
-            <!-- Puerta -->
-            <rect class="door" x="22" y="32" width="12" height="16"/>
-            <!-- Candado -->
-            <g class="lock">
-              <rect x="24" y="36" width="8" height="7" rx="1" fill="var(--accent)"/>
-              <path d="M26 36 V34 Q26 31 28 31 Q30 31 30 34 V36" stroke-width="1.4" fill="none" stroke="var(--accent)"/>
-            </g>
-          </svg>
-        </div>
-        <h4><span class="italic">El acceso es el problema, no la tecnología.</span></h4>
-        <p>Fisioterapeutas, equipos profesionales y clínicas funcionan, pero no están disponibles entre entrenamientos, en casa, a las 7 a.m.</p>
-      </div>
-      <div class="insight">
-        <div class="insight-icon-wrap">
-          <svg viewBox="0 0 56 56" width="56" height="56" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="muven-insight-icon" data-icon="calendar">
-            <!-- Calendario base -->
-            <rect x="10" y="14" width="36" height="32" rx="2"/>
-            <line x1="10" y1="22" x2="46" y2="22"/>
-            <line x1="18" y1="10" x2="18" y2="16" stroke-width="1.8"/>
-            <line x1="38" y1="10" x2="38" y2="16" stroke-width="1.8"/>
-            <!-- Días con checks (racha que se construye) -->
-            <g class="day-check c-1"><circle cx="16" cy="30" r="2" fill="var(--accent)"/></g>
-            <g class="day-check c-2"><circle cx="24" cy="30" r="2" fill="var(--accent)"/></g>
-            <g class="day-check c-3"><circle cx="32" cy="30" r="2" fill="var(--accent)"/></g>
-            <g class="day-check c-4"><circle cx="40" cy="30" r="2" fill="var(--accent)"/></g>
-            <!-- Día roto (X) -->
-            <g class="day-broken">
-              <line x1="14" y1="38" x2="18" y2="42" stroke-width="2"/>
-              <line x1="18" y1="38" x2="14" y2="42" stroke-width="2"/>
-            </g>
-            <!-- Días siguientes apagados -->
-            <circle class="day-check c-5" cx="24" cy="40" r="2" fill="var(--accent)"/>
-            <circle class="day-check c-6" cx="32" cy="40" r="2" fill="var(--accent)"/>
-          </svg>
-        </div>
-        <h4><span class="italic">Lo que pierdes no es solo tiempo, es consistencia.</span></h4>
-        <p>La constancia se construye en semanas y se rompe en días. Recuperarte activamente protege lo que tanto te costó construir.</p>
+      <div>
+        <div class="micro reveal" style="color: var(--red); margin-bottom: 32px;">Design lab</div>
+        <h2 class="lines"><span class="line"><span>Designed</span></span><span class="line"><span>to be used.</span></span></h2>
+        <p class="lead reveal d1">Cada decisión existe por una razón: cómo se siente en la mano, cómo se mueve sobre el cuerpo y cómo puede integrarse a una rutina real.</p>
+        <ol class="reveal d2" id="labSpecs"></ol>
+        <p class="note micro reveal d3">Valores técnicos editables · se muestran solo cuando MUVEN los valide</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================ WAITLIST ================ -->
-<!-- ================ COMUNIDAD ================ -->
-<section class="community" id="comunidad">
-  <div class="community-glow"></div>
+<!-- ================ WHO WE ARE ================ -->
+<section class="team on-white" id="equipo">
   <div class="container">
-    <div class="section-tag">— 04 — Únete a la comunidad</div>
-    <h2 class="section-title">Esto se construye <span class="italic">contigo.</span></h2>
-    <p class="section-lead">
-      Más que lanzar un producto, queremos construir algo que realmente conecte con quienes lo usan. Elige tu manera de acompañarnos.
-    </p>
+    <div class="grid">
+      <figure class="reveal-img">
+        <img src="assets/photos/team-carolina-lisa.webp" alt="Carolina y Lisa, fundadoras de MUVEN, en estudio" loading="lazy">
+      </figure>
+      <div>
+        <div class="micro reveal" style="color: var(--red); margin-bottom: 32px;">Who we are</div>
+        <h2 class="lines"><span class="line"><span>Two</span></span><span class="line"><span>designers.</span></span></h2>
+        <p class="lead reveal d1">Somos Carolina y Lisa, dos diseñadoras industriales y mejores amigas que empezaron esto como una tesis y decidieron no dejarla ahí.</p>
+        <p class="lead reveal d2">Somos atletas. Hemos vivido el ciclo de entrenar, lesionarte, recuperarte y volver a empezar. Por eso decidimos diseñar nuestra propia respuesta.</p>
+        <div class="labels micro reveal d3">
+          <span><b>Carolina</b> — Industrial designer</span>
+          <span><b>Lisa</b> — Industrial designer</span>
+          <span>Monterrey, México</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="community-buttons">
-      <!-- INSTAGRAM - Botón principal -->
-      <a href="https://www.instagram.com/muvenmx/" target="_blank" rel="noopener" class="community-btn primary">
-        <div class="btn-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-          </svg>
-        </div>
-        <div class="btn-content">
-          <div class="btn-label">Síguenos en Instagram</div>
-          <div class="btn-sub"><span class="placeholder">[ @muven.mx ]</span> · Avances en tiempo real</div>
-        </div>
-        <div class="btn-arrow">→</div>
-      </a>
+<!-- ================ BUILDING IN PUBLIC ================ -->
+<section class="public on-white">
+  <div class="head">
+    <h2 class="lines"><span class="line"><span>You&rsquo;re seeing it</span></span><span class="line"><span>before it&rsquo;s finished.</span></span></h2>
+    <p class="lead reveal">No queremos aparecer el día del lanzamiento con un producto perfecto que nadie vio venir. Queremos construirlo contigo.</p>
+  </div>
+  <div class="marquee" id="marquee" aria-hidden="true"></div>
+  <div class="tags micro reveal"><span>Reels</span><span>Prototipos</span><span>Pruebas</span><span>Encuestas</span><span>Sesiones con atletas</span><span>Eventos</span><span>Errores</span><span>Feedback</span></div>
+</section>
 
-      <!-- WHATSAPP - Botón secundario -->
-      <a href="#" id="whatsappBtn" class="community-btn whatsapp">
-        <div class="btn-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/>
-          </svg>
-        </div>
-        <div class="btn-content">
-          <div class="btn-label">Únete al WhatsApp</div>
-          <div class="btn-sub">Grupo privado · Tips, avances y feedback directo</div>
-        </div>
-        <div class="btn-arrow">→</div>
-      </a>
-
-      <!-- EMAIL - Botón terciario -->
-      <div class="community-btn email-form">
-        <div class="btn-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
-          </svg>
-        </div>
-        <div class="btn-content">
-          <div class="btn-label">Join the community</div>
-          <form class="email-row" onsubmit="handleWaitlist(event)">
-            <input type="email" placeholder="tu@correo.com" required>
-            <button type="submit">Entrar</button>
+<!-- ================ COMMUNITY / EVENTS ================ -->
+<section class="community on-red" id="comunidad">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <h2 class="lines"><span class="line"><span>Be there</span></span><span class="line"><span>before</span></span><span class="line"><span>the start.</span></span></h2>
+        <p class="lead reveal d1">Únete para enterarte primero de nuestros próximos eventos, pruebas, drops y la fecha oficial de lanzamiento.</p>
+        <div class="signup reveal d2" id="signup">
+          <form id="signupForm" novalidate>
+            <div class="row">
+              <label class="sr-only" for="email" style="position:absolute;left:-9999px;">Tu email</label>
+              <input type="email" id="email" name="email" placeholder="Tu email" required autocomplete="email">
+              <button type="submit">Quiero estar dentro <span class="arrow">→</span></button>
+            </div>
           </form>
+          <div class="success" role="status">
+            <h3>You&rsquo;re in.</h3>
+            <p>Te avisaremos antes que nadie.</p>
+          </div>
+          <div class="note">Sin spam. Solo MUVEN.</div>
         </div>
       </div>
+      <aside class="event reveal d3" id="eventModule"></aside>
     </div>
+  </div>
+</section>
 
-    <p class="community-note">Sin spam, sin presión. Solo lo importante del proceso.</p>
+<!-- ================ LAUNCH COUNTDOWN (solo con fecha oficial) ================ -->
+<section class="countdown on-black" id="countdown">
+  <div class="container">
+    <h2 class="lines"><span class="line"><span>The wait is</span></span><span class="line"><span>almost over.</span></span></h2>
+    <div class="digits" id="digits">
+      <div><span data-u="d">00</span><small>Days</small></div>
+      <div><span data-u="h">00</span><small>Hours</small></div>
+      <div><span data-u="m">00</span><small>Min</small></div>
+      <div><span data-u="s">00</span><small>Sec</small></div>
+    </div>
+    <a href="#comunidad" class="cta" data-track="launch_signup">Join the launch list <span class="arrow">→</span></a>
   </div>
 </section>
 
 <!-- ================ FAQ ================ -->
-<section class="faq" id="faq">
+<section class="faq on-white" id="faq">
   <div class="container">
-    <div class="section-tag">— 05 — Preguntas honestas</div>
-    <h2 class="section-title">Lo que probablemente <span class="italic">te estás preguntando.</span></h2>
-
-    <div class="faq-list">
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <h4>¿Cuándo van a lanzar MUVEN?</h4>
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
-        </div>
-        <div class="faq-answer">
-          Aún no tenemos una fecha exacta, pero cuando llegue el momento, ustedes serán los primeros en saberlo.
-        </div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-question">
-          <h4>¿Cómo puedo ayudar más allá de unirme?</h4>
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
-        </div>
-        <div class="faq-answer">
-          Compartiendo MUVEN y siendo parte del proceso con tu feedback.
-        </div>
-      </div>
+    <div class="grid">
+      <h2>Preguntas<br>honestas.</h2>
+      <div class="faq-list" id="faqList"></div>
     </div>
   </div>
 </section>
 
-<!-- ================ CLOSING ================ -->
-<section class="closing">
+<!-- ================ FINAL STATEMENT ================ -->
+<section class="final on-black">
+  <div class="bg" aria-hidden="true"><img src="assets/photos/final-fist.webp" alt="" loading="lazy" data-parallax="0.08"></div>
   <div class="container">
-    <div class="closing-symbol">
-      <svg viewBox="580 140 760 770" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#ef4444" d="M581.26,897.54V182.38c0-19.89,16.12-36.01,36.01-36.01h95.02c20.08,0,36.14,16.64,35.44,36.71-4.55,130.87-2.35,565.91,229.1,547.7,0,0,205.81-11.17,195.07-548.4-.39-19.51,15.25-35.58,34.76-35.63l99.53-.28c17.96-.05,32.55,14.49,32.55,32.45v717c0,20.83-16.88,37.71-37.71,37.71h-93.34c-20.57,0-37.24-16.67-37.24-37.24v-220.8s-63.2,116.42-188.84,129.66c-3.66.39-7.36.09-11.02.35-26.42,1.93-149.3,2.53-221.04-142.62v233.95c0,20.27-16.44,36.71-36.71,36.71h-95.49c-19.93,0-36.09-16.16-36.09-36.09Z"/>
-      </svg>
-    </div>
-    <h2 class="section-title">El proceso apenas <span class="italic">empieza.</span><br>Gracias por estar aquí.</h2>
-
-    <form class="form-wrapper" onsubmit="handleWaitlist(event)">
-      <input type="email" placeholder="tu@correo.com" required>
-      <button type="submit">Únete al proceso</button>
-    </form>
-
-    <div class="closing-signature">
-      Con todo,
-      <span class="names">con gusto Lisa y Caro</span>
-    </div>
+    <h2 class="lines"><span class="line"><span>The process</span></span><span class="line"><span>has started.</span></span></h2>
+    <p class="sub micro reveal d1">You can be part of it.</p>
+    <a href="#comunidad" class="btn red reveal d2" data-track="launch_signup">Join MUVEN <span>→</span></a>
   </div>
 </section>
+
+</main>
 
 <!-- ================ FOOTER ================ -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <a href="#" class="footer-logo">
-        <svg viewBox="580 870 760 170" xmlns="http://www.w3.org/2000/svg">
-          <g fill="var(--nav-logo-fill)" opacity="0.8">
+<footer class="on-black">
+  <div class="container">
+    <div class="top">
+      <div>
+        <a href="#top" class="wordmark" aria-label="MUVEN">
+          <svg viewBox="580 870 760 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
             <path d="M887.56,976.1c0,38.65-27.8,62.83-64.41,62.83s-64.41-24.18-64.41-62.83v-94.56c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v93.65c0,15.82,8.59,36.61,35.93,36.61s35.93-20.79,35.93-36.61v-93.65c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v94.56Z"/>
             <path d="M906.11,874.85h18.73c2.9,0,5.48,1.82,6.46,4.54l36.77,101.93c2.17,6.02,10.67,6.06,12.9.06l37.96-102.06c1-2.69,3.57-4.48,6.44-4.48h16.59c4.87,0,8.19,4.93,6.37,9.44l-60.8,150.5c-1.05,2.6-3.57,4.3-6.37,4.3h-15.97c-2.83,0-5.36-1.73-6.4-4.36l-59.1-150.5c-1.77-4.51,1.55-9.38,6.4-9.38Z"/>
             <path d="M1067.51,874.85h95.06c3.79,0,6.87,3.08,6.87,6.87v12.7c0,3.79-3.08,6.87-6.87,6.87h-65.83c-3.79,0-6.87,3.08-6.87,6.87v26.62c0,3.79,3.08,6.87,6.87,6.87h61.65c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-61.65c-3.79,0-6.87,3.08-6.87,6.87v30.8c0,3.79,3.08,6.87,6.87,6.87h70c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-99.23c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
             <path d="M1191.95,874.85h28.15c2.32,0,4.49,1.17,5.76,3.12l77.54,118.9h.46v-115.15c0-3.79,3.08-6.87,6.87-6.87h15.49c3.79,0,6.87,3.08,6.87,6.87v150.5c0,3.79-3.08,6.87-6.87,6.87h-26.5c-2.33,0-4.51-1.19-5.77-3.15l-79.16-122.82h-.46v119.1c0,3.79-3.08,6.87-6.87,6.87h-15.49c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
-            <path d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
-          </g>
-        </svg>
-      </a>
-      <div class="footer-text">
-        © 2026 MUVEN · Hecho con cuidado en Monterrey, México<br>
-        Marca diseñada por <a href="https://vitastudio.site" target="_blank" rel="noopener noreferrer" class="footer-logo-credit"><img src="assets/vita-studio-logo.svg" alt="VITA Studio"></a>
+          </svg>
+        </a>
+        <div class="tag micro">Back to motion</div>
       </div>
+      <ul>
+        <li><a href="https://www.instagram.com/muvenmx/" target="_blank" rel="noopener" data-track="instagram_click">Instagram</a></li>
+        <li><a href="#comunidad" data-track="whatsapp_click">WhatsApp</a></li>
+        <li><a href="#comunidad">Community</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="mailto:muven.mx@gmail.com">Contact</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul>
     </div>
-    <div class="footer-contact">
-      <a href="mailto:muven.mx@gmail.com">muven.mx@gmail.com</a>
-      <span class="footer-contact-divider">·</span>
-      <a href="tel:+528991375104">+52 899 137 5104</a>
-      <span class="footer-contact-divider">·</span>
-      <a href="tel:+528182032609">+52 81 8203 2609</a>
-      <span class="footer-contact-divider">·</span>
-      <a href="https://www.instagram.com/muvenmx/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <div class="bottom micro">
+      <span>&copy;&nbsp;2026 MUVEN</span>
+      <span>Hecho en Monterrey, México</span>
     </div>
   </div>
 </footer>
 
-</main>
-
 <script>
-  // ============ THEME TOGGLE ============
-  const themeToggle = document.getElementById('themeToggle');
+/* =====================================================================
+   CONFIG — campos editables (equivalente al CMS del brief, sección 33)
+   ===================================================================== */
+const MUVEN = {
+  event: {
+    active: true,
+    name: 'Primer anuncio del masajeador',
+    date: '[FECHA]',
+    city: 'Monterrey, MX',
+    url: '#comunidad',
+  },
+  launch: {
+    date: null,           // 'YYYY-MM-DDTHH:mm:ss-06:00' cuando exista fecha oficial
+    countdownEnabled: false,
+  },
+  prototypeLabels: [
+    { n: '01', name: 'Material', value: 'Por validar' },
+    { n: '02', name: 'Thermal system', value: 'Por validar' },
+    { n: '03', name: 'Rotation', value: 'Por validar' },
+    { n: '04', name: 'Ergonomics', value: 'Por validar' },
+    { n: '05', name: 'Testing', value: 'Por validar' },
+  ],
+  faq: [
+    ['¿Qué es MUVEN?', 'MUVEN es una herramienta de recuperación diseñada para integrarse a la rutina de atletas y runners.'],
+    ['¿Para quién es?', 'Para personas activas que quieren cuidar su recuperación y mantener la constancia entre entrenamientos.'],
+    ['¿Qué hace?', 'Combina herramientas de recuperación térmica y liberación miofascial en un formato compacto y fácil de integrar a la rutina.'],
+    ['¿Cuándo se lanza?', 'La fecha oficial será anunciada primero a nuestra comunidad.'],
+    ['¿Dónde estará disponible?', 'Primero anunciaremos disponibilidad y lanzamiento a través de nuestra lista de comunidad y redes.'],
+    ['¿Puedo probarlo antes del lanzamiento?', 'Cuando abramos nuevas pruebas o sesiones con atletas, nuestra comunidad será la primera en enterarse.'],
+    ['¿MUVEN reemplaza a un fisioterapeuta?', 'No. MUVEN está pensado como una herramienta complementaria dentro de una rutina de recuperación y no sustituye una valoración o tratamiento profesional.'],
+  ],
+  strip: ['strip-01','strip-02','strip-03','strip-04','strip-05','strip-06','strip-07','strip-08'],
+};
 
-  // Cargar tema guardado o usar claro por defecto
-  const savedTheme = localStorage.getItem('muven-theme') || 'light';
-  if (savedTheme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
+/* ============ ANALYTICS (stub; nombres del brief, sección 35) ============ */
+function track(name, data) {
+  console.log('[track]', name, data || '');
+  if (window.gtag) gtag('event', name, data || {});
+}
+document.querySelectorAll('[data-track]').forEach(el => el.addEventListener('click', () => track(el.dataset.track)));
+
+/* ============ SHOT MODE (solo para capturas internas: ?shot=<id>) ============ */
+const SHOT = new URLSearchParams(location.search).get('shot');
+if (SHOT) {
+  document.documentElement.style.scrollBehavior = 'auto';
+  document.getElementById('loading').remove();
+  document.querySelectorAll('.reveal, .reveal-img, .lines, #hero').forEach(el => el.classList.add('in'));
+  document.querySelectorAll('.hero-media img').forEach(i => i.style.animation = 'none');
+  document.querySelectorAll('.hero-media video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+  window.addEventListener('load', () => document.fonts.ready.then(() => {
+    const t = document.getElementById(SHOT);
+    if (!t) return;
+    const off = parseFloat(new URLSearchParams(location.search).get('off') || 0);
+    if (window.railSetProgress && SHOT === 'historia') window.railSetProgress(off);
+    document.body.style.transform = `translateY(${-t.offsetTop}px)`;
+  }));
+}
+
+
+/* ============ LOADING ============ */
+const loading = document.getElementById('loading');
+const hero = document.getElementById('hero');
+window.addEventListener('load', () => {
+  if (SHOT) return;
+  setTimeout(() => {
+    loading.classList.add('done');
+    hero.classList.add('in');
+    setTimeout(() => hero.querySelectorAll('.reveal').forEach(el => el.classList.add('in')), 300);
+  }, 1200);
+});
+// Failsafe: nunca bloquear más de 2.5 s aunque algo no cargue
+setTimeout(() => { if (SHOT) return; loading.classList.add('done'); hero.classList.add('in'); hero.querySelectorAll('.reveal').forEach(el => el.classList.add('in')); }, 2500);
+
+/* ============ SCROLL REVEALS ============ */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+document.querySelectorAll('.reveal:not(#hero .reveal), .reveal-img, .lines').forEach(el => io.observe(el));
+
+/* Section view tracking */
+document.querySelectorAll('[data-track-view]').forEach(el => {
+  const vo = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { track(el.dataset.trackView); vo.disconnect(); }
+  }, { threshold: 0.4 });
+  vo.observe(el);
+});
+
+/* ============ PARALLAX (sutil, máx 8 %) ============ */
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const parallaxEls = [...document.querySelectorAll('[data-parallax]')];
+function parallax() {
+  const vh = window.innerHeight;
+  parallaxEls.forEach(img => {
+    const r = img.parentElement.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > vh) return;
+    const p = (r.top + r.height / 2 - vh / 2) / vh; // -1..1
+    const amt = parseFloat(img.dataset.parallax) * 100;
+    img.style.transform = `scale(${1 + amt / 100}) translateY(${(-p * amt / 2).toFixed(2)}%)`;
+  });
+}
+if (!reduced) { window.addEventListener('scroll', parallax, { passive: true }); parallax(); }
+
+/* ============ HORIZONTAL RAIL ============ */
+(function () {
+  const rail = document.querySelector('.rail');
+  const trackEl = document.getElementById('railTrack');
+  const cards = [...trackEl.querySelectorAll('.card')];
+  const cur = document.getElementById('railCur');
+  const bar = document.getElementById('railBar');
+  const prev = document.getElementById('railPrev');
+  const next = document.getElementById('railNext');
+  const N = cards.length;
+  const mq = window.matchMedia('(max-width: 900px)');
+  let mode = null;          // 'sticky' | 'swipe'
+  let target = 0, current = 0, raf = null;
+  let lastActive = -1, interacted = false;
+  const pad2 = n => String(n + 1).padStart(2, '0');
+
+  function setActive(i) {
+    i = Math.max(0, Math.min(N - 1, i));
+    if (i === lastActive) return;
+    lastActive = i;
+    cur.textContent = pad2(i);
+    prev.disabled = i === 0;
+    next.disabled = i === N - 1;
+    track('story_slide_view', { index: i + 1 });
+  }
+  function noteInteraction(kind) {
+    if (interacted) return; interacted = true;
+    track('story_horizontal_interaction', { kind });
   }
 
-  themeToggle.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    if (next === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
+  /* --- Sticky mode (desktop): scroll vertical -> horizontal --- */
+  function stepPx() {
+    const a = cards[0].getBoundingClientRect(), b = cards[1].getBoundingClientRect();
+    return b.left - a.left;
+  }
+  function layout() {
+    if (mode !== 'sticky') return;
+    rail.style.height = `${(N - 1) * 0.85 * window.innerHeight + window.innerHeight}px`;
+  }
+  function progress() {
+    const r = rail.getBoundingClientRect();
+    const total = rail.offsetHeight - window.innerHeight;
+    return Math.max(0, Math.min(1, -r.top / total));
+  }
+  function render() {
+    raf = null;
+    current += (target - current) * 0.12;
+    if (Math.abs(target - current) < 0.0005) current = target;
+    const pos = current * (N - 1);
+    trackEl.style.transform = `translate3d(${(-pos * stepPx()).toFixed(2)}px,0,0)`;
+    cards.forEach((c, i) => {
+      const d = Math.min(1, Math.abs(i - pos));
+      c.style.transform = `scale(${(1 - d * 0.06).toFixed(4)})`;
+      c.style.opacity = (1 - d * 0.35).toFixed(3);
+      const info = c.querySelector('.card-info');
+      info.style.transform = `translateY(${(d * 20).toFixed(1)}px)`;
+      info.style.opacity = (1 - d * 0.6).toFixed(3);
+      const img = c.querySelector('img, .placeholder');
+      if (img) img.style.transform = `scale(${(1 + d * 0.04).toFixed(4)})`;
+    });
+    bar.style.width = `${(current * 100).toFixed(2)}%`;
+    setActive(Math.round(pos));
+    if (current !== target) raf = requestAnimationFrame(render);
+  }
+  function onScroll() {
+    if (mode !== 'sticky') return;
+    target = progress();
+    if (!raf) raf = requestAnimationFrame(render);
+  }
+  function goTo(i) {
+    i = Math.max(0, Math.min(N - 1, i));
+    if (mode === 'sticky') {
+      const top = rail.offsetTop + (i / (N - 1)) * (rail.offsetHeight - window.innerHeight);
+      window.scrollTo({ top, behavior: 'smooth' });
     } else {
-      document.documentElement.removeAttribute('data-theme');
+      cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
     }
-    localStorage.setItem('muven-theme', next);
+  }
+
+  /* Drag + trackpad horizontal en modo sticky -> mueve el scroll vertical */
+  let dragging = false, startX = 0, startY = 0;
+  rail.addEventListener('pointerdown', e => {
+    if (mode !== 'sticky' || e.button !== 0) return;
+    dragging = true; startX = e.clientX; startY = window.scrollY; rail.classList.add('dragging');
   });
-
-  // ============ INTRO (cortina) ============
-  const intro = document.getElementById('intro');
-  const introCurtain = document.getElementById('introCurtain');
-  const introSymbol = document.getElementById('introSymbol');
-  const introWordmark = document.getElementById('introWordmark');
-  const introTagline = document.getElementById('introTagline');
-  const heroSymbolSlot = document.getElementById('heroSymbolSlot');
-  const nav = document.getElementById('nav');
-  const navLogo = document.querySelector('.nav-logo');
-  const main = document.getElementById('main');
-
-  const EASE_OUT = 'cubic-bezier(0.22, 1, 0.36, 1)';
-  const EASE_FLY = 'cubic-bezier(0.65, 0.05, 0.15, 1)';
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const anim = (el, keyframes, opts) => el.animate(keyframes, Object.assign({ fill: 'forwards' }, opts)).finished;
-  const wait = ms => new Promise(r => setTimeout(r, ms));
-
-  introTagline.innerHTML = introTagline.textContent.split('')
-    .map(c => `<span>${c === ' ' ? '&nbsp;' : c}</span>`).join('');
-
-  let introPhase = 'idle';   // idle → entering → curtain → flying → done
-  let introSkip = false;     // scroll/clic durante la entrada: acorta la espera
-  let introDismissed = false;
-
-  function finishIntro() {
-    if (introPhase === 'done') return;
-    introPhase = 'done';
-    introDismissed = true;
-    document.body.classList.remove('intro-active');
-    nav.classList.add('visible');
-    main.classList.add('visible');
-    intro.classList.add('done');
-    document.body.classList.add('intro-done');
-    setTimeout(() => { intro.style.display = 'none'; }, 700);
-  }
-
-  function dismissIntro() {
-    if (introPhase === 'idle' || introPhase === 'done') { finishIntro(); return; }
-    introSkip = true;
-  }
-
-  async function runIntro() {
-    if (reducedMotion) { finishIntro(); return; }
-    introPhase = 'entering';
-    const symbolPath = introSymbol.querySelector('path');
-    const wordPaths = [...introWordmark.querySelectorAll('path')];
-    const chars = [...introTagline.querySelectorAll('span')];
-
-    // Entrada: logo crema sobre tinta
-    anim(introSymbol, [{ opacity: 0, transform: 'scale(0.9)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 800, easing: EASE_OUT });
-    await wait(200);
-    wordPaths.forEach((p, i) => anim(p,
-      [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'translateY(0)' }],
-      { duration: 550, delay: i * 45, easing: EASE_OUT }));
-    chars.forEach((c, i) => anim(c, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 350 + i * 14 }));
-    for (let t = 0; t < 1000 && !introSkip; t += 50) await wait(50);
-
-    // Cortina: sube y el logo cambia a coral justo cuando lo cruza
-    introPhase = 'curtain';
-    const up = anim(introCurtain, [{ transform: 'translateY(100%)' }, { transform: 'translateY(0)' }],
-      { duration: 850, easing: 'cubic-bezier(0.76, 0, 0.24, 1)' });
-    await wait(400);
-    const flip = { duration: 260, easing: 'ease' };
-    anim(symbolPath, [{ fill: 'var(--bg)' }, { fill: 'var(--coral)' }], flip);
-    wordPaths.forEach(p => anim(p, [{ fill: 'var(--bg)' }, { fill: 'var(--coral)' }], flip));
-    anim(introTagline, [{ color: 'var(--bg)', opacity: 0.6 }, { color: 'var(--text-faint)', opacity: 1 }], flip);
-    await up;
-    intro.classList.add('revealed');
-    introCurtain.remove();
-    await wait(introSkip ? 80 : 250);
-
-    // Vuelo: la M al slot del hero, MUVEN al nav (FLIP solo con transform, sin reflow)
-    introPhase = 'flying';
-    anim(introTagline, [{ opacity: 1 }, { opacity: 0 }], { duration: 300 });
-    document.body.classList.remove('intro-active');
-    nav.classList.add('visible');
-    setTimeout(() => main.classList.add('visible'), 100);
-    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-
-    const flip2 = (from, to) => {
-      const a = from.getBoundingClientRect();
-      const b = to.getBoundingClientRect();
-      return {
-        dx: (b.left + b.width / 2) - (a.left + a.width / 2),
-        dy: (b.top + b.height / 2) - (a.top + a.height / 2),
-        scale: b.width / a.width
-      };
-    };
-    const s = flip2(introSymbol, heroSymbolSlot);
-    const w = flip2(introWordmark, navLogo);
-    const D = 1100;
-    const navFill = getComputedStyle(navLogo.querySelector('path')).fill;
-    wordPaths.forEach(p => anim(p, [{ fill: 'var(--coral)' }, { fill: navFill }], { duration: D * 0.6, delay: D * 0.35, easing: 'ease' }));
-    await Promise.all([
-      anim(introSymbol,
-        [{ transform: 'translate(0,0) scale(1)' }, { transform: `translate(${s.dx}px, ${s.dy}px) scale(${s.scale})` }],
-        { duration: D, easing: EASE_FLY }),
-      anim(introWordmark,
-        [{ transform: 'translate(0,0) scale(1)' }, { transform: `translate(${w.dx}px, ${w.dy}px) scale(${w.scale})` }],
-        { duration: D, easing: EASE_FLY, delay: 60 })
-    ]);
-    finishIntro();
-  }
-
-  // Arrancar solo cuando el body ya está "booted" (fuentes listas); antes es invisible
-  function startIntro() {
-    if (document.body.classList.contains('booted')) { runIntro(); return; }
-    const observer = new MutationObserver(() => {
-      if (document.body.classList.contains('booted')) {
-        observer.disconnect();
-        runIntro();
-      }
-    });
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-  }
-  startIntro();
-
-  window.addEventListener('wheel', (e) => {
-    if (!introDismissed && e.deltaY > 0) dismissIntro();
-  }, { passive: true });
-
-  let touchStartY = 0;
-  window.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-
-  window.addEventListener('touchmove', (e) => {
-    if (introDismissed) return;
-    const deltaY = touchStartY - e.touches[0].clientY;
-    if (deltaY > 30) dismissIntro();
-  }, { passive: true });
-
-  intro.addEventListener('click', dismissIntro);
-
-  function handleWaitlist(e) {
-    e.preventDefault();
-    const email = e.target.querySelector('input').value;
-    const button = e.target.querySelector('button');
-    const originalText = button.textContent;
-    button.textContent = '✓ ¡Bienvenido!';
-    button.style.background = '#10b981';
-    setTimeout(() => {
-      button.textContent = originalText;
-      button.style.background = '';
-      e.target.querySelector('input').value = '';
-    }, 3000);
-    console.log('Waitlist signup:', email);
-  }
-
-  function toggleFaq(item) {
-    item.classList.toggle('open');
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, index * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.05, rootMargin: '0px 0px -10% 0px' });
-
-  document.querySelectorAll('.founder-card, .stat, .post-card, .research-card, .insight, .benefit').forEach(el => {
-    observer.observe(el);
+  window.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    const per = (rail.offsetHeight - window.innerHeight) / ((N - 1) * stepPx());
+    window.scrollTo(0, startY - dx * per);
+    if (Math.abs(dx) > 8) noteInteraction('drag');
   });
-
-
-
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
+  window.addEventListener('pointerup', () => { dragging = false; rail.classList.remove('dragging'); });
+  rail.addEventListener('wheel', e => {
+    if (mode !== 'sticky') return;
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 2) {
       e.preventDefault();
-      if (!introDismissed) dismissIntro();
-      setTimeout(() => {
-        const target = document.querySelector(targetId);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 200);
-    });
+      const per = (rail.offsetHeight - window.innerHeight) / ((N - 1) * stepPx());
+      window.scrollBy(0, e.deltaX * per);
+      noteInteraction('trackpad');
+    }
+  }, { passive: false });
+  window.addEventListener('keydown', e => {
+    const r = rail.getBoundingClientRect();
+    if (r.top > window.innerHeight * 0.5 || r.bottom < window.innerHeight * 0.5) return;
+    if (e.key === 'ArrowRight') { goTo(lastActive + 1); noteInteraction('keyboard'); }
+    if (e.key === 'ArrowLeft') { goTo(lastActive - 1); noteInteraction('keyboard'); }
   });
+  prev.addEventListener('click', () => { goTo(lastActive - 1); noteInteraction('button'); });
+  next.addEventListener('click', () => { goTo(lastActive + 1); noteInteraction('button'); });
+
+  /* --- Swipe mode (mobile / reduced motion) --- */
+  function onTrackScroll() {
+    if (mode !== 'swipe') return;
+    const max = trackEl.scrollWidth - trackEl.clientWidth;
+    const p = max > 0 ? trackEl.scrollLeft / max : 0;
+    bar.style.width = `${(p * 100).toFixed(2)}%`;
+    setActive(Math.round(p * (N - 1)));
+    if (trackEl.scrollLeft > 4) noteInteraction('swipe');
+  }
+  trackEl.addEventListener('scroll', onTrackScroll, { passive: true });
+
+  function setMode(m) {
+    if (m === mode) return;
+    mode = m;
+    rail.classList.toggle('swipe', m === 'swipe');
+    trackEl.style.transform = '';
+    cards.forEach(c => { c.style.transform = ''; c.style.opacity = ''; const i = c.querySelector('.card-info'); i.style.transform = ''; i.style.opacity = ''; const img = c.querySelector('img, .placeholder'); if (img) img.style.transform = ''; });
+    if (m === 'sticky') { layout(); target = current = progress(); render(); }
+    else { rail.style.height = ''; onTrackScroll(); }
+    lastActive = -1; setActive(0);
+  }
+  window.railForceSwipe = null;
+  function pickMode() {
+    const force = window.railForceSwipe;
+    setMode(force === true || (force === null && (mq.matches || reduced)) ? 'swipe' : 'sticky');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => { pickMode(); layout(); onScroll(); });
+  mq.addEventListener('change', pickMode);
+  pickMode();
+  window.railPickMode = pickMode;
+  window.railSetProgress = p => { if (mode === 'sticky') { target = current = Math.max(0, Math.min(1, p)); render(); } };
+})();
+
+/* ============ DESIGN LAB SPECS ============ */
+document.getElementById('labSpecs').innerHTML = MUVEN.prototypeLabels.map(l =>
+  `<li><span class="n micro">${l.n}</span><span class="name">${l.name}</span><span class="val">${l.value}</span></li>`).join('');
+
+/* ============ MARQUEE ============ */
+(function () {
+  const m = document.getElementById('marquee');
+  const items = MUVEN.strip.map(s => `<figure><img src="assets/photos/${s}-sm.webp" alt="" loading="lazy"></figure>`).join('');
+  m.innerHTML = items + items; // duplicado para loop continuo
+})();
+
+/* ============ EVENT MODULE ============ */
+function renderEvent() {
+  const el = document.getElementById('eventModule');
+  const ev = MUVEN.event;
+  el.innerHTML = ev.active
+    ? `<div class="micro">Next event</div>
+       <h3>${ev.name}</h3>
+       <div class="meta"><span>${ev.date}</span><span>${ev.city}</span></div>
+       <a href="${ev.url}" class="cta" data-track="event_click">Reserva tu lugar <span class="arrow">→</span></a>`
+    : `<div class="micro">Next event</div><h3>Próximamente.</h3><div class="meta"><span>Te avisamos primero por aquí.</span></div>`;
+  el.querySelectorAll('[data-track]').forEach(a => a.addEventListener('click', () => track(a.dataset.track)));
+}
+renderEvent();
+
+/* ============ SIGNUP ============ */
+document.getElementById('signupForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const input = e.target.querySelector('input');
+  if (!input.checkValidity()) { input.reportValidity(); return; }
+  track('community_signup', { email: input.value });
+  document.getElementById('signup').classList.add('done');
+});
+
+/* ============ COUNTDOWN ============ */
+(function () {
+  const sec = document.getElementById('countdown');
+  let timer = null;
+  function tick() {
+    const diff = Math.max(0, new Date(MUVEN.launch.date) - Date.now());
+    const d = Math.floor(diff / 864e5), h = Math.floor(diff / 36e5) % 24, m = Math.floor(diff / 6e4) % 60, s = Math.floor(diff / 1e3) % 60;
+    const set = (u, v) => sec.querySelector(`[data-u="${u}"]`).textContent = String(v).padStart(2, '0');
+    set('d', d); set('h', h); set('m', m); set('s', s);
+  }
+  window.renderCountdown = function () {
+    const on = MUVEN.launch.countdownEnabled && MUVEN.launch.date;
+    sec.classList.toggle('active', !!on);
+    clearInterval(timer);
+    if (on) { tick(); timer = setInterval(tick, 1000); }
+  };
+  renderCountdown();
+})();
+
+/* ============ FAQ ============ */
+(function () {
+  const list = document.getElementById('faqList');
+  list.innerHTML = MUVEN.faq.map(([q, a], i) =>
+    `<div class="faq-item"><button type="button" aria-expanded="false" aria-controls="faq-${i}">${q}<span class="plus" aria-hidden="true"></span></button><div class="answer" id="faq-${i}"><div><p>${a}</p></div></div></div>`).join('');
+  list.querySelectorAll('.faq-item button').forEach(btn => btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const open = item.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    if (open) track('faq_open', { q: btn.textContent.trim() });
+  }));
+})();
+
 </script>
-
-
 </body>
 </html>
