@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MUVEN — Back in motion (redesign demo)</title>
+<meta name="description" content="Recuperarte también es parte de entrenar. MUVEN es una herramienta de recuperación diseñada para integrarse a la rutina de atletas y runners.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/photos/hero-run.webp">
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --red: #dd524c;
+    --red-deep: #c4433d;
+    --ink: #0a0a0a;
+    --ink-soft: rgba(10, 10, 10, 0.62);
+    --ink-faint: rgba(10, 10, 10, 0.4);
+    --paper-soft: rgba(255, 255, 255, 0.64);
+    --paper-faint: rgba(255, 255, 255, 0.38);
+    --line-dark: rgba(10, 10, 10, 0.12);
+    --line-light: rgba(255, 255, 255, 0.16);
+    --display: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --body: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --reveal: 0.8s;
+    --gutter: clamp(20px, 4vw, 64px);
+    --hero-size: clamp(64px, 11vw, 180px);
+    --title-size: clamp(48px, 7vw, 110px);
+    --mid-size: clamp(32px, 4.2vw, 64px);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--white);
+    background: var(--black);
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; }
+  ::selection { background: var(--red); color: var(--white); }
+
+  h1, h2, h3, .display {
+    font-family: var(--display);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+    text-transform: uppercase;
+    hyphens: none;
+  }
+  .micro {
+    font-family: var(--body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+  .lead { font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; max-width: 34em; }
+  .red { color: var(--red); }
+
+  /* Sections */
+  section { position: relative; padding: clamp(96px, 14vh, 180px) var(--gutter); }
+  .on-white { background: var(--white); color: var(--ink); }
+  .on-black { background: var(--black); color: var(--white); }
+  .on-red { background: var(--red); color: var(--white); }
+  .container { width: 100%; max-width: 1440px; margin: 0 auto; min-width: 0; }
+
+  /* CTA links */
+  .cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--body); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding-bottom: 6px; border-bottom: 1px solid currentColor;
+    transition: gap 0.35s var(--ease), color 0.3s;
+  }
+  .cta:hover { gap: 20px; }
+  .cta .arrow { display: inline-block; transition: transform 0.35s var(--ease); }
+  .cta:hover .arrow { transform: translateX(4px); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+    font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: 0.02em;
+    text-transform: uppercase; padding: 18px 28px; border-radius: 999px;
+    background: var(--white); color: var(--ink); transition: transform 0.35s var(--ease), background 0.3s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.dark { background: var(--ink); color: var(--white); }
+  .btn.red { background: var(--red); color: var(--white); }
+
+  /* Reveal system */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity var(--reveal) var(--ease), transform var(--reveal) var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal-img { opacity: 0; transform: scale(1.04); transition: opacity 1s var(--ease), transform 1.2s var(--ease); }
+  .reveal-img.in { opacity: 1; transform: scale(1); }
+  .lines .line { display: block; overflow: hidden; }
+  .lines .line > span { display: block; transform: translateY(110%); transition: transform 0.9s var(--ease); }
+  .lines.in .line > span { transform: none; }
+  .lines.in .line:nth-child(2) > span { transition-delay: 0.1s; }
+  .lines.in .line:nth-child(3) > span { transition-delay: 0.2s; }
+  .lines.in .line:nth-child(4) > span { transition-delay: 0.3s; }
+  .d1 { transition-delay: 0.1s !important; }
+  .d2 { transition-delay: 0.2s !important; }
+  .d3 { transition-delay: 0.3s !important; }
+
+  /* Placeholder for assets we still need */
+  .placeholder {
+    position: relative; display: grid; place-items: center; text-align: center;
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 14px),
+      #141414;
+    color: var(--paper-soft);
+  }
+  .placeholder .ph-label { padding: 24px; }
+  .placeholder .ph-label strong { display: block; font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); margin-bottom: 6px; }
+  .placeholder .ph-label span { font-size: 12px; letter-spacing: 0.06em; }
+  .placeholder::after { content: ""; position: absolute; inset: 14px; border: 1px dashed rgba(255,255,255,0.25); pointer-events: none; }
+  .on-white .placeholder { background: repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 14px), #efefef; color: var(--ink-soft); }
+  .on-white .placeholder .ph-label strong { color: var(--ink); }
+  .on-white .placeholder::after { border-color: rgba(0,0,0,0.22); }
+
+  /* ============ LOADING ============ */
+  .loading {
+    position: fixed; inset: 0; z-index: 1000; background: var(--black);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+    transition: transform 0.9s var(--ease), opacity 0.6s;
+  }
+  .loading.done { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+  .loading svg { width: clamp(180px, 28vw, 360px); height: auto; }
+  .loading svg path { fill: var(--white); opacity: 0; transform: translateY(12px); animation: wm-in 0.7s var(--ease) forwards; }
+  .loading svg path:nth-child(2) { animation-delay: 0.06s; }
+  .loading svg path:nth-child(3) { animation-delay: 0.12s; }
+  .loading svg path:nth-child(4) { animation-delay: 0.18s; }
+  .loading svg path:nth-child(5) { animation-delay: 0.24s; }
+  .loading .micro { opacity: 0; animation: fade-in 0.6s 0.45s var(--ease) forwards; color: var(--paper-soft); }
+  @keyframes wm-in { to { opacity: 1; transform: none; } }
+  @keyframes fade-in { to { opacity: 1; } }
+
+  /* ============ NAV ============ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px var(--gutter);
+    mix-blend-mode: difference; color: var(--white);
+    transition: padding 0.4s var(--ease);
+  }
+  nav .wordmark svg { height: 18px; width: auto; }
+  nav .wordmark svg path { fill: currentColor; }
+  nav ul { display: flex; gap: 32px; list-style: none; }
+  nav ul a { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; opacity: 0.85; }
+  nav ul a:hover { opacity: 1; }
+  nav .nav-cta { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; padding: 10px 16px; border: 1px solid currentColor; border-radius: 999px; }
+  @media (max-width: 900px) { nav ul { display: none; } }
+
+  /* ============ HERO ============ */
+  .hero { min-height: 100svh; padding: 0; display: flex; align-items: flex-end; overflow: hidden; }
+  .hero-media { position: absolute; inset: 0; }
+  .hero-media img, .hero-media video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; animation: hero-kb 14s var(--ease) forwards; filter: grayscale(1) contrast(1.05); }
+  @keyframes hero-kb { from { transform: scale(1.08); } to { transform: scale(1); } }
+  .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.15) 100%); }
+  .hero-content { position: relative; width: 100%; padding: 0 var(--gutter) clamp(40px, 6vh, 72px); display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 32px; }
+  .hero-eyebrow { margin-bottom: 20px; color: var(--paper-soft); }
+  .hero h1 { font-size: var(--hero-size); }
+  .hero h1 .line { display: block; overflow: hidden; }
+  .hero h1 .line > span { display: block; transform: translateY(110%); transition: transform 1s var(--ease); }
+  .hero.in h1 .line > span { transform: none; }
+  .hero.in h1 .line:nth-child(2) > span { transition-delay: 0.12s; }
+  .hero-side { max-width: 320px; display: grid; gap: 28px; padding-bottom: 12px; }
+  .hero-side p { color: var(--paper-soft); font-size: 15px; }
+  .hero-scroll { position: absolute; right: var(--gutter); top: 50%; transform: rotate(90deg) translateX(-50%); transform-origin: right; color: var(--paper-faint); }
+  @media (max-width: 900px) {
+    .hero-content { grid-template-columns: 1fr; }
+    .hero-media img { object-position: 50% 40%; }
+    .hero-scroll { display: none; }
+  }
+
+  /* ============ BIG STATEMENT ============ */
+  .statement { min-height: 100vh; display: flex; align-items: center; }
+  .statement h2 { font-size: var(--title-size); max-width: 12em; }
+  .statement h2 + h2 { margin-top: 0.6em; }
+
+  /* ============ PROBLEM ============ */
+  .problem .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 96px); align-items: end; }
+  .problem figure { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #111; }
+  .problem figure img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+  .problem figcaption { position: absolute; left: 16px; bottom: 16px; color: var(--paper-faint); }
+  .problem .stat { font-family: var(--display); font-weight: 700; letter-spacing: -0.05em; line-height: 0.85; font-size: clamp(120px, 18vw, 300px); }
+  .problem .stat small { display: block; font-size: 0.32em; letter-spacing: -0.02em; color: var(--paper-soft); margin-top: 8px; }
+  .problem .stat-copy { margin-top: 28px; font-size: clamp(17px, 1.4vw, 20px); max-width: 32em; }
+  .problem .stat-copy strong { font-weight: 500; color: var(--white); }
+  .problem .stat-note { margin-top: 18px; font-size: 13px; color: var(--paper-faint); max-width: 40em; line-height: 1.5; }
+  .problem .stat-note a { border-bottom: 1px solid var(--line-light); }
+  .problem .support { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line-light); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
+  .problem .support h3 { font-size: var(--mid-size); text-transform: none; letter-spacing: -0.03em; line-height: 1.02; max-width: 12em; }
+  @media (max-width: 900px) {
+    .problem .grid { grid-template-columns: 1fr; }
+    .problem .support { grid-template-columns: 1fr; }
+  }
+
+  /* ============ HORIZONTAL RAIL ============ */
+  .rail { padding: 0; --n: 5; --card-w: 60vw; --gap: 3vw; }
+  .rail-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding-top: 8vh; }
+  .rail-head { position: absolute; top: clamp(72px, 10vh, 110px); left: var(--gutter); right: var(--gutter); display: flex; justify-content: space-between; align-items: baseline; z-index: 2; }
+  .rail-head h2 { font-size: clamp(22px, 2.4vw, 34px); letter-spacing: -0.02em; }
+  .rail-track { display: flex; gap: var(--gap); padding-left: calc((100vw - var(--card-w)) / 2); padding-right: calc((100vw - var(--card-w)) / 2); will-change: transform; }
+  .card { flex: 0 0 var(--card-w); display: grid; gap: 22px; transition: none; }
+  .card figure { position: relative; aspect-ratio: 16 / 10; max-height: 46vh; width: 100%; overflow: hidden; background: #111; }
+  .card figure img, .card figure video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+  .card figure .placeholder { position: absolute; inset: 0; }
+  .card-info { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; }
+  .card-num { font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.1em; padding-top: 6px; color: var(--red); }
+  .card-info h3 { font-size: clamp(26px, 2.8vw, 44px); letter-spacing: -0.03em; line-height: 0.95; }
+  .card-info p { margin-top: 12px; color: var(--ink-soft); max-width: 32em; font-size: clamp(15px, 1.15vw, 18px); }
+  .rail-foot { position: absolute; bottom: clamp(28px, 5vh, 56px); left: var(--gutter); right: var(--gutter); display: flex; justify-content: space-between; align-items: center; z-index: 2; }
+  .rail-counter { font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.1em; font-variant-numeric: tabular-nums; }
+  .rail-counter span { color: var(--ink-faint); }
+  .rail-btns { display: flex; gap: 8px; }
+  .rail-btns button { width: 44px; height: 44px; border: 1px solid var(--line-dark); border-radius: 999px; display: grid; place-items: center; transition: background 0.3s, color 0.3s; }
+  .rail-btns button:hover { background: var(--ink); color: var(--white); }
+  .rail-btns button:disabled { opacity: 0.3; pointer-events: none; }
+  .rail-hint { color: var(--ink-faint); }
+  .rail-progress { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(16px, 3vh, 36px); height: 1px; background: var(--line-dark); z-index: 2; }
+  .rail-progress i { position: absolute; left: 0; top: -1px; height: 3px; width: 0; background: var(--red); }
+  .rail.dragging { cursor: grabbing; }
+  .rail.dragging .card { user-select: none; }
+
+  /* Mobile / reduced motion: swipe + snap */
+  .rail.swipe { padding: clamp(80px, 12vh, 140px) 0; }
+  .rail.swipe .rail-sticky { position: static; height: auto; overflow: visible; display: block; }
+  .rail.swipe .rail-head { position: static; padding: 0 var(--gutter); margin-bottom: 32px; }
+  .rail.swipe .rail-track { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-left: var(--gutter); padding-right: var(--gutter); --card-w: 84vw; gap: 16px; -webkit-overflow-scrolling: touch; }
+  .rail.swipe .rail-track::-webkit-scrollbar { display: none; }
+  .rail.swipe .card { scroll-snap-align: start; transform: none !important; opacity: 1 !important; }
+  .rail.swipe .card figure { aspect-ratio: 4 / 5; max-height: none; }
+  .rail.swipe .card-info { grid-template-columns: 1fr; gap: 8px; }
+  .rail.swipe .rail-foot { position: static; padding: 28px var(--gutter) 0; }
+  .rail.swipe .rail-progress { position: static; margin: 20px var(--gutter) 0; }
+  .rail.swipe .rail-hint { display: none; }
+  @media (min-width: 901px) { .rail.swipe .card { --card-w: 46vw; } }
+
+  /* ============ PROCESS VIDEO ============ */
+  .process .video { aspect-ratio: 16 / 9; width: 100%; overflow: hidden; position: relative; background: #111; }
+  .process .video img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; filter: grayscale(1); }
+  .process .video .placeholder { position: absolute; inset: 0; background: transparent; }
+  .process .video .placeholder::after { display: none; }
+  .process .video .play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 88px; height: 88px; border-radius: 999px; border: 1px solid var(--white); display: grid; place-items: center; font-size: 12px; letter-spacing: 0.12em; }
+  .process .headlines { margin: clamp(56px, 8vh, 96px) 0 40px; }
+  .process h2 { font-size: var(--title-size); max-width: 10em; }
+  .process h2 + h2 { margin-top: 0.4em; color: var(--paper-faint); }
+  .process .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; }
+  .process .tags { display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--paper-faint); }
+  @media (max-width: 900px) { .process .grid { grid-template-columns: 1fr; } }
+
+  /* ============ PROTOTYPE / DESIGN LAB ============ */
+  .lab .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); }
+  .lab .visuals { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .lab .visuals > * { aspect-ratio: 1; overflow: hidden; }
+  .lab .visuals > *:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+  .lab .visuals img { width: 100%; height: 100%; object-fit: cover; }
+  .lab h2 { font-size: var(--title-size); }
+  .lab .lead { margin-top: 32px; color: var(--paper-soft); }
+  .lab ol { list-style: none; margin-top: 48px; border-top: 1px solid var(--line-light); }
+  .lab ol li { display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line-light); align-items: baseline; }
+  .lab ol li .n { color: var(--red); }
+  .lab ol li .name { font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: 0.02em; text-transform: uppercase; }
+  .lab ol li .val { color: var(--paper-faint); font-size: 13px; letter-spacing: 0.04em; }
+  .lab .note { margin-top: 20px; font-size: 13px; color: var(--paper-faint); }
+  @media (max-width: 900px) { .lab .grid { grid-template-columns: 1fr; } }
+
+  /* ============ TEAM ============ */
+  .team .grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .team figure { aspect-ratio: 4 / 5; overflow: hidden; background: #f2f2f2; }
+  .team figure img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+  .team h2 { font-size: var(--title-size); }
+  .team .lead { margin-top: 32px; color: var(--ink-soft); }
+  .team .lead + .lead { margin-top: 18px; }
+  .team .labels { margin-top: 40px; display: grid; gap: 10px; color: var(--ink-soft); }
+  .team .labels span b { color: var(--ink); font-weight: 500; }
+  @media (max-width: 900px) { .team .grid { grid-template-columns: 1fr; } }
+
+  /* ============ BUILDING IN PUBLIC ============ */
+  .public { padding-left: 0; padding-right: 0; overflow: hidden; }
+  .public .head { padding: 0 var(--gutter); display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end; margin-bottom: clamp(40px, 6vh, 72px); }
+  .public h2 { font-size: var(--title-size); }
+  .public .lead { color: var(--ink-soft); }
+  .marquee { display: flex; gap: 12px; width: max-content; animation: marquee 60s linear infinite; }
+  .marquee:hover { animation-play-state: paused; }
+  .marquee figure { flex: 0 0 auto; height: clamp(220px, 32vh, 360px); overflow: hidden; background: #f0f0f0; }
+  .marquee figure img { height: 100%; width: auto; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  .public .tags { padding: 36px var(--gutter) 0; display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--ink-faint); }
+  @media (max-width: 900px) { .public .head { grid-template-columns: 1fr; } }
+
+  /* ============ COMMUNITY / EVENTS ============ */
+  .community { min-height: 90vh; display: flex; align-items: center; }
+  .community .grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(40px, 8vw, 140px); align-items: end; width: 100%; }
+  .community h2 { font-size: var(--title-size); }
+  .community .lead { margin-top: 32px; color: rgba(255,255,255,0.85); }
+  .signup { margin-top: 40px; display: grid; gap: 14px; max-width: 520px; }
+  .signup .row { display: grid; grid-template-columns: 1fr auto; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.5); }
+  .signup input { min-width: 0; background: none; border: 0; outline: 0; padding: 16px 0; font-size: 18px; color: var(--white); width: 100%; }
+  .signup input::placeholder { color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em; font-size: 13px; }
+  .signup button { font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; text-transform: uppercase; padding: 12px 0 12px 20px; white-space: nowrap; display: inline-flex; gap: 12px; align-items: center; }
+  .signup button .arrow { transition: transform 0.35s var(--ease); }
+  .signup button:hover .arrow { transform: translateX(6px); }
+  .signup .note { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+  .signup .success { display: none; }
+  .signup.done form { display: none; }
+  .signup.done .success { display: block; }
+  .signup .success h3 { font-size: clamp(40px, 5vw, 72px); }
+  .signup .success p { margin-top: 12px; color: rgba(255,255,255,0.85); }
+  .event { border: 1px solid rgba(255,255,255,0.45); padding: 28px; display: grid; gap: 18px; }
+  .event .micro { color: rgba(255,255,255,0.75); }
+  .event h3 { font-size: clamp(28px, 2.6vw, 40px); letter-spacing: -0.03em; }
+  .event .meta { display: grid; gap: 6px; font-size: 15px; }
+  .event .cta { align-self: start; margin-top: 8px; }
+  @media (max-width: 900px) { .community .grid { grid-template-columns: 1fr; } .signup .row { grid-template-columns: 1fr; } .signup button { padding: 14px 0 12px; border-top: 1px solid rgba(255,255,255,0.3); } }
+
+  /* ============ COUNTDOWN ============ */
+  .countdown { display: none; text-align: left; }
+  .countdown.active { display: block; }
+  .countdown h2 { font-size: var(--title-size); }
+  .countdown .digits { display: grid; grid-template-columns: repeat(4, auto); gap: clamp(24px, 5vw, 80px); margin: 56px 0 40px; justify-content: start; }
+  .countdown .digits div { font-family: var(--display); font-weight: 700; font-size: clamp(56px, 9vw, 140px); letter-spacing: -0.04em; line-height: 0.9; font-variant-numeric: tabular-nums; }
+  .countdown .digits div small { display: block; font-family: var(--body); font-weight: 500; font-size: 12px; letter-spacing: 0.12em; margin-top: 12px; color: var(--paper-faint); }
+
+  /* ============ FAQ ============ */
+  .faq .grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); }
+  .faq h2 { font-size: clamp(36px, 4.5vw, 72px); position: sticky; top: 120px; }
+  .faq-list { border-top: 1px solid var(--line-dark); }
+  .faq-item { border-bottom: 1px solid var(--line-dark); }
+  .faq-item button { width: 100%; text-align: left; display: grid; grid-template-columns: 1fr 24px; gap: 24px; align-items: center; padding: 26px 0; font-family: var(--display); font-weight: 600; font-size: clamp(18px, 1.6vw, 24px); letter-spacing: -0.02em; }
+  .faq-item button .plus { position: relative; width: 16px; height: 16px; justify-self: end; }
+  .faq-item button .plus::before, .faq-item button .plus::after { content: ""; position: absolute; background: currentColor; left: 50%; top: 50%; transform: translate(-50%, -50%); transition: transform 0.4s var(--ease); }
+  .faq-item button .plus::before { width: 16px; height: 1px; }
+  .faq-item button .plus::after { width: 1px; height: 16px; }
+  .faq-item.open button .plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .faq-item .answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+  .faq-item .answer > div { overflow: hidden; }
+  .faq-item .answer p { padding: 0 48px 28px 0; color: var(--ink-soft); max-width: 40em; }
+  .faq-item.open .answer { grid-template-rows: 1fr; }
+  @media (max-width: 900px) { .faq .grid { grid-template-columns: 1fr; } .faq h2 { position: static; } }
+
+  /* ============ FINAL ============ */
+  .final { min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
+  .final .bg { position: absolute; inset: 0; opacity: 0.22; }
+  .final .bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; filter: grayscale(1); }
+  .final .container { position: relative; }
+  .final h2 { font-size: var(--hero-size); }
+  .final .sub { margin: 40px 0; color: var(--paper-soft); }
+
+  /* ============ FOOTER ============ */
+  footer { padding: clamp(56px, 8vh, 96px) var(--gutter) 40px; border-top: 1px solid var(--line-light); }
+  footer .top { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; }
+  footer .wordmark svg { height: 40px; width: auto; }
+  footer .wordmark svg path { fill: var(--white); }
+  footer .tag { margin-top: 12px; color: var(--paper-faint); }
+  footer ul { list-style: none; display: grid; grid-template-columns: repeat(2, auto); gap: 12px 48px; }
+  footer ul a { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--paper-soft); }
+  footer ul a:hover { color: var(--white); }
+  footer .bottom { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line-light); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--paper-faint); }
+  @media (max-width: 900px) { footer .top { grid-template-columns: 1fr; } }
+
+  /* ============ DEMO TOOLBAR (solo para revisión interna) ============ */
+  .demo-bar { position: fixed; left: 16px; bottom: 16px; z-index: 500; display: flex; gap: 8px; align-items: center; background: rgba(0,0,0,0.85); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 999px; padding: 8px 8px 8px 14px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; backdrop-filter: blur(8px); }
+  .demo-bar button { border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; padding: 6px 10px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; }
+  .demo-bar button:hover { background: #fff; color: #000; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .reveal, .reveal-img, .lines .line > span, .hero h1 .line > span { opacity: 1; transform: none; }
+    .marquee { animation: none; }
+    .loading { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================ LOADING ================ -->
+<div class="loading" id="loading" aria-hidden="true">
+  <svg viewBox="580 870 760 170" xmlns="http://www.w3.org/2000/svg">
+    <path d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
+    <path d="M887.56,976.1c0,38.65-27.8,62.83-64.41,62.83s-64.41-24.18-64.41-62.83v-94.56c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v93.65c0,15.82,8.59,36.61,35.93,36.61s35.93-20.79,35.93-36.61v-93.65c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v94.56Z"/>
+    <path d="M906.11,874.85h18.73c2.9,0,5.48,1.82,6.46,4.54l36.77,101.93c2.17,6.02,10.67,6.06,12.9.06l37.96-102.06c1-2.69,3.57-4.48,6.44-4.48h16.59c4.87,0,8.19,4.93,6.37,9.44l-60.8,150.5c-1.05,2.6-3.57,4.3-6.37,4.3h-15.97c-2.83,0-5.36-1.73-6.4-4.36l-59.1-150.5c-1.77-4.51,1.55-9.38,6.4-9.38Z"/>
+    <path d="M1067.51,874.85h95.06c3.79,0,6.87,3.08,6.87,6.87v12.7c0,3.79-3.08,6.87-6.87,6.87h-65.83c-3.79,0-6.87,3.08-6.87,6.87v26.62c0,3.79,3.08,6.87,6.87,6.87h61.65c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-61.65c-3.79,0-6.87,3.08-6.87,6.87v30.8c0,3.79,3.08,6.87,6.87,6.87h70c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-99.23c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+    <path d="M1191.95,874.85h28.15c2.32,0,4.49,1.17,5.76,3.12l77.54,118.9h.46v-115.15c0-3.79,3.08-6.87,6.87-6.87h15.49c3.79,0,6.87,3.08,6.87,6.87v150.5c0,3.79-3.08,6.87-6.87,6.87h-26.5c-2.33,0-4.51-1.19-5.77-3.15l-79.16-122.82h-.46v119.1c0,3.79-3.08,6.87-6.87,6.87h-15.49c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+  </svg>
+  <div class="micro">Back to motion</div>
+</div>
+
+<!-- ================ NAV ================ -->
+<nav>
+  <a href="#top" class="wordmark" aria-label="MUVEN">
+    <svg viewBox="580 870 760 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
+      <path d="M887.56,976.1c0,38.65-27.8,62.83-64.41,62.83s-64.41-24.18-64.41-62.83v-94.56c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v93.65c0,15.82,8.59,36.61,35.93,36.61s35.93-20.79,35.93-36.61v-93.65c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v94.56Z"/>
+      <path d="M906.11,874.85h18.73c2.9,0,5.48,1.82,6.46,4.54l36.77,101.93c2.17,6.02,10.67,6.06,12.9.06l37.96-102.06c1-2.69,3.57-4.48,6.44-4.48h16.59c4.87,0,8.19,4.93,6.37,9.44l-60.8,150.5c-1.05,2.6-3.57,4.3-6.37,4.3h-15.97c-2.83,0-5.36-1.73-6.4-4.36l-59.1-150.5c-1.77-4.51,1.55-9.38,6.4-9.38Z"/>
+      <path d="M1067.51,874.85h95.06c3.79,0,6.87,3.08,6.87,6.87v12.7c0,3.79-3.08,6.87-6.87,6.87h-65.83c-3.79,0-6.87,3.08-6.87,6.87v26.62c0,3.79,3.08,6.87,6.87,6.87h61.65c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-61.65c-3.79,0-6.87,3.08-6.87,6.87v30.8c0,3.79,3.08,6.87,6.87,6.87h70c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-99.23c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+      <path d="M1191.95,874.85h28.15c2.32,0,4.49,1.17,5.76,3.12l77.54,118.9h.46v-115.15c0-3.79,3.08-6.87,6.87-6.87h15.49c3.79,0,6.87,3.08,6.87,6.87v150.5c0,3.79-3.08,6.87-6.87,6.87h-26.5c-2.33,0-4.51-1.19-5.77-3.15l-79.16-122.82h-.46v119.1c0,3.79-3.08,6.87-6.87,6.87h-15.49c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+    </svg>
+  </a>
+  <ul>
+    <li><a href="#historia">Historia</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#comunidad" class="nav-cta" data-track="hero_cta_click">Únete</a>
+</nav>
+
+<main id="top">
+
+<!-- ================ HERO ================ -->
+<section class="hero on-black" id="hero">
+  <div class="hero-media" aria-hidden="true">
+    <!-- Cuando exista el video: <video autoplay muted loop playsinline poster="assets/photos/hero-run.webp"><source src="assets/video/hero.webm" type="video/webm"><source src="assets/video/hero.mp4" type="video/mp4"></video> -->
+    <img src="assets/photos/hero-run.webp" alt="" width="1200" height="1800" fetchpriority="high">
+  </div>
+  <div class="hero-content">
+    <div>
+      <div class="micro hero-eyebrow reveal">Recovery, reimagined.</div>
+      <h1><span class="line"><span>Back in</span></span><span class="line"><span>motion.</span></span></h1>
+    </div>
+    <div class="hero-side reveal d2">
+      <p>Una nueva forma de integrar la recuperación a tu rutina.</p>
+      <a href="#statement" class="cta" data-track="hero_cta_click">Conoce MUVEN <span class="arrow">↓</span></a>
+    </div>
+  </div>
+  <div class="micro hero-scroll">Scroll</div>
+</section>
+
+<!-- ================ BIG STATEMENT ================ -->
+<section class="statement on-white" id="statement">
+  <div class="container">
+    <h2 class="lines"><span class="line"><span>No queremos</span></span><span class="line"><span>que te acostumbres</span></span><span class="line"><span>a parar.</span></span></h2>
+    <h2 class="lines red"><span class="line"><span>Queremos que</span></span><span class="line"><span>puedas volver.</span></span></h2>
+  </div>
+</section>
+
+<!-- ================ PROBLEM ================ -->
+<section class="problem on-black" id="problema" data-track-view="problem_section_view">
+  <div class="container">
+    <div class="grid">
+      <figure class="reveal-img">
+        <img src="assets/photos/problem-tired.webp" alt="Atleta recuperando el aliento con las manos en las rodillas sobre una pista de atletismo" loading="lazy" data-parallax="0.06">
+        <figcaption class="micro">Monterrey, MX — 2026</figcaption>
+      </figure>
+      <div>
+        <div class="micro reveal" style="color: var(--red); margin-bottom: 32px;">01 — The problem</div>
+        <div class="stat reveal d1">~40%<small>incidencia global promedio</small></div>
+        <p class="stat-copy reveal d2">Una revisión sistemática de lesiones musculoesqueléticas relacionadas con correr reportó una <strong>incidencia global promedio de 40.2&nbsp;% ±&nbsp;18.8&nbsp;%</strong>.</p>
+        <p class="stat-note reveal d3">Las cifras varían según la definición de lesión, la población estudiada y el tiempo de seguimiento. Fuente: <a href="https://pubmed.ncbi.nlm.nih.gov/33862272/" target="_blank" rel="noopener">PubMed, revisión sistemática (2021)</a>.</p>
+        <div class="support reveal d3">
+          <h3>Entrenas para avanzar. Recuperarte también es parte del entrenamiento.</h3>
+          <a href="#historia" class="cta">Por eso existe MUVEN <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ HORIZONTAL RAIL ================ -->
+<section class="rail on-white" id="historia" aria-label="La historia de MUVEN">
+  <div class="rail-sticky">
+    <div class="rail-head">
+      <h2>De un problema<br>a un objeto.</h2>
+      <div class="micro rail-hint">→ Scroll to explore</div>
+    </div>
+
+    <div class="rail-track" id="railTrack">
+      <article class="card" data-index="0">
+        <figure><img src="assets/photos/rail-01-problem.webp" alt="Corredor exhausto, inclinado con las manos sobre las rodillas" loading="lazy"></figure>
+        <div class="card-info">
+          <div class="card-num">01</div>
+          <div><h3>The problem</h3><p>Entrenar no termina cuando cruzas la meta. Recuperarte también determina cuánto puedes seguir haciendo.</p></div>
+        </div>
+      </article>
+      <article class="card" data-index="1">
+        <figure><img src="assets/photos/rail-02-recovery.webp" alt="Atleta estirando la pierna sentado en la pista" loading="lazy"></figure>
+        <div class="card-info">
+          <div class="card-num">02</div>
+          <div><h3>Recovery is part of training.</h3><p>Queremos hacer que cuidar tu recuperación sea una parte natural de tu rutina, no algo que haces solamente cuando algo duele.</p></div>
+        </div>
+      </article>
+      <article class="card" data-index="2">
+        <figure><div class="placeholder"><div class="ph-label"><strong>Sketch / CAD / primer prototipo</strong><span>Asset pendiente — carpeta /prototype</span></div></div></figure>
+        <div class="card-info">
+          <div class="card-num">03</div>
+          <div><h3>From idea to object.</h3><p>MUVEN empezó con una pregunta: ¿cómo diseñar una herramienta de recuperación que realmente quieras usar?</p></div>
+        </div>
+      </article>
+      <article class="card" data-index="3">
+        <figure><div class="placeholder"><div class="ph-label"><strong>Video del proceso · 5–12 s</strong><span>CAD, impresión 3D, pruebas, iteraciones — pendiente</span></div></div></figure>
+        <div class="card-info">
+          <div class="card-num">04</div>
+          <div><h3>Built in public.</h3><p>Probamos. Ajustamos. Volvemos a probar. Y compartimos el proceso.</p></div>
+        </div>
+      </article>
+      <article class="card" data-index="4">
+        <figure><img src="assets/photos/rail-05-community.webp" alt="Tres atletas sentados en la pista frente a las montañas de Monterrey" loading="lazy"></figure>
+        <div class="card-info">
+          <div class="card-num">05</div>
+          <div><h3>Built with you.</h3><p>Porque el producto que estamos construyendo debe crecer junto a las personas que lo van a usar.</p></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="rail-foot">
+      <div class="rail-counter"><b id="railCur">01</b> <span>/ 05</span></div>
+      <div class="rail-btns">
+        <button type="button" id="railPrev" aria-label="Anterior">←</button>
+        <button type="button" id="railNext" aria-label="Siguiente">→</button>
+      </div>
+    </div>
+    <div class="rail-progress" aria-hidden="true"><i id="railBar"></i></div>
+  </div>
+</section>
+
+<!-- ================ PROCESS VIDEO ================ -->
+<section class="process on-black" id="proceso">
+  <div class="container">
+    <div class="video reveal-img">
+      <img src="assets/photos/process-poster.webp" alt="" loading="lazy">
+      <div class="placeholder"><div class="ph-label"><strong>Process video · 16:9</strong><span>Poster temporal — reemplazar por video comprimido (WebM + MP4)</span></div></div>
+      <button class="play micro" type="button" data-track="process_video_play">Play</button>
+    </div>
+    <div class="headlines">
+      <h2 class="lines"><span class="line"><span>We&rsquo;re not just</span></span><span class="line"><span>making a product.</span></span></h2>
+      <h2 class="lines"><span class="line"><span>We&rsquo;re building</span></span><span class="line"><span>the process.</span></span></h2>
+    </div>
+    <div class="grid">
+      <p class="lead reveal">MUVEN comenzó como una tesis de diseño industrial. Hoy estamos convirtiéndola en una herramienta real de recuperación para atletas.</p>
+      <div>
+        <div class="tags micro reveal d1"><span>Prototipos</span><span>Pruebas</span><span>Diseño</span><span>Materiales</span><span>Producto</span></div>
+        <p style="margin-top: 28px;" class="reveal d2"><a href="#lab" class="cta">Ver el proceso <span class="arrow">↓</span></a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ PROTOTYPE / DESIGN LAB ================ -->
+<section class="lab on-black" id="lab">
+  <div class="container">
+    <div class="grid">
+      <div class="visuals">
+        <div class="placeholder reveal-img"><div class="ph-label"><strong>Render / prototipo físico</strong><span>Pendiente</span></div></div>
+        <div class="placeholder reveal-img d1"><div class="ph-label"><strong>Boceto</strong><span>Pendiente</span></div></div>
+        <div class="placeholder reveal-img d2"><div class="ph-label"><strong>CAD</strong><span>Pendiente</span></div></div>
+      </div>
+      <div>
+        <div class="micro reveal" style="color: var(--red); margin-bottom: 32px;">Design lab</div>
+        <h2 class="lines"><span class="line"><span>Designed</span></span><span class="line"><span>to be used.</span></span></h2>
+        <p class="lead reveal d1">Cada decisión existe por una razón: cómo se siente en la mano, cómo se mueve sobre el cuerpo y cómo puede integrarse a una rutina real.</p>
+        <ol class="reveal d2" id="labSpecs"></ol>
+        <p class="note micro reveal d3">Valores técnicos editables · se muestran solo cuando MUVEN los valide</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ WHO WE ARE ================ -->
+<section class="team on-white" id="equipo">
+  <div class="container">
+    <div class="grid">
+      <figure class="reveal-img">
+        <img src="assets/photos/team-carolina-lisa.webp" alt="Carolina y Lisa, fundadoras de MUVEN, en estudio" loading="lazy">
+      </figure>
+      <div>
+        <div class="micro reveal" style="color: var(--red); margin-bottom: 32px;">Who we are</div>
+        <h2 class="lines"><span class="line"><span>Two</span></span><span class="line"><span>designers.</span></span></h2>
+        <p class="lead reveal d1">Somos Carolina y Lisa, dos diseñadoras industriales y mejores amigas que empezaron esto como una tesis y decidieron no dejarla ahí.</p>
+        <p class="lead reveal d2">Somos atletas. Hemos vivido el ciclo de entrenar, lesionarte, recuperarte y volver a empezar. Por eso decidimos diseñar nuestra propia respuesta.</p>
+        <div class="labels micro reveal d3">
+          <span><b>Carolina</b> — Industrial designer</span>
+          <span><b>Lisa</b> — Industrial designer</span>
+          <span>Monterrey, México</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ BUILDING IN PUBLIC ================ -->
+<section class="public on-white">
+  <div class="head">
+    <h2 class="lines"><span class="line"><span>You&rsquo;re seeing it</span></span><span class="line"><span>before it&rsquo;s finished.</span></span></h2>
+    <p class="lead reveal">No queremos aparecer el día del lanzamiento con un producto perfecto que nadie vio venir. Queremos construirlo contigo.</p>
+  </div>
+  <div class="marquee" id="marquee" aria-hidden="true"></div>
+  <div class="tags micro reveal"><span>Reels</span><span>Prototipos</span><span>Pruebas</span><span>Encuestas</span><span>Sesiones con atletas</span><span>Eventos</span><span>Errores</span><span>Feedback</span></div>
+</section>
+
+<!-- ================ COMMUNITY / EVENTS ================ -->
+<section class="community on-red" id="comunidad">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <h2 class="lines"><span class="line"><span>Be there</span></span><span class="line"><span>before</span></span><span class="line"><span>the start.</span></span></h2>
+        <p class="lead reveal d1">Únete para enterarte primero de nuestros próximos eventos, pruebas, drops y la fecha oficial de lanzamiento.</p>
+        <div class="signup reveal d2" id="signup">
+          <form id="signupForm" novalidate>
+            <div class="row">
+              <label class="sr-only" for="email" style="position:absolute;left:-9999px;">Tu email</label>
+              <input type="email" id="email" name="email" placeholder="Tu email" required autocomplete="email">
+              <button type="submit">Quiero estar dentro <span class="arrow">→</span></button>
+            </div>
+          </form>
+          <div class="success" role="status">
+            <h3>You&rsquo;re in.</h3>
+            <p>Te avisaremos antes que nadie.</p>
+          </div>
+          <div class="note">Sin spam. Solo MUVEN.</div>
+        </div>
+      </div>
+      <aside class="event reveal d3" id="eventModule"></aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================ LAUNCH COUNTDOWN (solo con fecha oficial) ================ -->
+<section class="countdown on-black" id="countdown">
+  <div class="container">
+    <h2 class="lines"><span class="line"><span>The wait is</span></span><span class="line"><span>almost over.</span></span></h2>
+    <div class="digits" id="digits">
+      <div><span data-u="d">00</span><small>Days</small></div>
+      <div><span data-u="h">00</span><small>Hours</small></div>
+      <div><span data-u="m">00</span><small>Min</small></div>
+      <div><span data-u="s">00</span><small>Sec</small></div>
+    </div>
+    <a href="#comunidad" class="cta" data-track="launch_signup">Join the launch list <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- ================ FAQ ================ -->
+<section class="faq on-white" id="faq">
+  <div class="container">
+    <div class="grid">
+      <h2>Preguntas<br>honestas.</h2>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ FINAL STATEMENT ================ -->
+<section class="final on-black">
+  <div class="bg" aria-hidden="true"><img src="assets/photos/final-fist.webp" alt="" loading="lazy" data-parallax="0.08"></div>
+  <div class="container">
+    <h2 class="lines"><span class="line"><span>The process</span></span><span class="line"><span>has started.</span></span></h2>
+    <p class="sub micro reveal d1">You can be part of it.</p>
+    <a href="#comunidad" class="btn red reveal d2" data-track="launch_signup">Join MUVEN <span>→</span></a>
+  </div>
+</section>
+
+</main>
+
+<!-- ================ FOOTER ================ -->
+<footer class="on-black">
+  <div class="container">
+    <div class="top">
+      <div>
+        <a href="#top" class="wordmark" aria-label="MUVEN">
+          <svg viewBox="580 870 760 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
+            <path d="M887.56,976.1c0,38.65-27.8,62.83-64.41,62.83s-64.41-24.18-64.41-62.83v-94.56c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v93.65c0,15.82,8.59,36.61,35.93,36.61s35.93-20.79,35.93-36.61v-93.65c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v94.56Z"/>
+            <path d="M906.11,874.85h18.73c2.9,0,5.48,1.82,6.46,4.54l36.77,101.93c2.17,6.02,10.67,6.06,12.9.06l37.96-102.06c1-2.69,3.57-4.48,6.44-4.48h16.59c4.87,0,8.19,4.93,6.37,9.44l-60.8,150.5c-1.05,2.6-3.57,4.3-6.37,4.3h-15.97c-2.83,0-5.36-1.73-6.4-4.36l-59.1-150.5c-1.77-4.51,1.55-9.38,6.4-9.38Z"/>
+            <path d="M1067.51,874.85h95.06c3.79,0,6.87,3.08,6.87,6.87v12.7c0,3.79-3.08,6.87-6.87,6.87h-65.83c-3.79,0-6.87,3.08-6.87,6.87v26.62c0,3.79,3.08,6.87,6.87,6.87h61.65c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-61.65c-3.79,0-6.87,3.08-6.87,6.87v30.8c0,3.79,3.08,6.87,6.87,6.87h70c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-99.23c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+            <path d="M1191.95,874.85h28.15c2.32,0,4.49,1.17,5.76,3.12l77.54,118.9h.46v-115.15c0-3.79,3.08-6.87,6.87-6.87h15.49c3.79,0,6.87,3.08,6.87,6.87v150.5c0,3.79-3.08,6.87-6.87,6.87h-26.5c-2.33,0-4.51-1.19-5.77-3.15l-79.16-122.82h-.46v119.1c0,3.79-3.08,6.87-6.87,6.87h-15.49c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+          </svg>
+        </a>
+        <div class="tag micro">Back to motion</div>
+      </div>
+      <ul>
+        <li><a href="https://www.instagram.com/muvenmx/" target="_blank" rel="noopener" data-track="instagram_click">Instagram</a></li>
+        <li><a href="#comunidad" data-track="whatsapp_click">WhatsApp</a></li>
+        <li><a href="#comunidad">Community</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="mailto:muven.mx@gmail.com">Contact</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul>
+    </div>
+    <div class="bottom micro">
+      <span>&copy;&nbsp;2026 MUVEN</span>
+      <span>Hecho en Monterrey, México</span>
+    </div>
+  </div>
+</footer>
+
+<div class="demo-bar" id="demoBar">
+  <span>Demo</span>
+  <button type="button" id="toggleCountdown">Countdown</button>
+  <button type="button" id="toggleEvent">Evento on/off</button>
+  <button type="button" id="toggleSwipe">Rail: swipe</button>
+</div>
+
+<script>
+/* =====================================================================
+   CONFIG — campos editables (equivalente al CMS del brief, sección 33)
+   ===================================================================== */
+const MUVEN = {
+  event: {
+    active: true,
+    name: 'Primer anuncio del masajeador',
+    date: '[FECHA]',
+    city: 'Monterrey, MX',
+    url: '#comunidad',
+  },
+  launch: {
+    date: null,           // 'YYYY-MM-DDTHH:mm:ss-06:00' cuando exista fecha oficial
+    countdownEnabled: false,
+  },
+  prototypeLabels: [
+    { n: '01', name: 'Material', value: 'Por validar' },
+    { n: '02', name: 'Thermal system', value: 'Por validar' },
+    { n: '03', name: 'Rotation', value: 'Por validar' },
+    { n: '04', name: 'Ergonomics', value: 'Por validar' },
+    { n: '05', name: 'Testing', value: 'Por validar' },
+  ],
+  faq: [
+    ['¿Qué es MUVEN?', 'MUVEN es una herramienta de recuperación diseñada para integrarse a la rutina de atletas y runners.'],
+    ['¿Para quién es?', 'Para personas activas que quieren cuidar su recuperación y mantener la constancia entre entrenamientos.'],
+    ['¿Qué hace?', 'Combina herramientas de recuperación térmica y liberación miofascial en un formato compacto y fácil de integrar a la rutina.'],
+    ['¿Cuándo se lanza?', 'La fecha oficial será anunciada primero a nuestra comunidad.'],
+    ['¿Dónde estará disponible?', 'Primero anunciaremos disponibilidad y lanzamiento a través de nuestra lista de comunidad y redes.'],
+    ['¿Puedo probarlo antes del lanzamiento?', 'Cuando abramos nuevas pruebas o sesiones con atletas, nuestra comunidad será la primera en enterarse.'],
+    ['¿MUVEN reemplaza a un fisioterapeuta?', 'No. MUVEN está pensado como una herramienta complementaria dentro de una rutina de recuperación y no sustituye una valoración o tratamiento profesional.'],
+  ],
+  strip: ['strip-01','strip-02','strip-03','strip-04','strip-05','strip-06','strip-07','strip-08'],
+};
+
+/* ============ ANALYTICS (stub; nombres del brief, sección 35) ============ */
+function track(name, data) {
+  console.log('[track]', name, data || '');
+  if (window.gtag) gtag('event', name, data || {});
+}
+document.querySelectorAll('[data-track]').forEach(el => el.addEventListener('click', () => track(el.dataset.track)));
+
+/* ============ SHOT MODE (solo para capturas internas: ?shot=<id>) ============ */
+const SHOT = new URLSearchParams(location.search).get('shot');
+if (SHOT) {
+  document.documentElement.style.scrollBehavior = 'auto';
+  document.getElementById('loading').remove();
+  document.getElementById('demoBar').remove();
+  document.querySelectorAll('.reveal, .reveal-img, .lines, #hero').forEach(el => el.classList.add('in'));
+  document.querySelectorAll('.hero-media img').forEach(i => i.style.animation = 'none');
+  window.addEventListener('load', () => document.fonts.ready.then(() => {
+    const t = document.getElementById(SHOT);
+    if (!t) return;
+    const off = parseFloat(new URLSearchParams(location.search).get('off') || 0);
+    if (window.railSetProgress && SHOT === 'historia') window.railSetProgress(off);
+    document.body.style.transform = `translateY(${-t.offsetTop}px)`;
+  }));
+}
+
+
+/* ============ LOADING ============ */
+const loading = document.getElementById('loading');
+const hero = document.getElementById('hero');
+window.addEventListener('load', () => {
+  if (SHOT) return;
+  setTimeout(() => {
+    loading.classList.add('done');
+    hero.classList.add('in');
+    setTimeout(() => hero.querySelectorAll('.reveal').forEach(el => el.classList.add('in')), 300);
+  }, 1200);
+});
+// Failsafe: nunca bloquear más de 2.5 s aunque algo no cargue
+setTimeout(() => { if (SHOT) return; loading.classList.add('done'); hero.classList.add('in'); hero.querySelectorAll('.reveal').forEach(el => el.classList.add('in')); }, 2500);
+
+/* ============ SCROLL REVEALS ============ */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+document.querySelectorAll('.reveal:not(#hero .reveal), .reveal-img, .lines').forEach(el => io.observe(el));
+
+/* Section view tracking */
+document.querySelectorAll('[data-track-view]').forEach(el => {
+  const vo = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { track(el.dataset.trackView); vo.disconnect(); }
+  }, { threshold: 0.4 });
+  vo.observe(el);
+});
+
+/* ============ PARALLAX (sutil, máx 8 %) ============ */
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const parallaxEls = [...document.querySelectorAll('[data-parallax]')];
+function parallax() {
+  const vh = window.innerHeight;
+  parallaxEls.forEach(img => {
+    const r = img.parentElement.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > vh) return;
+    const p = (r.top + r.height / 2 - vh / 2) / vh; // -1..1
+    const amt = parseFloat(img.dataset.parallax) * 100;
+    img.style.transform = `scale(${1 + amt / 100}) translateY(${(-p * amt / 2).toFixed(2)}%)`;
+  });
+}
+if (!reduced) { window.addEventListener('scroll', parallax, { passive: true }); parallax(); }
+
+/* ============ HORIZONTAL RAIL ============ */
+(function () {
+  const rail = document.querySelector('.rail');
+  const trackEl = document.getElementById('railTrack');
+  const cards = [...trackEl.querySelectorAll('.card')];
+  const cur = document.getElementById('railCur');
+  const bar = document.getElementById('railBar');
+  const prev = document.getElementById('railPrev');
+  const next = document.getElementById('railNext');
+  const N = cards.length;
+  const mq = window.matchMedia('(max-width: 900px)');
+  let mode = null;          // 'sticky' | 'swipe'
+  let target = 0, current = 0, raf = null;
+  let lastActive = -1, interacted = false;
+  const pad2 = n => String(n + 1).padStart(2, '0');
+
+  function setActive(i) {
+    i = Math.max(0, Math.min(N - 1, i));
+    if (i === lastActive) return;
+    lastActive = i;
+    cur.textContent = pad2(i);
+    prev.disabled = i === 0;
+    next.disabled = i === N - 1;
+    track('story_slide_view', { index: i + 1 });
+  }
+  function noteInteraction(kind) {
+    if (interacted) return; interacted = true;
+    track('story_horizontal_interaction', { kind });
+  }
+
+  /* --- Sticky mode (desktop): scroll vertical -> horizontal --- */
+  function stepPx() {
+    const a = cards[0].getBoundingClientRect(), b = cards[1].getBoundingClientRect();
+    return b.left - a.left;
+  }
+  function layout() {
+    if (mode !== 'sticky') return;
+    rail.style.height = `${(N - 1) * 0.85 * window.innerHeight + window.innerHeight}px`;
+  }
+  function progress() {
+    const r = rail.getBoundingClientRect();
+    const total = rail.offsetHeight - window.innerHeight;
+    return Math.max(0, Math.min(1, -r.top / total));
+  }
+  function render() {
+    raf = null;
+    current += (target - current) * 0.12;
+    if (Math.abs(target - current) < 0.0005) current = target;
+    const pos = current * (N - 1);
+    trackEl.style.transform = `translate3d(${(-pos * stepPx()).toFixed(2)}px,0,0)`;
+    cards.forEach((c, i) => {
+      const d = Math.min(1, Math.abs(i - pos));
+      c.style.transform = `scale(${(1 - d * 0.06).toFixed(4)})`;
+      c.style.opacity = (1 - d * 0.35).toFixed(3);
+      const info = c.querySelector('.card-info');
+      info.style.transform = `translateY(${(d * 20).toFixed(1)}px)`;
+      info.style.opacity = (1 - d * 0.6).toFixed(3);
+      const img = c.querySelector('img, .placeholder');
+      if (img) img.style.transform = `scale(${(1 + d * 0.04).toFixed(4)})`;
+    });
+    bar.style.width = `${(current * 100).toFixed(2)}%`;
+    setActive(Math.round(pos));
+    if (current !== target) raf = requestAnimationFrame(render);
+  }
+  function onScroll() {
+    if (mode !== 'sticky') return;
+    target = progress();
+    if (!raf) raf = requestAnimationFrame(render);
+  }
+  function goTo(i) {
+    i = Math.max(0, Math.min(N - 1, i));
+    if (mode === 'sticky') {
+      const top = rail.offsetTop + (i / (N - 1)) * (rail.offsetHeight - window.innerHeight);
+      window.scrollTo({ top, behavior: 'smooth' });
+    } else {
+      cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }
+  }
+
+  /* Drag + trackpad horizontal en modo sticky -> mueve el scroll vertical */
+  let dragging = false, startX = 0, startY = 0;
+  rail.addEventListener('pointerdown', e => {
+    if (mode !== 'sticky' || e.button !== 0) return;
+    dragging = true; startX = e.clientX; startY = window.scrollY; rail.classList.add('dragging');
+  });
+  window.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    const per = (rail.offsetHeight - window.innerHeight) / ((N - 1) * stepPx());
+    window.scrollTo(0, startY - dx * per);
+    if (Math.abs(dx) > 8) noteInteraction('drag');
+  });
+  window.addEventListener('pointerup', () => { dragging = false; rail.classList.remove('dragging'); });
+  rail.addEventListener('wheel', e => {
+    if (mode !== 'sticky') return;
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 2) {
+      e.preventDefault();
+      const per = (rail.offsetHeight - window.innerHeight) / ((N - 1) * stepPx());
+      window.scrollBy(0, e.deltaX * per);
+      noteInteraction('trackpad');
+    }
+  }, { passive: false });
+  window.addEventListener('keydown', e => {
+    const r = rail.getBoundingClientRect();
+    if (r.top > window.innerHeight * 0.5 || r.bottom < window.innerHeight * 0.5) return;
+    if (e.key === 'ArrowRight') { goTo(lastActive + 1); noteInteraction('keyboard'); }
+    if (e.key === 'ArrowLeft') { goTo(lastActive - 1); noteInteraction('keyboard'); }
+  });
+  prev.addEventListener('click', () => { goTo(lastActive - 1); noteInteraction('button'); });
+  next.addEventListener('click', () => { goTo(lastActive + 1); noteInteraction('button'); });
+
+  /* --- Swipe mode (mobile / reduced motion) --- */
+  function onTrackScroll() {
+    if (mode !== 'swipe') return;
+    const max = trackEl.scrollWidth - trackEl.clientWidth;
+    const p = max > 0 ? trackEl.scrollLeft / max : 0;
+    bar.style.width = `${(p * 100).toFixed(2)}%`;
+    setActive(Math.round(p * (N - 1)));
+    if (trackEl.scrollLeft > 4) noteInteraction('swipe');
+  }
+  trackEl.addEventListener('scroll', onTrackScroll, { passive: true });
+
+  function setMode(m) {
+    if (m === mode) return;
+    mode = m;
+    rail.classList.toggle('swipe', m === 'swipe');
+    trackEl.style.transform = '';
+    cards.forEach(c => { c.style.transform = ''; c.style.opacity = ''; const i = c.querySelector('.card-info'); i.style.transform = ''; i.style.opacity = ''; const img = c.querySelector('img, .placeholder'); if (img) img.style.transform = ''; });
+    if (m === 'sticky') { layout(); target = current = progress(); render(); }
+    else { rail.style.height = ''; onTrackScroll(); }
+    lastActive = -1; setActive(0);
+  }
+  window.railForceSwipe = null;
+  function pickMode() {
+    const force = window.railForceSwipe;
+    setMode(force === true || (force === null && (mq.matches || reduced)) ? 'swipe' : 'sticky');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => { pickMode(); layout(); onScroll(); });
+  mq.addEventListener('change', pickMode);
+  pickMode();
+  window.railPickMode = pickMode;
+  window.railSetProgress = p => { if (mode === 'sticky') { target = current = Math.max(0, Math.min(1, p)); render(); } };
+})();
+
+/* ============ DESIGN LAB SPECS ============ */
+document.getElementById('labSpecs').innerHTML = MUVEN.prototypeLabels.map(l =>
+  `<li><span class="n micro">${l.n}</span><span class="name">${l.name}</span><span class="val">${l.value}</span></li>`).join('');
+
+/* ============ MARQUEE ============ */
+(function () {
+  const m = document.getElementById('marquee');
+  const items = MUVEN.strip.map(s => `<figure><img src="assets/photos/${s}-sm.webp" alt="" loading="lazy"></figure>`).join('');
+  m.innerHTML = items + items; // duplicado para loop continuo
+})();
+
+/* ============ EVENT MODULE ============ */
+function renderEvent() {
+  const el = document.getElementById('eventModule');
+  const ev = MUVEN.event;
+  el.innerHTML = ev.active
+    ? `<div class="micro">Next event</div>
+       <h3>${ev.name}</h3>
+       <div class="meta"><span>${ev.date}</span><span>${ev.city}</span></div>
+       <a href="${ev.url}" class="cta" data-track="event_click">Reserva tu lugar <span class="arrow">→</span></a>`
+    : `<div class="micro">Next event</div><h3>Próximamente.</h3><div class="meta"><span>Te avisamos primero por aquí.</span></div>`;
+  el.querySelectorAll('[data-track]').forEach(a => a.addEventListener('click', () => track(a.dataset.track)));
+}
+renderEvent();
+
+/* ============ SIGNUP ============ */
+document.getElementById('signupForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const input = e.target.querySelector('input');
+  if (!input.checkValidity()) { input.reportValidity(); return; }
+  track('community_signup', { email: input.value });
+  document.getElementById('signup').classList.add('done');
+});
+
+/* ============ COUNTDOWN ============ */
+(function () {
+  const sec = document.getElementById('countdown');
+  let timer = null;
+  function tick() {
+    const diff = Math.max(0, new Date(MUVEN.launch.date) - Date.now());
+    const d = Math.floor(diff / 864e5), h = Math.floor(diff / 36e5) % 24, m = Math.floor(diff / 6e4) % 60, s = Math.floor(diff / 1e3) % 60;
+    const set = (u, v) => sec.querySelector(`[data-u="${u}"]`).textContent = String(v).padStart(2, '0');
+    set('d', d); set('h', h); set('m', m); set('s', s);
+  }
+  window.renderCountdown = function () {
+    const on = MUVEN.launch.countdownEnabled && MUVEN.launch.date;
+    sec.classList.toggle('active', !!on);
+    clearInterval(timer);
+    if (on) { tick(); timer = setInterval(tick, 1000); }
+  };
+  renderCountdown();
+})();
+
+/* ============ FAQ ============ */
+(function () {
+  const list = document.getElementById('faqList');
+  list.innerHTML = MUVEN.faq.map(([q, a], i) =>
+    `<div class="faq-item"><button type="button" aria-expanded="false" aria-controls="faq-${i}">${q}<span class="plus" aria-hidden="true"></span></button><div class="answer" id="faq-${i}"><div><p>${a}</p></div></div></div>`).join('');
+  list.querySelectorAll('.faq-item button').forEach(btn => btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const open = item.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    if (open) track('faq_open', { q: btn.textContent.trim() });
+  }));
+})();
+
+/* ============ DEMO TOOLBAR ============ */
+if (document.getElementById('demoBar')) {
+document.getElementById('toggleCountdown').addEventListener('click', () => {
+  MUVEN.launch.countdownEnabled = !MUVEN.launch.countdownEnabled;
+  if (!MUVEN.launch.date) MUVEN.launch.date = new Date(Date.now() + 37 * 864e5 + 5 * 36e5).toISOString();
+  renderCountdown();
+  if (MUVEN.launch.countdownEnabled) document.getElementById('countdown').scrollIntoView({ behavior: 'smooth' });
+});
+document.getElementById('toggleEvent').addEventListener('click', () => { MUVEN.event.active = !MUVEN.event.active; renderEvent(); });
+document.getElementById('toggleSwipe').addEventListener('click', (e) => {
+  window.railForceSwipe = window.railForceSwipe === true ? false : true;
+  e.target.textContent = window.railForceSwipe ? 'Rail: sticky' : 'Rail: swipe';
+  window.railPickMode();
+});
+}
+</script>
+</body>
+</html>
