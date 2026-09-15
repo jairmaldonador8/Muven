@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/photos/hero-run.webp">
+<link rel="preload" as="image" href="assets/photos/hero-video-poster.webp">
 <style>
   /* ============ TOKENS ============ */
   :root {
@@ -167,7 +167,9 @@
   /* ============ HERO ============ */
   .hero { min-height: 100svh; padding: 0; display: flex; align-items: flex-end; overflow: hidden; }
   .hero-media { position: absolute; inset: 0; }
-  .hero-media img, .hero-media video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; animation: hero-kb 14s var(--ease) forwards; filter: grayscale(1) contrast(1.05); }
+  .hero-media img, .hero-media video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; filter: grayscale(1) contrast(1.05); }
+  .hero-media img { animation: hero-kb 14s var(--ease) forwards; }
+  .hero-media video { object-position: 50% 50%; background: var(--ink); }
   @keyframes hero-kb { from { transform: scale(1.08); } to { transform: scale(1); } }
   .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.15) 100%); }
   .hero-content { position: relative; width: 100%; padding: 0 var(--gutter) clamp(40px, 6vh, 72px); display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 32px; }
@@ -251,17 +253,16 @@
   @media (min-width: 901px) { .rail.swipe .card { --card-w: 46vw; } }
 
   /* ============ PROCESS VIDEO ============ */
-  .process .video { aspect-ratio: 16 / 9; width: 100%; overflow: hidden; position: relative; background: #111; }
-  .process .video img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; filter: grayscale(1); }
-  .process .video .placeholder { position: absolute; inset: 0; background: transparent; }
-  .process .video .placeholder::after { display: none; }
-  .process .video .play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 88px; height: 88px; border-radius: 999px; border: 1px solid var(--white); display: grid; place-items: center; font-size: 12px; letter-spacing: 0.12em; }
-  .process .headlines { margin: clamp(56px, 8vh, 96px) 0 40px; }
-  .process h2 { font-size: var(--title-size); max-width: 10em; }
+  .process .intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: end; }
+  .process .photo { position: relative; overflow: hidden; aspect-ratio: 2 / 3; background: #111; }
+  .process .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; filter: grayscale(1) contrast(1.05); }
+  .process .photo figcaption { position: absolute; left: 20px; bottom: 18px; color: var(--paper-faint); }
+  .process .headlines { padding-bottom: 12px; }
+  .process h2 { font-size: clamp(40px, 5.2vw, 84px); }
   .process h2 + h2 { margin-top: 0.4em; color: var(--paper-faint); }
-  .process .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; }
+  .process .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-top: clamp(48px, 7vh, 88px); }
   .process .tags { display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--paper-faint); }
-  @media (max-width: 900px) { .process .grid { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .process .intro, .process .grid { grid-template-columns: 1fr; } .process .headlines { padding-top: 40px; } }
 
   /* ============ PROTOTYPE / DESIGN LAB ============ */
   .lab .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); }
@@ -425,8 +426,10 @@
 <!-- ================ HERO ================ -->
 <section class="hero on-black" id="hero">
   <div class="hero-media" aria-hidden="true">
-    <!-- Cuando exista el video: <video autoplay muted loop playsinline poster="assets/photos/hero-run.webp"><source src="assets/video/hero.webm" type="video/webm"><source src="assets/video/hero.mp4" type="video/mp4"></video> -->
-    <img src="assets/photos/hero-run.webp" alt="" width="1200" height="1800" fetchpriority="high">
+    <video autoplay muted loop playsinline preload="auto" poster="assets/photos/hero-video-poster.webp" width="1920" height="1080">
+      <source src="assets/video/hero.webm" type="video/webm">
+      <source src="assets/video/hero.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="hero-content">
     <div>
@@ -531,14 +534,15 @@
 <!-- ================ PROCESS VIDEO ================ -->
 <section class="process on-black" id="proceso">
   <div class="container">
-    <div class="video reveal-img">
-      <img src="assets/photos/process-poster.webp" alt="" loading="lazy">
-      <div class="placeholder"><div class="ph-label"><strong>Process video · 16:9</strong><span>Poster temporal — reemplazar por video comprimido (WebM + MP4)</span></div></div>
-      <button class="play micro" type="button" data-track="process_video_play">Play</button>
-    </div>
-    <div class="headlines">
-      <h2 class="lines"><span class="line"><span>We&rsquo;re not just</span></span><span class="line"><span>making a product.</span></span></h2>
-      <h2 class="lines"><span class="line"><span>We&rsquo;re building</span></span><span class="line"><span>the process.</span></span></h2>
+    <div class="intro">
+      <figure class="photo reveal-img">
+        <img src="assets/photos/hero-run.webp" alt="Corredora entrenando en una pista de atletismo frente a la sierra de Monterrey" width="1200" height="1800" loading="lazy" data-parallax="0.05">
+        <figcaption class="micro">Monterrey, MX — 2026</figcaption>
+      </figure>
+      <div class="headlines">
+        <h2 class="lines"><span class="line"><span>We&rsquo;re not just</span></span><span class="line"><span>making a product.</span></span></h2>
+        <h2 class="lines"><span class="line"><span>We&rsquo;re building</span></span><span class="line"><span>the process.</span></span></h2>
+      </div>
     </div>
     <div class="grid">
       <p class="lead reveal">MUVEN comenzó como una tesis de diseño industrial. Hoy estamos convirtiéndola en una herramienta real de recuperación para atletas.</p>
@@ -755,6 +759,7 @@ if (SHOT) {
   document.getElementById('demoBar').remove();
   document.querySelectorAll('.reveal, .reveal-img, .lines, #hero').forEach(el => el.classList.add('in'));
   document.querySelectorAll('.hero-media img').forEach(i => i.style.animation = 'none');
+  document.querySelectorAll('.hero-media video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
   window.addEventListener('load', () => document.fonts.ready.then(() => {
     const t = document.getElementById(SHOT);
     if (!t) return;
