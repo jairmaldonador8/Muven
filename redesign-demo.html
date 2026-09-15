@@ -242,7 +242,7 @@
   .rail.swipe { padding: clamp(80px, 12vh, 140px) 0; }
   .rail.swipe .rail-sticky { position: static; height: auto; overflow: visible; display: block; }
   .rail.swipe .rail-head { position: static; padding: 0 var(--gutter); margin-bottom: 32px; }
-  .rail.swipe .rail-track { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-left: var(--gutter); padding-right: var(--gutter); --card-w: 84vw; gap: 16px; -webkit-overflow-scrolling: touch; }
+  .rail.swipe .rail-track { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x proximity; scrollbar-width: none; padding-left: var(--gutter); padding-right: var(--gutter); --card-w: 84vw; gap: 16px; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; overscroll-behavior-x: contain; }
   .rail.swipe .rail-track::-webkit-scrollbar { display: none; }
   .rail.swipe .card { scroll-snap-align: start; transform: none !important; opacity: 1 !important; }
   .rail.swipe .card figure { aspect-ratio: 4 / 5; max-height: none; }
@@ -826,6 +826,7 @@ if (!reduced) { window.addEventListener('scroll', parallax, { passive: true }); 
   const next = document.getElementById('railNext');
   const N = cards.length;
   const mq = window.matchMedia('(max-width: 900px)');
+  const touch = window.matchMedia('(pointer: coarse), (hover: none)');
   let mode = null;          // 'sticky' | 'swipe'
   let target = 0, current = 0, raf = null;
   let lastActive = -1, interacted = false;
@@ -950,11 +951,12 @@ if (!reduced) { window.addEventListener('scroll', parallax, { passive: true }); 
   window.railForceSwipe = null;
   function pickMode() {
     const force = window.railForceSwipe;
-    setMode(force === true || (force === null && (mq.matches || reduced)) ? 'swipe' : 'sticky');
+    setMode(force === true || (force === null && (mq.matches || touch.matches || reduced)) ? 'swipe' : 'sticky');
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => { pickMode(); layout(); onScroll(); });
   mq.addEventListener('change', pickMode);
+  touch.addEventListener('change', pickMode);
   pickMode();
   window.railPickMode = pickMode;
   window.railSetProgress = p => { if (mode === 'sticky') { target = current = Math.max(0, Math.min(1, p)); render(); } };
