@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Reset by MUVEN: sábado 10 de octubre, 5:00 pm en Torre MR900. Entrada gratis, registra tu Instagram.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MUVEN">
+<meta property="og:title" content="Reset by MUVEN · 10.10.2026">
+<meta property="og:description" content="Train hard. Recover smarter. Perform longer. Sábado 10 de octubre, 5:00 pm, Torre MR900. Entrada gratis.">
+<meta property="og:url" content="https://www.muven.shop/evento.html">
+<meta property="og:image" content="https://www.muven.shop/assets/photos/reset-flyer.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<title>Reset by MUVEN</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Layout: bandas a sangre negro / blanco / rojo como el sitio principal; tipografía display en mayúsculas;
+     el registro se arma como un dorsal de carrera que se llena en vivo. */
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --red: #dd524c;
+    --red-deep: #c4433d;
+    --ink: #0a0a0a;
+    --ink-soft: rgba(10, 10, 10, 0.64);
+    --ink-faint: rgba(10, 10, 10, 0.42);
+    --paper-soft: rgba(255, 255, 255, 0.68);
+    --paper-faint: rgba(255, 255, 255, 0.42);
+    --line-dark: rgba(10, 10, 10, 0.12);
+    --line-light: rgba(255, 255, 255, 0.18);
+    --line-red: rgba(255, 255, 255, 0.5);
+    --paper: #ececec;             /* fondo del flyer */
+    --display: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --body: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --gutter: clamp(20px, 4vw, 64px);
+    --hero-size: clamp(76px, 14vw, 220px);
+    --title-size: clamp(46px, 7vw, 112px);
+    --mid-size: clamp(30px, 4vw, 60px);
+    color-scheme: light;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--white);
+    background: var(--black);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; }
+  fieldset { border: 0; min-width: 0; }
+  [hidden] { display: none !important; }
+  ::selection { background: var(--red); color: var(--white); }
+  :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+  h1, h2, h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .micro {
+    font-family: var(--body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+  .lead { font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; max-width: 34em; }
+  .red { color: var(--red); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  section { position: relative; padding: clamp(88px, 13vh, 170px) var(--gutter); }
+  .on-white { background: var(--white); color: var(--ink); }
+  .on-black { background: var(--black); color: var(--white); }
+  .on-red { background: var(--red); color: var(--white); }
+  .container { width: 100%; max-width: 1440px; margin: 0 auto; min-width: 0; }
+
+  /* Botones y links */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+    font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: 0.02em;
+    text-transform: uppercase; padding: 18px 28px; border-radius: 999px;
+    background: var(--white); color: var(--ink);
+    transition: transform 0.35s var(--ease), background 0.3s, color 0.3s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.red { background: var(--red); color: var(--white); }
+  .btn.red:hover { background: var(--red-deep); }
+  .btn.dark { background: var(--ink); color: var(--white); }
+  .btn .arrow { transition: transform 0.35s var(--ease); }
+  .btn:hover .arrow { transform: translateX(4px); }
+  .cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    padding-bottom: 6px; border-bottom: 1px solid currentColor;
+    transition: gap 0.35s var(--ease);
+  }
+  .cta:hover { gap: 18px; }
+
+  /* Entrada y reveals: todo es visible en reposo; solo lo que está bajo el pliegue se anima al llegar */
+  .reveal { transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+  .reveal.pre { opacity: 0; transform: translateY(28px); }
+  .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; }
+
+  /* ============ NAV ============ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: calc(20px + env(safe-area-inset-top, 0px)) var(--gutter) 20px;
+    mix-blend-mode: difference; color: var(--white);
+  }
+  nav .wordmark svg { height: 18px; width: auto; display: block; }
+  nav ul { display: flex; gap: 32px; list-style: none; }
+  nav ul a { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; opacity: 0.85; }
+  nav ul a:hover { opacity: 1; }
+  nav .nav-cta { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; padding: 10px 16px; border: 1px solid currentColor; border-radius: 999px; white-space: nowrap; }
+  @media (max-width: 900px) { nav ul { display: none; } }
+
+  /* ============ HERO ============ */
+  .hero { min-height: min(100svh, 980px); padding: 0; display: flex; align-items: flex-end; overflow: hidden; }
+  .hero-media { position: absolute; inset: 0; background: var(--ink); }
+  .hero-media video, .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; filter: grayscale(1) contrast(1.05); }
+  .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.25) 100%); }
+  .hero-content {
+    position: relative; width: 100%;
+    padding: clamp(120px, 18vh, 200px) var(--gutter) clamp(36px, 6vh, 72px);
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: clamp(32px, 5vw, 80px); align-items: end;
+  }
+  .hero-eyebrow { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-bottom: 22px; color: var(--paper-soft); }
+  .hero-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); align-self: center; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: 0.25; } }
+  .hero h1 { font-size: var(--hero-size); letter-spacing: -0.045em; line-height: 0.86; }
+  .hero h1 .line { display: block; overflow: hidden; padding-bottom: 0.02em; }
+  .hero h1 .line > span { display: block; animation: rise 1.1s var(--ease) 0.15s both; }
+  .hero h1 .line:nth-child(2) > span { animation-delay: 0.28s; }
+  .hero h1 .reset-by { font-size: 0.6em; font-weight: 500; letter-spacing: -0.015em; line-height: 1; padding-bottom: 0.08em; }
+  .hero h1 .wm-h1 { display: block; height: 0.8em; width: auto; max-width: 100%; }
+  @media (min-width: 901px) { .hero h1 .line:nth-child(2) { padding-left: 0.42em; } }
+  .hero-sub .tagline { display: block; color: var(--white); font-family: var(--display); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.82em; margin-bottom: 10px; }
+  @keyframes rise { from { transform: translateY(105%); } to { transform: none; } }
+  .hero-sub { margin-top: 26px; color: var(--paper-soft); max-width: 30em; font-size: clamp(16px, 1.3vw, 19px); }
+  .hero-sub strong { color: var(--white); font-weight: 500; }
+
+  .facts { display: grid; border-top: 1px solid var(--line-light); }
+  .fact { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line-light); align-items: baseline; }
+  .fact dt { color: var(--paper-faint); }
+  .fact dd { font-family: var(--display); font-weight: 600; font-size: clamp(18px, 1.5vw, 22px); letter-spacing: -0.01em; text-transform: uppercase; line-height: 1.15; }
+  .fact dd small { display: block; font-family: var(--body); font-weight: 400; font-size: 14px; text-transform: none; letter-spacing: 0; color: var(--paper-soft); margin-top: 4px; }
+  .fact dd a { border-bottom: 1px solid var(--line-light); }
+  .fact.has-link { position: relative; cursor: pointer; transition: background 0.3s; }
+  .fact.has-link:hover { background: rgba(255, 255, 255, 0.06); }
+  .fact dd a.fact-link { display: block; border-bottom: 0; }
+  .fact-link::after { content: ""; position: absolute; inset: 0; }
+  .fact-link .go { display: inline-block; color: var(--red); transition: transform 0.35s var(--ease); }
+  .fact.has-link:hover .go { transform: translate(3px, -3px); }
+  .fact-link .u { border-bottom: 1px solid var(--line-light); }
+  .fact.has-link:hover .u { border-bottom-color: currentColor; color: var(--white); }
+  .fact-link:focus-visible { outline: 0; }
+  .fact.has-link:focus-within { outline: 2px solid var(--white); outline-offset: 4px; }
+  .tbd { color: var(--paper-faint); }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 28px; }
+
+  .countdown { margin-top: 26px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .countdown > div { border: 1px solid var(--line-light); padding: 12px 10px 10px; }
+  .countdown b { display: block; font-family: var(--display); font-weight: 700; font-size: clamp(28px, 3vw, 40px); letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .countdown span { display: block; margin-top: 6px; color: var(--paper-faint); }
+
+  @media (max-width: 900px) {
+    .hero-content { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* ============ FLYER ============ */
+  .flyer { background: var(--paper); color: var(--ink); }
+  .flyer .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(40px, 7vw, 120px); align-items: center; }
+  .flyer figure { width: 100%; max-width: 560px; aspect-ratio: 4 / 5; background: var(--paper); box-shadow: 0 40px 80px -44px rgba(0,0,0,0.4); }
+  .flyer figure img { width: 100%; height: 100%; object-fit: cover; }
+  .flyer h2 { font-size: clamp(40px, 5.4vw, 88px); }
+  .flyer h2 span { display: block; }
+  .flyer .lead { margin-top: 28px; color: var(--ink-soft); }
+  .flyer .lead b { color: var(--ink); font-weight: 500; }
+  .flyer .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 36px; }
+  @media (max-width: 900px) { .flyer .grid { grid-template-columns: minmax(0, 1fr); } .flyer figure { margin: 0 auto; } }
+
+  /* ============ STATEMENT ============ */
+  .statement h2 { font-size: var(--title-size); max-width: 13em; }
+  .statement h2 + h2 { margin-top: 0.55em; }
+
+  /* ============ AGENDA ============ */
+  .agenda .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .agenda figure { position: sticky; top: 100px; aspect-ratio: 4 / 5; overflow: hidden; background: var(--white); max-width: 100%; }
+  .agenda figure img { width: 100%; height: 100%; object-fit: contain; }
+  .agenda h2 { font-size: var(--title-size); }
+  .agenda .lead { margin-top: 28px; color: var(--paper-soft); }
+  .steps { list-style: none; margin-top: clamp(40px, 6vh, 64px); border-top: 1px solid var(--line-light); }
+  .step { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--line-light); align-items: baseline; }
+  .step .n { color: var(--red); font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.1em; }
+  .step .body { display: grid; gap: 8px; min-width: 0; }
+  .step h3 { font-size: clamp(24px, 2.4vw, 36px); letter-spacing: -0.025em; line-height: 1; }
+  .step p { color: var(--paper-soft); max-width: 34em; }
+  .step .time { color: var(--red); font-variant-numeric: tabular-nums; }
+  @media (max-width: 900px) {
+    .agenda .grid { grid-template-columns: minmax(0, 1fr); }
+    .agenda figure { position: relative; top: 0; width: min(100%, 520px); }
+    .step { grid-template-columns: 40px minmax(0, 1fr); gap: 12px; }
+  }
+
+  /* ============ EVENTOS PASADOS ============ */
+  .eventos { padding-bottom: clamp(56px, 8vh, 96px); }
+  .ev-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px clamp(32px, 6vw, 96px); align-items: end; }
+  .ev-head h2 { font-size: clamp(40px, 5.6vw, 88px); }
+  .ev-head .lead { color: var(--ink-soft); }
+  /* Galería uniforme: todas las fotos del mismo tamaño; la última fila se centra */
+  .ev-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: clamp(48px, 7vh, 80px); }
+  .ev-gallery figure { position: relative; flex: 0 0 calc((100% - 30px) / 4); aspect-ratio: 1 / 1; overflow: hidden; background: #f0f0f0; }
+  .ev-gallery img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
+  .ev-gallery figure:hover img { transform: scale(1.04); }
+  @media (max-width: 900px) {
+    .ev-head { grid-template-columns: minmax(0, 1fr); }
+    .ev-gallery figure { flex-basis: calc((100% - 10px) / 2); }
+  }
+
+  .strip { background: var(--white); overflow: hidden; padding: 0 0 clamp(88px, 13vh, 170px); }
+  .marquee { display: flex; gap: 12px; width: max-content; animation: marquee 70s linear infinite; }
+  .marquee:hover { animation-play-state: paused; }
+  .marquee figure { flex: 0 0 auto; height: clamp(200px, 30vh, 340px); overflow: hidden; background: #f0f0f0; }
+  .marquee figure img { height: 100%; width: auto; max-width: none; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  .strip .tags { padding: 28px var(--gutter) 0; display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--ink-faint); }
+
+  /* ============ RESERVA + DORSAL ============ */
+  .rsvp .grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); grid-template-areas: "copy bib" "form bib"; column-gap: clamp(40px, 7vw, 120px); align-items: center; }
+  .rsvp-copy { grid-area: copy; align-self: end; min-width: 0; }
+  .rsvp-form { grid-area: form; align-self: start; min-width: 0; }
+  .bib-wrap { grid-area: bib; }
+  .rsvp h2 { font-size: var(--title-size); }
+  .rsvp .lead { margin-top: 26px; color: rgba(255,255,255,0.9); }
+  .form { margin-top: 40px; display: grid; gap: 28px; max-width: 560px; }
+  .field { display: grid; gap: 12px; }
+  .field > label, .field > legend { color: rgba(255,255,255,0.82); }
+  .field legend { margin-bottom: 12px; }
+  .text-input { width: 100%; background: none; border: 0; border-bottom: 1px solid var(--line-red); padding: 10px 0 14px; font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2.2vw, 30px); letter-spacing: -0.01em; color: var(--white); outline: 0; border-radius: 0; }
+  .text-input::placeholder { color: rgba(255,255,255,0.5); }
+  .text-input:focus { border-bottom-color: var(--white); }
+  .text-input[aria-invalid="true"] { border-bottom-color: var(--ink); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip input, .seg input { position: absolute; opacity: 0; pointer-events: none; }
+  .chip span, .seg span {
+    display: inline-flex; align-items: center; min-height: 42px; padding: 0 18px; border-radius: 999px;
+    border: 1px solid var(--line-red); font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.25s, color 0.25s, border-color 0.25s; user-select: none;
+  }
+  .chip span:hover, .seg span:hover { border-color: var(--white); }
+  .chip input:checked + span, .seg input:checked + span { background: var(--white); color: var(--red-deep); border-color: var(--white); }
+  .chip input:focus-visible + span, .seg input:focus-visible + span { outline: 2px solid var(--white); outline-offset: 3px; }
+  .seg { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ig-row { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; border-bottom: 1px solid var(--line-red); }
+  .ig-row:focus-within { border-bottom-color: var(--white); }
+  .ig-row .text-input { border-bottom: 0; padding-left: 4px; }
+  .ig-at { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2.2vw, 30px); color: rgba(255,255,255,0.7); }
+  .ig-row.invalid { border-bottom-color: var(--ink); }
+  .opt { margin-left: 8px; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .btn[disabled] { opacity: 0.7; cursor: progress; transform: none; }
+  .preview-note { font-size: 13px; background: rgba(0,0,0,0.16); padding: 10px 14px; border-left: 3px solid var(--white); }
+  .done:focus { outline: 0; }
+  .done .num { font-family: var(--display); font-weight: 700; }
+  .form-foot { display: grid; gap: 14px; justify-items: start; }
+  .form-error { font-size: 14px; font-weight: 500; color: var(--ink); background: var(--white); padding: 8px 12px; }
+  .form-note { font-size: 13px; color: rgba(255,255,255,0.78); max-width: 34em; }
+  .form-note b { font-weight: 500; color: var(--white); user-select: all; }
+
+  .done { margin-top: 40px; max-width: 560px; display: grid; gap: 18px; }
+  .done h3 { font-size: clamp(40px, 5vw, 72px); }
+  .done p { color: rgba(255,255,255,0.9); }
+  .done pre { white-space: pre-wrap; font-family: var(--body); font-size: 15px; line-height: 1.5; background: rgba(0,0,0,0.14); border-left: 3px solid var(--white); padding: 16px 18px; }
+  .done .row { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+  .link-btn { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
+
+  /* Dorsal */
+  .bib-wrap { display: grid; justify-items: center; gap: 18px; }
+  .bib {
+    container-type: inline-size;
+    position: relative; width: min(100%, 440px); aspect-ratio: 5 / 4;
+    background: var(--white); color: var(--ink);
+    display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+    transform: rotate(-2.5deg); transition: transform 0.6s var(--ease);
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.45);
+  }
+  .bib:hover { transform: rotate(0deg); }
+  .bib .pin { position: absolute; width: 11px; height: 11px; border-radius: 50%; background: var(--red); box-shadow: inset 0 1px 2px rgba(0,0,0,0.35); }
+  .bib .pin:nth-of-type(1) { top: 12px; left: 12px; } .bib .pin:nth-of-type(2) { top: 12px; right: 12px; }
+  .bib .pin:nth-of-type(3) { bottom: 12px; left: 12px; } .bib .pin:nth-of-type(4) { bottom: 12px; right: 12px; }
+  .bib-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 34px 12px; border-bottom: 2px solid var(--ink); }
+  .bib-top svg { height: 14px; width: auto; display: block; }
+  .bib-top .micro { font-size: 10px; }
+  .bib-main { display: grid; align-content: center; justify-items: center; text-align: center; padding: 8px 28px; min-width: 0; }
+  .bib-name {
+    font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.9;
+    font-size: 64px; white-space: nowrap; max-width: 100%;
+  }
+  .bib-name.empty { color: var(--ink-faint); }
+  .bib-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
+  .bib-tags span { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 9px; border: 1px solid var(--ink); border-radius: 999px; }
+  .bib-tags span.fill { background: var(--red); border-color: var(--red); color: var(--white); }
+  .bib-foot { background: var(--ink); color: var(--white); display: flex; justify-content: space-between; gap: 12px; padding: 12px 34px 14px; }
+  .bib-foot .micro { font-size: 10px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bib-caption { color: rgba(255,255,255,0.75); text-align: center; }
+  .bib-top #bibNum { font-variant-numeric: tabular-nums; }
+  .stamp {
+    position: absolute; left: 7%; bottom: 19%; padding: 6px 12px 5px;
+    font-family: var(--display); font-weight: 800; font-size: clamp(14px, 5cqw, 22px); letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--red); border: 3px solid var(--red); border-radius: 6px;
+    transform: rotate(-9deg) scale(1.6); opacity: 0; pointer-events: none;
+    transition: transform 0.45s cubic-bezier(0.3, 1.6, 0.5, 1), opacity 0.2s;
+  }
+  .bib.confirmed .stamp { opacity: 0.92; transform: rotate(-9deg) scale(1); }
+  @media (max-width: 900px) {
+    .rsvp .grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "bib" "form"; }
+    .bib-wrap { margin-top: 40px; }
+    .bib { width: min(100%, 360px); }
+  }
+
+  /* ============ FAQ ============ */
+  .faq .grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); }
+  .faq h2 { font-size: clamp(40px, 5vw, 80px); position: sticky; top: 110px; align-self: start; }
+  .faq-list { border-top: 1px solid var(--line-dark); }
+  .faq-item { border-bottom: 1px solid var(--line-dark); }
+  .faq-item button { width: 100%; text-align: left; display: grid; grid-template-columns: minmax(0, 1fr) 20px; gap: 24px; align-items: center; padding: 24px 0; font-family: var(--display); font-weight: 600; font-size: clamp(18px, 1.6vw, 24px); letter-spacing: -0.02em; }
+  .plus { position: relative; width: 16px; height: 16px; justify-self: end; }
+  .plus::before, .plus::after { content: ""; position: absolute; background: currentColor; left: 50%; top: 50%; transform: translate(-50%, -50%); transition: transform 0.4s var(--ease); }
+  .plus::before { width: 16px; height: 1px; } .plus::after { width: 1px; height: 16px; }
+  .faq-item.open .plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+  .answer > div { overflow: hidden; }
+  .answer p { padding: 0 44px 26px 0; color: var(--ink-soft); max-width: 40em; }
+  .faq-item.open .answer { grid-template-rows: 1fr; }
+  @media (max-width: 900px) { .faq .grid { grid-template-columns: minmax(0, 1fr); } .faq h2 { position: static; } }
+
+  /* ============ CIERRE + FOOTER ============ */
+  .final { overflow: hidden; }
+  .final .bg { position: absolute; inset: 0; opacity: 0.24; }
+  .final .bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; filter: grayscale(1); }
+  .final .container { position: relative; }
+  .final h2 { font-size: var(--hero-size); line-height: 0.86; }
+  .final .sub { margin: 36px 0; color: var(--paper-soft); }
+
+  footer { background: var(--black); color: var(--white); padding: clamp(56px, 8vh, 96px) var(--gutter) calc(40px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line-light); }
+  footer .top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: start; }
+  footer .wordmark svg { height: 40px; width: auto; display: block; }
+  footer .tag { margin-top: 12px; color: var(--paper-faint); }
+  footer ul { list-style: none; display: grid; grid-template-columns: repeat(2, auto); gap: 12px 48px; }
+  footer ul a, footer ul span { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--paper-soft); }
+  footer ul a:hover { color: var(--white); }
+  footer ul .mail { text-transform: none; letter-spacing: 0.02em; user-select: all; }
+  footer .bottom { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line-light); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--paper-faint); }
+  @media (max-width: 900px) { footer .top { grid-template-columns: minmax(0, 1fr); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .reveal.pre { opacity: 1; transform: none; }
+    .marquee { animation: none; }
+    .bib { transform: none; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wm" viewBox="580 870 760 170">
+    <path fill="currentColor" d="M586.92,1031.4v-149.15c0-4.15,3.36-7.51,7.51-7.51h19.82c4.19,0,7.54,3.47,7.39,7.66-.95,27.29-.49,118.02,47.78,114.23,0,0,42.92-2.33,40.68-114.37-.08-4.07,3.18-7.42,7.25-7.43l20.76-.06c3.75-.01,6.79,3.02,6.79,6.77v149.53c0,4.34-3.52,7.87-7.87,7.87h-19.47c-4.29,0-7.77-3.48-7.77-7.77v-46.05s-13.18,24.28-39.38,27.04c-.76.08-1.53.02-2.3.07-5.51.4-31.14.53-46.1-29.74v48.79c0,4.23-3.43,7.66-7.66,7.66h-19.92c-4.16,0-7.53-3.37-7.53-7.53Z"/>
+    <path fill="currentColor" d="M887.56,976.1c0,38.65-27.8,62.83-64.41,62.83s-64.41-24.18-64.41-62.83v-94.56c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v93.65c0,15.82,8.59,36.61,35.93,36.61s35.93-20.79,35.93-36.61v-93.65c0-3.7,3-6.69,6.69-6.69h15.09c3.7,0,6.69,3,6.69,6.69v94.56Z"/>
+    <path fill="currentColor" d="M906.11,874.85h18.73c2.9,0,5.48,1.82,6.46,4.54l36.77,101.93c2.17,6.02,10.67,6.06,12.9.06l37.96-102.06c1-2.69,3.57-4.48,6.44-4.48h16.59c4.87,0,8.19,4.93,6.37,9.44l-60.8,150.5c-1.05,2.6-3.57,4.3-6.37,4.3h-15.97c-2.83,0-5.36-1.73-6.4-4.36l-59.1-150.5c-1.77-4.51,1.55-9.38,6.4-9.38Z"/>
+    <path fill="currentColor" d="M1067.51,874.85h95.06c3.79,0,6.87,3.08,6.87,6.87v12.7c0,3.79-3.08,6.87-6.87,6.87h-65.83c-3.79,0-6.87,3.08-6.87,6.87v26.62c0,3.79,3.08,6.87,6.87,6.87h61.65c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-61.65c-3.79,0-6.87,3.08-6.87,6.87v30.8c0,3.79,3.08,6.87,6.87,6.87h70c3.79,0,6.87,3.08,6.87,6.87v12.71c0,3.79-3.08,6.87-6.87,6.87h-99.23c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+    <path fill="currentColor" d="M1191.95,874.85h28.15c2.32,0,4.49,1.17,5.76,3.12l77.54,118.9h.46v-115.15c0-3.79,3.08-6.87,6.87-6.87h15.49c3.79,0,6.87,3.08,6.87,6.87v150.5c0,3.79-3.08,6.87-6.87,6.87h-26.5c-2.33,0-4.51-1.19-5.77-3.15l-79.16-122.82h-.46v119.1c0,3.79-3.08,6.87-6.87,6.87h-15.49c-3.79,0-6.87-3.08-6.87-6.87v-150.5c0-3.79,3.08-6.87,6.87-6.87Z"/>
+  </symbol>
+</svg>
+
+<!-- ================ NAV ================ -->
+<nav aria-label="Principal">
+  <a href="#top" class="wordmark" aria-label="MUVEN, inicio"><svg viewBox="0 0 760 170" aria-hidden="true"><use href="#wm" width="760" height="170"/></svg></a>
+  <ul>
+    <li><a href="#agenda">Agenda</a></li>
+    <li><a href="#eventos">Eventos</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#reserva" class="nav-cta" data-track="nav_rsvp_click">Reservar</a>
+</nav>
+
+<main id="top">
+
+<!-- ================ HERO ================ -->
+<section class="hero on-black" aria-labelledby="heroTitle">
+  <div class="hero-media" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata" poster="assets/photos/hero-video-poster.webp" width="1920" height="1080">
+      <source src="assets/video/hero.webm" type="video/webm">
+      <source src="assets/video/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow micro"><span class="dot" aria-hidden="true"></span><span data-ev="numero">Evento 01</span><span data-ev="ciudad">Monterrey, N.L.</span></div>
+      <h1 id="heroTitle" aria-label="Reset by MUVEN"><span class="line"><span class="reset-by">Reset by</span></span><span class="line"><span><svg class="wm-h1" viewBox="0 0 760 170" aria-hidden="true"><use href="#wm" width="760" height="170"/></svg></span></span></h1>
+      <p class="hero-sub"><span class="tagline">Train hard. Recover smarter. Perform longer.</span>Una tarde para ver por primera vez el masajeador MUVEN, la herramienta de recuperación que estamos diseñando para atletas y runners.</p>
+    </div>
+    <div>
+      <dl class="facts" id="heroFacts"></dl>
+      <div class="countdown" id="countdown" hidden aria-label="Tiempo para el evento">
+        <div><b data-u="d">00</b><span class="micro">Días</span></div>
+        <div><b data-u="h">00</b><span class="micro">Horas</span></div>
+        <div><b data-u="m">00</b><span class="micro">Min</span></div>
+        <div><b data-u="s">00</b><span class="micro">Seg</span></div>
+      </div>
+      <div class="hero-actions">
+        <a href="#reserva" class="btn red" data-track="hero_rsvp_click">Reserva tu lugar <span class="arrow">→</span></a>
+        <a href="#agenda" class="cta">Qué va a pasar <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ FLYER ================ -->
+<section class="flyer" id="flyer">
+  <div class="container">
+    <div class="grid">
+      <figure class="reveal">
+        <img id="flyerImg" src="assets/photos/reset-flyer.jpg" alt="Flyer de Reset by MUVEN: 10.10.2026, 5:00 pm, Río Tamazunchale 900. Train hard. Recover smarter. Perform longer." width="1080" height="1350" loading="lazy">
+      </figure>
+      <div>
+        <div class="micro reveal red" style="margin-bottom: 28px;">El flyer</div>
+        <h2 class="reveal"><span>Train hard.</span><span class="red">Recover smarter.</span><span>Perform longer.</span></h2>
+        <p class="lead reveal d1">Guárdalo, súbelo a tus historias y etiqueta a <b>@muvenmx</b> y a quien entrena contigo. Nos vemos el <b id="flyerFecha">10.10</b>.</p>
+        <div class="actions reveal d2">
+          <a class="btn dark" id="flyerDl" href="#flyer" download="Reset-by-MUVEN.jpg" data-track="flyer_download">Descargar flyer <span class="arrow">↓</span></a>
+          <a class="cta" href="#reserva">Aparta tu lugar <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ STATEMENT ================ -->
+<section class="statement on-white">
+  <div class="container">
+    <h2 class="reveal">Vas a verlo antes de que esté terminado.</h2>
+    <h2 class="reveal red d1">Y vas a ayudarnos a terminarlo.</h2>
+  </div>
+</section>
+
+<!-- ================ AGENDA ================ -->
+<section class="agenda on-black" id="agenda">
+  <div class="container">
+    <div class="grid">
+      <figure class="reveal">
+        <img id="brandsImg" src="assets/photos/evento/reset-brands.webp" alt="Powered by: las marcas que acompañan Reset by MUVEN, entre ellas Klo-Ser Real Estate, Montana Realty Co., MUVEN, Ometeo, Góra, Walfort International, Axos Fisioterapia Integral, Not Your Typical Psychologist, Eyes of Calma y Santosha." loading="lazy" width="1080" height="1350">
+      </figure>
+      <div>
+        <div class="micro reveal red" style="margin-bottom: 28px;">La tarde</div>
+        <h2 class="reveal">Qué va a pasar.</h2>
+        <p class="lead reveal d1">Una sesión corta, cerca y sin formalidades. Llegas, conoces el proceso, ves el masajeador por primera vez y nos dices qué piensas.</p>
+        <ol class="steps reveal d2" id="agendaList"></ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ EVENTOS PASADOS ================ -->
+<section class="eventos on-white" id="eventos">
+  <div class="container">
+    <div class="ev-head">
+      <div>
+        <div class="micro reveal red" style="margin-bottom: 28px;">Eventos pasados</div>
+        <h2 class="reveal">Ya nos hemos movido juntos.</h2>
+      </div>
+      <p class="lead reveal d1">Reset no es el primero. Así se vivieron los eventos anteriores con la comunidad.</p>
+    </div>
+
+    <div class="ev-gallery reveal">
+      <figure><img src="assets/photos/evento/past-01.webp" alt="Foto grupal de la comunidad frente al edificio, con banderas de Regio Runners" loading="lazy" width="1080" height="720" style="object-position: 55% 50%;"></figure>
+      <figure><img src="assets/photos/evento/past-02.webp" alt="Corredor con sudadera sin mangas durante el recorrido" loading="lazy" width="720" height="1080" style="object-position: 50% 15%;"></figure>
+      <figure><img src="assets/photos/evento/past-03.webp" alt="Asistentes estirando al atardecer con la ciudad de fondo" loading="lazy" width="720" height="1080" style="object-position: 50% 45%;"></figure>
+      <figure><img src="assets/photos/evento/past-04.webp" alt="Postura de yoga frente a una luna iluminada" loading="lazy" width="720" height="1080" style="object-position: 50% 60%;"></figure>
+      <figure><img src="assets/photos/evento/past-05.webp" alt="Círculo de bienvenida antes de salir a correr" loading="lazy" width="1080" height="720" style="object-position: 50% 50%;"></figure>
+      <figure><img src="assets/photos/evento/past-06.webp" alt="Asistente meditando con los ojos cerrados" loading="lazy" width="720" height="1080" style="object-position: 50% 75%;"></figure>
+      <figure><img src="assets/photos/evento/past-07.webp" alt="Grupo corriendo junto a un edificio de arcos amarillos" loading="lazy" width="1080" height="720" style="object-position: 60% 50%;"></figure>
+      <figure><img src="assets/photos/evento/past-08.webp" alt="Asistente guiñando el ojo en un rooftop con la ciudad de fondo" loading="lazy" width="720" height="1080" style="object-position: 50% 25%;"></figure>
+      <figure><img src="assets/photos/evento/past-09.webp" alt="Tres corredores en la banqueta del parque" loading="lazy" width="720" height="1080" style="object-position: 50% 30%;"></figure>
+      <figure><img src="assets/photos/evento/past-10.webp" alt="Host dando indicaciones al micrófono durante un evento" loading="lazy" width="720" height="1080" style="object-position: 50% 80%;"></figure>
+      <figure><img src="assets/photos/evento/past-11.webp" alt="Corredoras concentradas en la línea de salida" loading="lazy" width="720" height="1080" style="object-position: 50% 5%;"></figure>
+    </div>
+  </div>
+</section>
+<div class="strip" aria-hidden="true">
+  <div class="marquee" id="marquee"></div>
+  <div class="tags micro"><span>Built in public</span><span>Prototipos</span><span>Pruebas</span><span>Sesiones con atletas</span><span>Feedback</span></div>
+</div>
+
+<!-- ================ RESERVA ================ -->
+<section class="rsvp on-red" id="reserva">
+  <div class="container">
+    <div class="grid">
+      <div class="rsvp-copy">
+        <h2 class="reveal">Aparta tu lugar.</h2>
+        <p class="lead reveal d1" id="rsvpLead">La entrada es gratis. Deja tu Instagram y quedas confirmado; con eso te llenamos el dorsal.</p>
+      </div>
+
+      <div class="rsvp-form">
+        <form class="form reveal d2" id="rsvpForm" novalidate>
+          <div class="field">
+            <label for="rsvpIg" class="micro">Tu Instagram</label>
+            <div class="ig-row">
+              <span class="ig-at" aria-hidden="true">@</span>
+              <input class="text-input" id="rsvpIg" name="instagram" type="text" inputmode="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="60" placeholder="tuusuario" required aria-describedby="rsvpError">
+            </div>
+          </div>
+          <fieldset class="field">
+            <legend class="micro">¿Qué entrenas? <span class="opt">Opcional</span></legend>
+            <div class="chips" id="rsvpSport"></div>
+          </fieldset>
+          <div class="hp" aria-hidden="true">
+            <label for="rsvpWeb">No llenes este campo</label>
+            <input id="rsvpWeb" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="form-foot">
+            <button class="btn" id="rsvpSend" type="submit" data-track="rsvp_submit">Confirmar asistencia <span class="arrow">→</span></button>
+            <p class="form-error" id="rsvpError" role="alert" hidden></p>
+            <p class="form-note">Solo usamos tu Instagram para confirmar tu lugar y avisarte del evento.</p>
+          </div>
+        </form>
+
+        <div class="done" id="rsvpDone" role="status" tabindex="-1" hidden>
+          <h3 id="doneTitle">You&rsquo;re in.</h3>
+          <p id="doneText"></p>
+          <p class="preview-note" id="donePreview" hidden>Vista previa: el registro todavía no está conectado a la hoja, así que esto no se guardó.</p>
+          <div class="row">
+            <a class="btn" id="doneCal" href="#" target="_blank" rel="noopener" data-track="calendar_click">Agregar a mi calendario <span class="arrow">→</span></a>
+            <a class="link-btn" id="doneMaps" href="#" target="_blank" rel="noopener" data-track="maps_click">Cómo llegar</a>
+            <button type="button" class="link-btn" id="doneAgain">Registrar a alguien más</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bib-wrap reveal d1">
+        <div class="bib" id="bib" aria-label="Vista previa de tu dorsal">
+          <i class="pin"></i><i class="pin"></i><i class="pin"></i><i class="pin"></i>
+          <div class="bib-top">
+            <svg viewBox="0 0 760 170" aria-hidden="true"><use href="#wm" width="760" height="170"/></svg>
+            <span class="micro" id="bibNum">Nº ---</span>
+          </div>
+          <div class="bib-main">
+            <div class="bib-name empty" id="bibName">@tuusuario</div>
+            <div class="bib-tags" id="bibTags"></div>
+          </div>
+          <div class="bib-foot">
+            <span class="micro" id="bibFecha">Fecha por confirmar</span>
+            <span class="micro" id="bibLugar">Monterrey</span>
+          </div>
+          <div class="stamp" id="bibStamp" aria-hidden="true">Confirmado</div>
+        </div>
+        <div class="bib-caption micro" id="bibCaption">Tu dorsal se llena mientras escribes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ FAQ ================ -->
+<section class="faq on-white" id="faq">
+  <div class="container">
+    <div class="grid">
+      <h2>Antes<br>de ir.</h2>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ CIERRE ================ -->
+<section class="final on-black">
+  <div class="bg" aria-hidden="true"><img src="assets/photos/final-fist.webp" alt="" loading="lazy"></div>
+  <div class="container">
+    <h2 class="reveal">Back in<br>motion.</h2>
+    <p class="sub micro reveal d1">El proceso ya empezó. Ese día puedes ser parte.</p>
+    <a href="#reserva" class="btn red reveal d2" data-track="final_rsvp_click">Reserva tu lugar <span class="arrow">→</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="top">
+      <div>
+        <a href="#top" class="wordmark" aria-label="MUVEN, inicio"><svg viewBox="0 0 760 170" aria-hidden="true"><use href="#wm" width="760" height="170"/></svg></a>
+        <div class="tag micro">Back in motion</div>
+      </div>
+      <ul>
+        <li><a href="https://www.instagram.com/muvenmx/" target="_blank" rel="noopener" data-track="instagram_click">Instagram</a></li>
+        <li><a href="https://www.muven.shop/" target="_blank" rel="noopener">muven.shop</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><span class="mail" id="footMail">muven.mx@gmail.com</span></li>
+      </ul>
+    </div>
+    <div class="bottom micro">
+      <span>&copy;&nbsp;2026 MUVEN</span>
+      <span>Hecho en Monterrey, México</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   DATOS DEL EVENTO: edita solo este bloque.
+   Cualquier campo en null se muestra como "Por confirmar".
+   ===================================================================== */
+const EVENTO = {
+  numero: 'Evento 01',
+  titulo: 'Reset by MUVEN',
+  etiqueta: 'Reset',                    // texto corto que aparece en el dorsal
+  nombre: 'Primer anuncio del masajeador MUVEN',
+  fecha: '2026-10-10T17:00:00-06:00',  // inicio (activa la cuenta regresiva y "Agregar a mi calendario")
+  duracionHoras: 2,                     // solo para el evento de calendario
+  lugar: 'Torre MR900',
+  direccion: 'Río Tamazunchale 900, C. Calzada',
+  ciudad: 'San Pedro Garza García, N.L.',
+  mapsUrl: 'https://maps.app.goo.gl/d7puwZX6uxbLxYB67',
+  costo: 'Gratis',
+  cupo: null,                           // ej. 60
+  // URL de la aplicación web de Google Apps Script (termina en /exec). Mientras sea null, el formulario funciona en modo vista previa y no guarda nada.
+  registroUrl: null,
+  instagram: 'muvenmx',
+  correo: 'muven.mx@gmail.com',
+  disciplinas: ['Running', 'Trail', 'Hyrox', 'Funcional', 'Ciclismo', 'Otro'],
+  agenda: [
+    { hora: null, titulo: 'Llegada', texto: 'Registro, bienvenida y tiempo para conocer a la comunidad.' },
+    { hora: null, titulo: 'De tesis a objeto', texto: 'Carolina y Lisa cuentan cómo MUVEN pasó de una tesis de diseño industrial a una herramienta real.' },
+    { hora: null, titulo: 'Primer vistazo', texto: 'El primer anuncio del masajeador: qué es, cómo funciona y por qué lo diseñamos así.' },
+    { hora: null, titulo: 'Tu feedback', texto: 'Preguntas y conversación con el equipo. Lo que nos digas se lleva al siguiente prototipo.' },
+  ],
+  faq: [
+    ['¿Cómo confirmo mi lugar?', 'Escribe tu usuario de Instagram en el formulario. Con eso quedas confirmado y te damos tu número de registro.'],
+    ['¿Tiene costo?', null], // usa EVENTO.costo
+    ['¿Tengo que ser atleta para ir?', 'No. Si entrenas, corres o te mueves seguido, este evento es para ti.'],
+    ['¿Puedo llevar a alguien?', 'Sí. Pídele que registre su propio Instagram aquí para apartar su lugar.'],
+    ['¿Ya voy a poder comprarlo?', 'Este evento es el primer anuncio. La fecha oficial de lanzamiento se comparte primero con la comunidad.'],
+    ['¿MUVEN reemplaza a un fisioterapeuta?', 'No. MUVEN es una herramienta complementaria dentro de una rutina de recuperación y no sustituye una valoración o tratamiento profesional.'],
+  ],
+  fotos: ['strip-01', 'strip-02', 'strip-03', 'strip-04', 'strip-05', 'strip-06', 'strip-07', 'strip-08'],
+};
+
+/* ============ ANALYTICS (stub, igual que el sitio principal) ============ */
+function track(name, data) {
+  if (window.gtag) window.gtag('event', name, data || {});
+}
+document.querySelectorAll('[data-track]').forEach(el => el.addEventListener('click', () => track(el.dataset.track)));
+
+/* ============ HELPERS ============ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const TBD = 'Por confirmar';
+const TZ = 'America/Monterrey';
+const inicio = EVENTO.fecha ? new Date(EVENTO.fecha) : null;
+const fin = inicio ? new Date(inicio.getTime() + EVENTO.duracionHoras * 36e5) : null;
+const fmt = (d, opts) => new Intl.DateTimeFormat('es-MX', Object.assign({ timeZone: TZ }, opts)).format(d);
+const fechaLarga = () => inicio ? fmt(inicio, { weekday: 'long', day: 'numeric', month: 'long' }).replace(',', '') : null;
+const fechaCorta = () => inicio ? fmt(inicio, { day: 'numeric', month: 'short' }).replace('.', '') : null;
+const horaTxt = () => inicio ? fmt(inicio, { hour: 'numeric', minute: '2-digit', hour12: true }).replace(/\s*p\.?\s*m\.?/i, ' pm').replace(/\s*a\.?\s*m\.?/i, ' am') : null;
+const tituloCorto = EVENTO.titulo;
+const calUrl = (() => {
+  if (!inicio) return null;
+  const g = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const loc = [EVENTO.lugar, EVENTO.direccion, EVENTO.ciudad].filter(Boolean).join(', ');
+  const det = `${EVENTO.nombre}.${EVENTO.mapsUrl ? ' Cómo llegar: ' + EVENTO.mapsUrl : ''}`;
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(EVENTO.titulo)}&dates=${g(inicio)}/${g(fin)}&location=${encodeURIComponent(loc)}&details=${encodeURIComponent(det)}`;
+})();
+
+/* ============ TEXTOS DEL EVENTO ============ */
+document.querySelectorAll('[data-ev="numero"]').forEach(el => el.textContent = EVENTO.numero);
+document.querySelectorAll('[data-ev="ciudad"]').forEach(el => el.textContent = EVENTO.ciudad);
+// El flyer va incrustado en la página; el botón descarga esa misma imagen
+$('#flyerDl').href = $('#flyerImg').src;
+if (inicio) $('#flyerFecha').textContent = fmt(inicio, { day: '2-digit', month: '2-digit' }).replace('/', '.');
+
+/* Descargar flyer: en el sitio es un link normal; dentro de la vista previa de Claude usa su permiso de descargas */
+(async function () {
+  const link = document.querySelector('a[download]');
+  if (!link || !window.claude || !window.claude.use) return;
+  let dl = null;
+  try { dl = await window.claude.use('downloads'); } catch (e) { dl = null; }
+  if (!dl) return;
+  link.addEventListener('click', async e => {
+    e.preventDefault();
+    try {
+      const [head, data] = link.getAttribute('href').split(',');
+      const bin = atob(data);
+      const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      const blob = new Blob([bytes], { type: head.slice(5).split(';')[0] });
+      await dl.save({ filename: link.getAttribute('download') || 'Reset-by-MUVEN.jpg', data: blob });
+    } catch (err) { /* el visitante canceló o la vista no permite descargas */ }
+  });
+})();
+$('#footMail').textContent = EVENTO.correo;
+
+/* Ficha del hero */
+(function () {
+  const val = v => v ? esc(v) : `<span class="tbd">${TBD}</span>`;
+  const sub = [EVENTO.direccion, EVENTO.ciudad].filter(Boolean).map(esc).join(', ');
+  // Toda la fila del lugar abre la ubicación en Maps
+  const lugar = EVENTO.mapsUrl
+    ? `<a class="fact-link" href="${esc(EVENTO.mapsUrl)}" target="_blank" rel="noopener" data-track="maps_click" aria-label="Ver ubicación de ${esc(EVENTO.lugar || 'el evento')} en Google Maps">${val(EVENTO.lugar)} <span class="go" aria-hidden="true">↗</span><small>${sub}${sub ? ' · ' : ''}<span class="u">Cómo llegar</span></small></a>`
+    : val(EVENTO.lugar) + `<small>${sub}</small>`;
+  const fecha = val(fechaLarga()) + (calUrl ? `<small><a href="${calUrl}" target="_blank" rel="noopener" data-track="calendar_click">Agregar a mi calendario</a></small>` : '');
+  const rows = [['Fecha', fecha], ['Hora', val(horaTxt())], ['Lugar', lugar]];
+  if (EVENTO.costo) rows.push(['Entrada', val(EVENTO.costo)]);
+  $('#heroFacts').innerHTML = rows.map(([k, v]) => `<div class="fact${v.includes('fact-link') ? ' has-link' : ''}"><dt class="micro">${k}</dt><dd>${v}</dd></div>`).join('');
+  $('#heroFacts').querySelectorAll('[data-track]').forEach(a => a.addEventListener('click', () => track(a.dataset.track)));
+})();
+
+/* Cuenta regresiva: aparece solo cuando hay fecha y el evento no ha pasado */
+(function () {
+  if (!inicio) return;
+  const box = $('#countdown');
+  const set = (u, v) => box.querySelector(`[data-u="${u}"]`).textContent = String(v).padStart(2, '0');
+  function tick() {
+    const diff = inicio - Date.now();
+    if (diff <= 0) { box.hidden = true; return false; }
+    box.hidden = false;
+    set('d', Math.floor(diff / 864e5)); set('h', Math.floor(diff / 36e5) % 24);
+    set('m', Math.floor(diff / 6e4) % 60); set('s', Math.floor(diff / 1e3) % 60);
+    return true;
+  }
+  if (tick()) { const t = setInterval(() => { if (!tick()) clearInterval(t); }, 1000); }
+})();
+
+/* Agenda */
+$('#agendaList').innerHTML = EVENTO.agenda.map((a, i) => `
+  <li class="step">
+    <span class="n">${String(i + 1).padStart(2, '0')}</span>
+    <div class="body">
+      ${a.hora ? `<span class="time micro">${esc(a.hora)}</span>` : ''}
+      <h3>${esc(a.titulo)}</h3>
+      <p>${esc(a.texto)}</p>
+    </div>
+  </li>`).join('');
+
+/* Tira de fotos */
+(function () {
+  const items = EVENTO.fotos.map(s => `<figure><img src="assets/photos/${s}-sm.webp" alt="" loading="lazy"></figure>`).join('');
+  $('#marquee').innerHTML = items + items;
+})();
+
+/* FAQ */
+(function () {
+  const costo = EVENTO.costo
+    ? (/^gratis$/i.test(EVENTO.costo) ? 'No. La entrada es gratis; solo registra tu Instagram para confirmar tu lugar.' : EVENTO.costo + '.')
+    : 'Lo confirmamos muy pronto aquí y en Instagram.';
+  const list = $('#faqList');
+  list.innerHTML = EVENTO.faq.map(([q, a], i) =>
+    `<div class="faq-item"><button type="button" aria-expanded="false" aria-controls="faq-${i}" id="faqq-${i}">${esc(q)}<span class="plus" aria-hidden="true"></span></button><div class="answer" id="faq-${i}" role="region" aria-labelledby="faqq-${i}"><div><p>${esc(a || costo)}</p></div></div></div>`).join('');
+  list.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    const open = btn.parentElement.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    if (open) track('faq_open', { q: btn.textContent.trim() });
+  }));
+})();
+
+/* ============ REGISTRO POR INSTAGRAM + DORSAL ============ */
+(function () {
+  const form = $('#rsvpForm');
+  const igIn = $('#rsvpIg');
+  const igRow = igIn.closest('.ig-row');
+  const send = $('#rsvpSend');
+  const err = $('#rsvpError');
+  const done = $('#rsvpDone');
+  const bib = $('#bib');
+  const bibName = $('#bibName');
+  const bibTags = $('#bibTags');
+  const bibNum = $('#bibNum');
+  const sendLabel = send.firstChild.textContent;
+
+  $('#rsvpSport').innerHTML = EVENTO.disciplinas.map((d, i) =>
+    `<label class="chip"><input type="radio" name="disciplina" id="sport-${i}" value="${esc(d)}"><span>${esc(d)}</span></label>`).join('');
+  $('#bibFecha').textContent = inicio ? `${fechaCorta()} · ${horaTxt()}` : 'Fecha por confirmar';
+  $('#bibLugar').textContent = EVENTO.lugar || EVENTO.ciudad.split(',')[0];
+  if (EVENTO.cupo) $('#rsvpLead').textContent += ` Hay ${EVENTO.cupo} lugares.`;
+  if (calUrl) $('#doneCal').href = calUrl; else $('#doneCal').hidden = true;
+  if (EVENTO.mapsUrl) $('#doneMaps').href = EVENTO.mapsUrl; else $('#doneMaps').hidden = true;
+
+  // Acepta "usuario", "@usuario" o el link del perfil
+  function limpiar(v) {
+    return String(v || '').trim().toLowerCase()
+      .replace(/^https?:\/\/(www\.)?instagram\.com\//, '')
+      .replace(/[/?#].*$/, '')
+      .replace(/^@+/, '');
+  }
+  const valido = h => /^[a-z0-9._]{1,30}$/.test(h);
+
+  function render() {
+    const h = limpiar(igIn.value);
+    const txt = '@' + (h || 'tuusuario');
+    bibName.textContent = txt;
+    bibName.classList.toggle('empty', !h);
+    fit();
+    const disc = document.querySelector('input[name="disciplina"]:checked');
+    bibTags.innerHTML = disc ? `<span class="fill">${esc(disc.value)}</span>` : `<span>${esc(EVENTO.etiqueta)}</span>`;
+    if (valido(h)) showError(null);
+  }
+  // Ajusta el tamaño del usuario para que quepa en una línea del dorsal
+  function fit() {
+    const box = bibName.parentElement;
+    const avail = box.clientWidth - parseFloat(getComputedStyle(box).paddingLeft) * 2;
+    let size = Math.min(bib.clientWidth * 0.15, 76);
+    bibName.style.fontSize = size + 'px';
+    while (bibName.scrollWidth > avail && size > 16) { size -= 1; bibName.style.fontSize = size + 'px'; }
+  }
+  addEventListener('resize', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+
+  function showError(msg) {
+    err.hidden = !msg;
+    err.textContent = msg || '';
+    igRow.classList.toggle('invalid', !!msg);
+    if (msg) igIn.setAttribute('aria-invalid', 'true'); else igIn.removeAttribute('aria-invalid');
+  }
+  function busy(on) {
+    send.disabled = on;
+    send.firstChild.textContent = on ? 'Confirmando… ' : sendLabel;
+  }
+  function confirmado(h, numero, duplicado, preview) {
+    const n = numero ? String(numero).padStart(3, '0') : null;
+    bibNum.textContent = n ? `Nº ${n}` : 'Nº ---';
+    bib.classList.add('confirmed');
+    $('#bibCaption').textContent = 'Tu dorsal para el evento';
+    $('#doneTitle').textContent = duplicado ? 'Ya estabas dentro.' : 'You’re in.';
+    const cuando = inicio ? ` el ${fechaLarga()} a las ${horaTxt()}` : '';
+    $('#doneText').innerHTML = duplicado
+      ? `<b>@${esc(h)}</b> ya estaba registrado${n ? ` con el número <span class="num">${n}</span>` : ''}. Te esperamos${esc(cuando)}${EVENTO.lugar ? ' en ' + esc(EVENTO.lugar) : ''}.`
+      : `Listo, <b>@${esc(h)}</b>. Tu lugar está confirmado${n ? ` con el número <span class="num">${n}</span>` : ''}. Te esperamos${esc(cuando)}${EVENTO.lugar ? ' en ' + esc(EVENTO.lugar) : ''}.`;
+    $('#donePreview').hidden = !preview;
+    form.hidden = true;
+    done.hidden = false;
+    done.focus({ preventScroll: true });
+  }
+
+  form.addEventListener('input', render);
+  form.addEventListener('change', render);
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const h = limpiar(igIn.value);
+    if (!h) { showError('Escribe tu usuario de Instagram para confirmar tu lugar.'); igIn.focus(); return; }
+    if (!valido(h)) { showError('Ese usuario no parece de Instagram: usa solo letras, números, puntos y guiones bajos.'); igIn.focus(); return; }
+    const disc = document.querySelector('input[name="disciplina"]:checked');
+    const payload = { instagram: h, disciplina: disc ? disc.value : '', evento: `${tituloCorto} · ${EVENTO.numero}`, website: $('#rsvpWeb').value };
+    track('rsvp_submit', { disciplina: payload.disciplina });
+
+    if (!EVENTO.registroUrl) { confirmado(h, null, false, true); return; }
+
+    busy(true);
+    try {
+      // text/plain evita el preflight de CORS con Apps Script
+      const res = await fetch(EVENTO.registroUrl, { method: 'POST', body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (data.ok) { track('rsvp_confirmed'); confirmado(h, data.numero, !!data.duplicado, false); }
+      else if (data.error === 'instagram_invalido') showError('Ese usuario no parece de Instagram. Revísalo e intenta otra vez.');
+      else throw new Error(data.error || 'error');
+    } catch (ex) {
+      showError(`No pudimos registrarte. Intenta de nuevo en un momento o mándanos DM a @${EVENTO.instagram}.`);
+    } finally {
+      busy(false);
+    }
+  });
+
+  $('#doneAgain').addEventListener('click', () => {
+    form.reset();
+    bib.classList.remove('confirmed');
+    bibNum.textContent = 'Nº ---';
+    $('#bibCaption').textContent = 'Tu dorsal se llena mientras escribes';
+    done.hidden = true;
+    form.hidden = false;
+    render();
+    igIn.focus();
+  });
+
+  render();
+})();
+
+/* ============ REVEALS (solo lo que está debajo del pliegue al cargar) ============ */
+(function () {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.remove('pre'); io.unobserve(e.target); }
+  }), { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('pre'); io.observe(el); }
+  });
+})();
+</script>
+</body>
+</html>
