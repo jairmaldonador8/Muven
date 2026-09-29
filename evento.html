@@ -760,7 +760,7 @@ const EVENTO = {
     ['¿Ya voy a poder comprarlo?', 'Este evento es el primer anuncio. La fecha oficial de lanzamiento se comparte primero con la comunidad.'],
     ['¿MUVEN reemplaza a un fisioterapeuta?', 'No. MUVEN es una herramienta complementaria dentro de una rutina de recuperación y no sustituye una valoración o tratamiento profesional.'],
   ],
-  fotos: ['strip-01', 'strip-02', 'strip-03', 'strip-04', 'strip-05', 'strip-06', 'strip-07', 'strip-08'],
+  fotos: ['strip-09', 'strip-01', 'strip-02', 'strip-03', 'strip-04', 'strip-05', 'strip-06', 'strip-07', 'strip-08'],
 };
 
 /* ============ ANALYTICS (stub, igual que el sitio principal) ============ */
@@ -928,7 +928,7 @@ if (inicio) $('#agFecha').textContent = fmt(inicio, { day: '2-digit', month: '2-
 
 /* Tira de fotos */
 // Medidas reales: sin ellas cada foto mide 0 px antes de cargar y el teléfono no la carga
-const STRIP_DIM = { 'strip-01': [600, 900], 'strip-02': [600, 900], 'strip-03': [900, 506], 'strip-04': [720, 900], 'strip-05': [600, 900], 'strip-06': [600, 900], 'strip-07': [900, 600], 'strip-08': [600, 900] };
+const STRIP_DIM = { 'strip-09': [600, 900], 'strip-01': [600, 900], 'strip-02': [600, 900], 'strip-03': [900, 506], 'strip-04': [720, 900], 'strip-05': [600, 900], 'strip-06': [600, 900], 'strip-07': [900, 600], 'strip-08': [600, 900] };
 (function () {
   const items = EVENTO.fotos.map(s => `<figure><img src="assets/photos/${s}-sm.webp" alt="" width="${(STRIP_DIM[s] || [600, 900])[0]}" height="${(STRIP_DIM[s] || [600, 900])[1]}"></figure>`).join('');
   $('#marquee').innerHTML = items + items;
