@@ -299,7 +299,7 @@
   .marquee { display: flex; gap: 12px; width: max-content; animation: marquee 60s linear infinite; }
   .marquee:hover { animation-play-state: paused; }
   .marquee figure { flex: 0 0 auto; height: clamp(220px, 32vh, 360px); overflow: hidden; background: #f0f0f0; }
-  .marquee figure img { height: 100%; width: auto; }
+  .marquee figure img { height: 100%; width: auto; max-width: none; }
   @keyframes marquee { to { transform: translateX(-50%); } }
   .public .tags { padding: 36px var(--gutter) 0; display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--ink-faint); }
   @media (max-width: 900px) { .public .head { grid-template-columns: 1fr; } }
@@ -383,6 +383,7 @@
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     .reveal, .reveal-img, .lines .line > span, .hero h1 .line > span { opacity: 1; transform: none; }
     .marquee { animation: none; }
+    .strip { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .loading { display: none; }
   }
 </style>
@@ -969,9 +970,11 @@ document.getElementById('labSpecs').innerHTML = MUVEN.prototypeLabels.map(l =>
   `<li><span class="n micro">${l.n}</span><span class="name">${l.name}</span><span class="val">${l.value}</span></li>`).join('');
 
 /* ============ MARQUEE ============ */
+// Medidas reales: sin ellas cada foto mide 0 px antes de cargar y el teléfono no la carga
+const STRIP_DIM = { 'strip-01': [600, 900], 'strip-02': [600, 900], 'strip-03': [900, 506], 'strip-04': [720, 900], 'strip-05': [600, 900], 'strip-06': [600, 900], 'strip-07': [900, 600], 'strip-08': [600, 900] };
 (function () {
   const m = document.getElementById('marquee');
-  const items = MUVEN.strip.map(s => `<figure><img src="assets/photos/${s}-sm.webp" alt="" loading="lazy"></figure>`).join('');
+  const items = MUVEN.strip.map(s => `<figure><img src="assets/photos/${s}-sm.webp" alt="" width="${(STRIP_DIM[s] || [600, 900])[0]}" height="${(STRIP_DIM[s] || [600, 900])[1]}"></figure>`).join('');
   m.innerHTML = items + items; // duplicado para loop continuo
 })();
 

@@ -448,6 +448,7 @@
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     .reveal.pre { opacity: 1; transform: none; }
     .marquee { animation: none; }
+    .strip { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .bib { transform: none; }
   }
 </style>
@@ -926,8 +927,10 @@ $('#footMail').textContent = EVENTO.correo;
 if (inicio) $('#agFecha').textContent = fmt(inicio, { day: '2-digit', month: '2-digit' }).replace('/', '.');
 
 /* Tira de fotos */
+// Medidas reales: sin ellas cada foto mide 0 px antes de cargar y el teléfono no la carga
+const STRIP_DIM = { 'strip-01': [600, 900], 'strip-02': [600, 900], 'strip-03': [900, 506], 'strip-04': [720, 900], 'strip-05': [600, 900], 'strip-06': [600, 900], 'strip-07': [900, 600], 'strip-08': [600, 900] };
 (function () {
-  const items = EVENTO.fotos.map(s => `<figure><img src="assets/photos/${s}-sm.webp" alt="" loading="lazy"></figure>`).join('');
+  const items = EVENTO.fotos.map(s => `<figure><img src="assets/photos/${s}-sm.webp" alt="" width="${(STRIP_DIM[s] || [600, 900])[0]}" height="${(STRIP_DIM[s] || [600, 900])[1]}"></figure>`).join('');
   $('#marquee').innerHTML = items + items;
 })();
 
