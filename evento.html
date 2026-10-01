@@ -236,7 +236,7 @@
   .ag-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; background: rgba(255,255,255,0.22); }
   .ag-legend .hot i { background: var(--red); }
 
-  .itin { list-style: none; margin-top: 8px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(6, auto); grid-auto-flow: column; column-gap: clamp(24px, 3vw, 48px); counter-reset: it; }
+  .itin { list-style: none; margin-top: 8px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, auto); grid-auto-flow: column; column-gap: clamp(24px, 3vw, 48px); counter-reset: it; }
   .it { position: relative; display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline; padding: 14px 10px; border-bottom: 1px solid var(--line-light); counter-increment: it; transition: background 0.25s; }
   .it:hover { background: rgba(255,255,255,0.05); }
   .it-time b { display: block; font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -265,7 +265,7 @@
   /* Clímax: el hielo */
   .it.peak .it-body h3, .it.peak .it-time b { color: var(--red); }
   .it.peak .it-meta .tag { border-color: var(--red); color: var(--red); }
-  /* Hito sin hora: foto al sunset */
+  /* Hito sin hora: sunset */
   .it.mark .it-time b { font-size: 15px; color: var(--red); letter-spacing: 0.02em; text-transform: uppercase; }
 
   @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(221,82,76,0.7); } 70% { box-shadow: 0 0 0 8px rgba(221,82,76,0); } 100% { box-shadow: 0 0 0 0 rgba(221,82,76,0); } }
@@ -545,11 +545,11 @@
       </div>
       <div class="ag-range reveal d1" role="img" aria-label="De 5:00 pm a 9:00 pm"><span>5</span><i>PM</i><span class="arr">→</span><span>9</span><i>PM</i></div>
     </div>
-    <p class="lead reveal d1">Cuatro horas para mover el cuerpo, bajar el ritmo y recuperarte en comunidad. En medio, el primer vistazo a MUVEN.</p>
+    <p class="lead reveal d1">Cuatro horas para mover el cuerpo, bajar el ritmo y recuperarte en comunidad. Y el primer vistazo a MUVEN.</p>
     <div class="ag-box reveal d2">
       <div class="ag-box-head micro">
         <div><b id="agBoxTitle">Sábado 10.10</b> <span>· 5:00 a 9:00 pm · Torre MR900</span></div>
-        <div class="ag-legend" aria-hidden="true"><span class="hot"><i></i>Momentos clave</span><span><i></i>Actividad</span></div>
+        <div class="ag-legend" aria-hidden="true"><span class="hot"><i></i>Momento clave</span><span><i></i>Actividad</span></div>
       </div>
       <div class="ag-bar" id="agBar" aria-hidden="true"></div>
       <ol class="itin" id="agendaList"></ol>
@@ -745,17 +745,12 @@ const EVENTO = {
   disciplinas: ['Running', 'Trail', 'Hyrox', 'Funcional', 'Ciclismo', 'Otro'],
   // ini/fin en 24 h. Sin "ini" = sin hora fija. tipo: 'brand' (banda roja), 'peak' (clímax), 'mark' (hito). barra = texto corto en la barra de tiempo.
   agenda: [
-    { ini: '17:00', fin: '17:30', titulo: 'Llegada y limpia energética', barra: 'Llegada', texto: 'Registro, recepción y una limpia energética para dejar la semana afuera antes de empezar.', tag: 'Bienvenida' },
-    { ini: '17:30', fin: '18:10', titulo: 'Yoga suave', texto: 'Movilidad y respiración para soltar el cuerpo, sin prisa.', tag: 'Movimiento' },
-    { ini: '18:10', fin: '18:20', titulo: 'Vita, Montana y Santosha presentan MUVEN', barra: 'MUVEN', texto: 'El primer anuncio del masajeador: qué es, por qué existe y cómo lo diseñamos.', tag: 'Momento MUVEN', tipo: 'brand' },
-    { ini: '18:20', fin: '18:40', titulo: 'Meditación y journaling', barra: 'Meditación', texto: 'Bajar el ritmo, escribir y aterrizar lo que traes.', tag: 'Mente' },
-    { ini: '18:40', fin: '19:00', titulo: 'Plática con terapeuta y psicóloga', barra: 'Plática', texto: 'La recuperación desde el cuerpo y desde la mente. Trae tus preguntas.', tag: 'Recuperación' },
-    { hora: 'Sunset', titulo: 'Foto grupal al atardecer', texto: 'Todos juntos, con la ciudad de fondo.', tipo: 'mark' },
-    { ini: '19:00', fin: '19:15', titulo: 'Breathwork Wim Hof', barra: 'Wim Hof', texto: 'Respiración guiada para preparar el cuerpo antes del frío.', tag: 'Respiración' },
-    { ini: '19:15', fin: '19:40', titulo: 'Inmersión en hielo', barra: 'Hielo', texto: 'El reset: agua helada, cabeza fría y cero excusas.', tag: 'Recuperación', tipo: 'peak' },
-    { ini: '19:40', titulo: 'Carb load', barra: 'Carb load · Giveaway · DJ', texto: 'A recargar después del hielo.', tag: 'Recarga' },
-    { titulo: 'Giveaway y gracias a las marcas', texto: 'Regalos y un agradecimiento a las marcas que vinieron a moverse con nosotros.', tag: 'Comunidad' },
-    { fin: '21:00', titulo: 'Convivio y DJ', texto: 'Música, plática y comunidad hasta cerrar la noche.', tag: 'Comunidad' },
+    { ini: '17:00', fin: '17:30', titulo: 'Bienvenida', texto: 'Registro y recepción para dejar la semana afuera antes de empezar.', tag: 'Llegada' },
+    { ini: '17:30', fin: '18:20', titulo: 'Yoga', texto: 'Movilidad y respiración para soltar el cuerpo, sin prisa.', tag: 'Movimiento' },
+    { ini: '18:20', fin: '19:00', titulo: 'Meditación & journaling', barra: 'Meditación', texto: 'Bajar el ritmo, escribir y aterrizar lo que traes.', tag: 'Mente' },
+    { ini: '19:00', fin: '19:40', titulo: 'Icebath & recovery', barra: 'Icebath', texto: 'El reset: agua helada, cabeza fría y cero excusas.', tag: 'Recuperación', tipo: 'peak' },
+    { ini: '19:40', titulo: 'Carb load', barra: 'Carb load · Sunset', texto: 'A recargar después del hielo.', tag: 'Recarga' },
+    { hora: 'Sunset', titulo: 'Dinámicas con marcas, comunidad, DJ set y más', texto: 'Música, plática y comunidad hasta cerrar la noche.', tag: 'Comunidad', tipo: 'mark' },
   ],
   faq: [
     ['¿Cómo confirmo mi lugar?', 'Escribe tu usuario de Instagram en el formulario. Con eso quedas confirmado y te damos tu número de registro.'],
@@ -888,7 +883,8 @@ $('#footMail').textContent = EVENTO.correo;
   const ticks = [];
   for (let t = T0; t <= T1; t += 60) ticks.push(`<span class="micro" style="left: ${pct(t)}">${h12(t)}${t === T1 ? ' pm' : ''}</span>`);
   const sunIdx = A.findIndex(a => a.tipo === 'mark');
-  const sunAt = sunIdx > 0 && tramos[sunIdx - 1] ? tramos[sunIdx - 1][1] : null;
+  // El sol solo se marca si el hito cae dentro de la tarde, no al cierre
+  const sunAt = sunIdx > 0 && tramos[sunIdx - 1] && tramos[sunIdx - 1][1] < T1 ? tramos[sunIdx - 1][1] : null;
   bar.innerHTML = `<div class="ag-track">${segs}</div><div class="ag-ticks">${ticks.join('')}</div>${sunAt ? `<div class="ag-sun" style="left: ${pct(sunAt)}">Sunset</div>` : ''}`;
 
   // La barra se llena al entrar en pantalla
