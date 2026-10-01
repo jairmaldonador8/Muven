@@ -567,7 +567,7 @@
         <p class="lead reveal d1">Reset existe gracias a ellas. Al final de la tarde hay giveaway y un agradecimiento en persona.</p>
       </div>
       <figure class="reveal d1">
-        <img id="brandsImg" src="assets/photos/evento/reset-brands.webp" alt="Powered by: las marcas que acompañan Reset by MUVEN, entre ellas Klo-Ser Real Estate, Montana Realty Co., MUVEN, Ometeo, Góra, Walfort International, Axos Fisioterapia Integral, Not Your Typical Psychologist, Eyes of Calma y Santosha." loading="lazy" width="1080" height="1350">
+        <img id="brandsImg" src="assets/photos/evento/reset-brands.webp?v=2" alt="Powered by: las marcas que acompañan Reset by MUVEN, entre ellas Klo-Ser Real Estate, Montana Realty Co., Vita, MUVEN, Santosha, Góra, Walfort International, Axos Fisioterapia Integral, ¿Otra Más?, Not Your Typical Psychologist, Eyes of Calma, Algo.Deli, Xavoc Brewing Co., Ometeo, Pal's, Zelecto, Truco y Corazón de Alcachofa." loading="lazy" width="1080" height="1350">
       </figure>
     </div>
   </div>
@@ -642,7 +642,9 @@
           <h3 id="doneTitle">You&rsquo;re in.</h3>
           <p id="doneText"></p>
           <p class="preview-note" id="donePreview" hidden>Vista previa: el registro todavía no está conectado a la hoja, así que esto no se guardó.</p>
+          <p id="doneWaText" hidden>Último paso: únete al grupo de WhatsApp. Ahí mandamos los avisos del evento.</p>
           <div class="row">
+            <a class="btn" id="doneWa" href="#" target="_blank" rel="noopener" data-track="whatsapp_group_click" hidden>Unirme al grupo de WhatsApp <span class="arrow">→</span></a>
             <a class="btn" id="doneCal" href="#" target="_blank" rel="noopener" data-track="calendar_click">Agregar a mi calendario <span class="arrow">→</span></a>
             <a class="link-btn" id="doneMaps" href="#" target="_blank" rel="noopener" data-track="maps_click">Cómo llegar</a>
             <button type="button" class="link-btn" id="doneAgain">Registrar a alguien más</button>
@@ -736,6 +738,8 @@ const EVENTO = {
   cupo: null,                           // ej. 60
   // URL de la aplicación web de Google Apps Script (termina en /exec). Mientras sea null, el formulario funciona en modo vista previa y no guarda nada.
   registroUrl: null,
+  // Link de invitación al grupo de WhatsApp: aparece como botón al confirmar el registro. null = sin botón.
+  whatsappUrl: 'https://chat.whatsapp.com/C8LUIrJvVlMCIdVbv8UcHT?s=sw&p=i&mlu=0&ilr=4',
   instagram: 'muvenmx',
   correo: 'muven.mx@gmail.com',
   disciplinas: ['Running', 'Trail', 'Hyrox', 'Funcional', 'Ciclismo', 'Otro'],
@@ -969,6 +973,14 @@ const STRIP_DIM = { 'strip-01': [600, 900], 'strip-02': [600, 900], 'strip-03': 
   $('#bibFecha').textContent = inicio ? `${fechaCorta()} · ${horaTxt()}` : 'Fecha por confirmar';
   $('#bibLugar').textContent = EVENTO.lugar || EVENTO.ciudad.split(',')[0];
   if (EVENTO.cupo) $('#rsvpLead').textContent += ` Hay ${EVENTO.cupo} lugares.`;
+  if (EVENTO.whatsappUrl) {
+    $('#doneWa').href = EVENTO.whatsappUrl;
+    $('#doneWa').hidden = false;
+    $('#doneWaText').hidden = false;
+    // Con el grupo como acción principal, el calendario pasa a link secundario
+    $('#doneCal').className = 'link-btn';
+    $('#doneCal').querySelector('.arrow').remove();
+  }
   if (calUrl) $('#doneCal').href = calUrl; else $('#doneCal').hidden = true;
   if (EVENTO.mapsUrl) $('#doneMaps').href = EVENTO.mapsUrl; else $('#doneMaps').hidden = true;
 
